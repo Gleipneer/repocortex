@@ -1,5 +1,11 @@
-# RepoCortex runtime outputs
+# build / runtime
+dist/
+node_modules/
+.tmp/
+tests/.tmp/
 storage/
 openclaw-analysis/
 *.log
+
+# misc
 .DS_Store
