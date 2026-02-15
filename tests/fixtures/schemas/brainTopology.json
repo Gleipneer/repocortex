@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "1.0",
+  "nodes": [
+    { "id": "n1", "label": "API", "kind": "module", "riskFlags": [], "centrality": 0.5 },
+    { "id": "n2", "label": "DB", "kind": "module", "riskFlags": [], "centrality": 0.3 }
+  ],
+  "edges": [{ "from": "n1", "to": "n2", "kind": "calls", "riskFlags": [] }],
+  "metrics": { "nodeCount": 2, "edgeCount": 1 }
+}

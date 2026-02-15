@@ -1,0 +1,18 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`deterministic snapshot > deterministic JSON output snapshot 1`] = `
+{
+  "entries": [
+    {
+      "hash": "sha256:a1b2",
+      "path": "src/a.ts",
+    },
+    {
+      "hash": "sha256:c3d4",
+      "path": "src/b.ts",
+    },
+  ],
+  "inputHash": "52c2b5a92b5369e1502d487bce274a0e4838a475d244c77216650d26453d3270",
+  "runId": "snap-run-1",
+}
+`;

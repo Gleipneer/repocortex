@@ -1,0 +1,12 @@
+{
+  "gaps": [
+    {
+      "evidence": [{ "file": "repo", "note": "No test folder or *.test.ts / *.spec.ts found" }],
+      "id": "modules-without-tests",
+      "severity": "low",
+      "title": "Modules without tests"
+    }
+  ],
+  "schemaVersion": "1.0",
+  "summary": { "critical": 0, "high": 0, "low": 1, "medium": 0 }
+}

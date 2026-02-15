@@ -1,0 +1,15 @@
+# .gitignore
+node_modules/
+dist/
+coverage/
+.storage/
+tests/.tmp/
+.DS_Store
+*.log
+*.tmp
+.env
+.env.*
+
+# keep storage folder but ignore generated contents optionally
+storage/**/*
+!storage/.gitkeep

@@ -1,0 +1,4 @@
+{
+  "schemaVersion": "1.0",
+  "symbols": [{ "name": "foo", "file": "src/a.ts", "kind": "export", "exported": true }]
+}

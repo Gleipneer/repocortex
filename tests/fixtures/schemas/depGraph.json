@@ -1,0 +1,5 @@
+{
+  "schemaVersion": "1.0",
+  "nodes": ["src/a.ts", "src/b.ts"],
+  "edges": [{ "from": "src/a.ts", "to": "src/b.ts", "kind": "import", "isExternal": false }]
+}

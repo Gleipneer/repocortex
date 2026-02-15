@@ -1,0 +1,6 @@
+{
+  "schemaVersion": "1.0",
+  "signals": [
+    { "file": "src/index.ts", "line": 10, "kind": "httpServer", "snippet": "listen(3000)" }
+  ]
+}

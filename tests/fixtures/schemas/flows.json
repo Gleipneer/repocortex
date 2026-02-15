@@ -1,0 +1,4 @@
+{
+  "schemaVersion": "1.0",
+  "flows": [{ "id": "f1", "path": ["n1", "n2"], "kind": "exec", "riskFlags": [] }]
+}

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "1.0",
+  "repoRoot": "/repo",
+  "generatedAtIso": "2025-01-01T00:00:00.000Z",
+  "files": [
+    {
+      "path": "src/a.ts",
+      "bytes": 100,
+      "sha256": "a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456",
+      "lang": "ts",
+      "isBinary": false
+    },
+    {
+      "path": "src/b.ts",
+      "bytes": 200,
+      "sha256": "b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef12345678",
+      "lang": "ts",
+      "isBinary": false
+    }
+  ],
+  "totals": { "fileCount": 2, "totalBytes": 300 }
+}

@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "1.0",
+  "constraints": { "maxChars": 12000, "maxEvidencePointers": 30, "maxNodes": 200 },
+  "overview": "Small repo with two modules.",
+  "keyRisks": [],
+  "topologySummary": { "nodeCount": 2, "edgeCount": 1, "topCentralNodes": ["n1"] },
+  "evidencePointers": [{ "path": "src/a.ts", "note": "entry" }]
+}

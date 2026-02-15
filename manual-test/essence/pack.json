@@ -1,0 +1,8 @@
+{
+  "constraints": { "maxChars": 12000, "maxEvidencePointers": 30, "maxNodes": 200 },
+  "evidencePointers": [{ "note": "Modules without tests", "path": "repo" }],
+  "keyRisks": ["Modules without tests"],
+  "overview": "Repo has 0 modules and 0 edges. 1 distinct risk categories detected.",
+  "schemaVersion": "1.0",
+  "topologySummary": { "edgeCount": 0, "nodeCount": 0, "topCentralNodes": [] }
+}

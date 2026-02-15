@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "1.0",
+  "runId": "abc123",
+  "atIso": "2025-01-01T00:00:00.000Z",
+  "command": "scan",
+  "repoRoot": "/repo",
+  "inputHash": "a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456",
+  "outputHash": "b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef12345678",
+  "artifacts": ["fileIndex.json"],
+  "notes": []
+}
