@@ -1,15 +1,5 @@
-# .gitignore
-node_modules/
-dist/
-coverage/
-.storage/
-tests/.tmp/
-.DS_Store
+# RepoCortex runtime outputs
+storage/
+openclaw-analysis/
 *.log
-*.tmp
-.env
-.env.*
-
-# keep storage folder but ignore generated contents optionally
-storage/**/*
-!storage/.gitkeep
+.DS_Store
