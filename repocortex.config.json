@@ -1,0 +1,9 @@
+{
+  "defaultAuditBudgetSek": 3,
+  "maxBytes": 2000000000,
+  "maxFiles": 50000,
+  "outputDir": "openclaw-analysis",
+  "printPaths": true,
+  "repoRoot": "../openclaw",
+  "schemaVersion": "1.0"
+}

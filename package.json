@@ -16,7 +16,8 @@
     "format": "prettier -w .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "ci": "npm run format -- --check && npm run lint && npm run typecheck && npm test"
+    "ci": "npm run format -- --check && npm run lint && npm run typecheck && npm test",
+    "truth-dump": "tsx scripts/truthDump.ts"
   },
   "dependencies": {
     "commander": "^12.1.0",

@@ -40,14 +40,16 @@ export async function buildTopology(params: {
   }
 
   const nodeIds = [...params.depGraph.nodes].sort((a, b) => (a < b ? -1 : 1));
+  const nodeSet = new Set(nodeIds);
 
-  // degree centrality (in+out)
+  // Only edges whose endpoints are both in topology.nodes (no external endpoint inflation).
+  const inRepoEdges = params.depGraph.edges.filter((e) => nodeSet.has(e.from) && nodeSet.has(e.to));
+
+  // degree centrality (out-degree from in-repo edges only)
   const deg = new Map<string, number>();
   for (const n of nodeIds) deg.set(n, 0);
-  for (const e of params.depGraph.edges) {
+  for (const e of inRepoEdges) {
     deg.set(e.from, (deg.get(e.from) ?? 0) + 1);
-    // for local edges, count "to" if it matches a node; in MVP we keep raw specifier,
-    // so just count out-degree only; later resolve. Keep deterministic/simple.
   }
   const maxDeg = Math.max(1, ...Array.from(deg.values()));
 
@@ -63,12 +65,12 @@ export async function buildTopology(params: {
     };
   });
 
-  const edges = [...params.depGraph.edges]
+  const edges = inRepoEdges
     .map((e) => ({
       from: e.from,
       to: e.to,
       kind: "imports" as const,
-      riskFlags: e.isExternal ? ["external-dep"] : []
+      riskFlags: [] as string[] // in-repo only; no external-dep on these edges
     }))
     .sort((a, b) =>
       a.from !== b.from

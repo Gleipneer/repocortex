@@ -5,26 +5,50 @@ import { validateOrThrow } from "../core/io.js";
 
 const PAGERANK_ITERATIONS = 20;
 const PAGERANK_DAMPING = 0.85;
+const PAGERANK_SUM_TOLERANCE = 1e-6;
 
 /**
- * Build directed graph: node ids, out-edges (from -> [to]), and in-edges (to -> [from]) for PageRank.
- * Deterministic: node ids sorted.
+ * Build directed graph from topology ONLY. No endpoint expansion.
+ * Uses topology.nodes and topology.edges only. Every edge endpoint must be in topology.nodes.
  */
-function buildGraph(topology: BrainTopology): {
+function buildAdjacencyFromTopology(topology: BrainTopology): {
   nodeIds: string[];
   outEdges: Map<string, string[]>;
   inEdges: Map<string, string[]>;
   n: number;
   m: number;
 } {
-  const nodeSet = new Set<string>();
-  for (const n of topology.nodes) nodeSet.add(n.id);
-  for (const e of topology.edges) {
-    nodeSet.add(e.from);
-    nodeSet.add(e.to);
-  }
-  const nodeIds = [...nodeSet].sort();
+  const nodeIds = [...topology.nodes]
+    .map((n) => n.id)
+    .filter((id, i, arr) => arr.indexOf(id) === i)
+    .sort();
   const n = nodeIds.length;
+  const nodeSet = new Set(nodeIds);
+
+  if (n !== topology.nodes.length) {
+    throw new Error(
+      `Topology invariant violated: duplicate node ids (unique=${n}, nodes.length=${topology.nodes.length})`
+    );
+  }
+  if (topology.metrics.nodeCount !== topology.nodes.length) {
+    throw new Error(
+      `Topology invariant violated: metrics.nodeCount (${topology.metrics.nodeCount}) !== nodes.length (${topology.nodes.length})`
+    );
+  }
+  if (topology.metrics.edgeCount !== topology.edges.length) {
+    throw new Error(
+      `Topology invariant violated: metrics.edgeCount (${topology.metrics.edgeCount}) !== edges.length (${topology.edges.length})`
+    );
+  }
+
+  for (const e of topology.edges) {
+    if (!nodeSet.has(e.from) || !nodeSet.has(e.to)) {
+      throw new Error(
+        `Topology edge endpoint not in nodes: from=${e.from} to=${e.to}. Metrics use only topology.nodes; no implicit nodes.`
+      );
+    }
+  }
+
   const outEdges = new Map<string, string[]>();
   const inEdges = new Map<string, string[]>();
   for (const id of nodeIds) {
@@ -32,10 +56,8 @@ function buildGraph(topology: BrainTopology): {
     inEdges.set(id, []);
   }
   for (const e of topology.edges) {
-    if (nodeSet.has(e.from) && nodeSet.has(e.to)) {
-      outEdges.get(e.from)!.push(e.to);
-      inEdges.get(e.to)!.push(e.from);
-    }
+    outEdges.get(e.from)!.push(e.to);
+    inEdges.get(e.to)!.push(e.from);
   }
   const m = topology.edges.length;
   return { nodeIds, outEdges, inEdges, n, m };
@@ -43,7 +65,6 @@ function buildGraph(topology: BrainTopology): {
 
 /**
  * PageRank: 20 iterations, damping 0.85, normalized sum = 1.
- * Deterministic: same topology => same result; output keys sorted.
  */
 function computePageRank(
   nodeIds: string[],
@@ -77,7 +98,7 @@ function computePageRank(
 }
 
 /**
- * Betweenness centrality (Brandes). Deterministic: sources and neighbors in sorted order.
+ * Betweenness centrality (Brandes). Directed graph.
  */
 function computeBetweenness(
   nodeIds: string[],
@@ -134,7 +155,7 @@ function computeBetweenness(
 }
 
 /**
- * Gateways = top 5% by betweenness (min 1 node). Deterministic: sort by betweenness desc, then by id.
+ * Gateways = top 5% by betweenness (min 1 node).
  */
 function computeGateways(nodeIds: string[], betweenness: Record<string, number>): string[] {
   const k = Math.max(1, Math.ceil(nodeIds.length * 0.05));
@@ -148,7 +169,7 @@ function computeGateways(nodeIds: string[], betweenness: Record<string, number>)
 }
 
 /**
- * stabilityIndex = 1 - edgeDensity, edgeDensity = edges / nodes², bound 0–1.
+ * stabilityIndex = 1 - edgeDensity, edgeDensity = m/n², bound 0–1.
  */
 function computeStabilityIndex(n: number, m: number): number {
   if (n <= 0) return 0;
@@ -157,15 +178,52 @@ function computeStabilityIndex(n: number, m: number): number {
 }
 
 /**
- * Compute advanced metrics from topology. Deterministic.
+ * Sanity guards before accepting metrics. Throws on violation.
+ */
+function assertMetricSanity(
+  n: number,
+  m: number,
+  _s: number,
+  pageRank: Record<string, number>,
+  _b: Record<string, number>,
+  nodeIds: string[]
+): void {
+  if (n <= 0) {
+    throw new Error("Metric sanity: n must be > 0");
+  }
+  if (m < 0) {
+    throw new Error("Metric sanity: m must be >= 0");
+  }
+  if (m > n * (n - 1)) {
+    throw new Error(
+      `Metric sanity: m (${m}) must be <= n*(n-1) (${n * (n - 1)}). Directed simple graph cannot have more edges.`
+    );
+  }
+  const density = n > 0 ? m / (n * n) : 0;
+  if (density < 0 || density > 1) {
+    throw new Error(`Metric sanity: density must be in [0,1], got ${density}`);
+  }
+  const prSum = nodeIds.reduce((s, id) => s + (pageRank[id] ?? 0), 0);
+  if (Math.abs(prSum - 1) > PAGERANK_SUM_TOLERANCE) {
+    throw new Error(
+      `Metric sanity: PageRank sum must be ≈1 (±${PAGERANK_SUM_TOLERANCE}), got ${prSum}`
+    );
+  }
+}
+
+/**
+ * Compute advanced metrics from topology. Single source of truth: topology.nodes and topology.edges only.
+ * No fallback, no endpoint expansion. Fails hard on invariant violation.
  */
 export function computeAdvancedMetrics(topology: BrainTopology): AdvancedMetrics {
-  const { nodeIds, outEdges, inEdges, n, m } = buildGraph(topology);
+  const { nodeIds, outEdges, inEdges, n, m } = buildAdjacencyFromTopology(topology);
 
   const pageRank = computePageRank(nodeIds, outEdges, inEdges, n);
   const betweenness = computeBetweenness(nodeIds, outEdges);
   const gateways = computeGateways(nodeIds, betweenness);
   const stabilityIndex = computeStabilityIndex(n, m);
+
+  assertMetricSanity(n, m, stabilityIndex, pageRank, betweenness, nodeIds);
 
   const result: AdvancedMetrics = {
     schemaVersion: "1.0",

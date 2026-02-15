@@ -122,6 +122,9 @@ describe("structural maturity", () => {
     await fs.rm(outDir, { recursive: true, force: true });
     await fs.mkdir(outDir, { recursive: true });
     await runPipeline("2000-01-01T00:00:00.000Z");
+    await execFileAsync("node", [cli, "metrics", "--out", outDir], {
+      cwd: path.resolve(".")
+    });
 
     const { stdout } = await execFileAsync("node", [cli, "health", "--out", outDir], {
       cwd: path.resolve(".")

@@ -20,14 +20,16 @@ export async function computeHealthSummary(outputDir: string): Promise<HealthSum
   const gapsPath = path.join(outputDir, "analysis", "gaps_report.json");
   const duplicatesPath = path.join(outputDir, "analysis", "duplicates.json");
 
-  let stabilityIndex = 0;
-  let gatewayCount = 0;
+  let stabilityIndex: number;
+  let gatewayCount: number;
   try {
     const adv = parseAdvancedMetrics(await readJson(advancedPath));
     stabilityIndex = adv.stabilityIndex;
     gatewayCount = adv.gateways.length;
-  } catch {
-    // missing advanced metrics
+  } catch (err) {
+    throw new Error(
+      `Advanced metrics missing or invalid. Path: ${advancedPath}. ${err instanceof Error ? err.message : String(err)}`
+    );
   }
 
   let riskSum = 0;

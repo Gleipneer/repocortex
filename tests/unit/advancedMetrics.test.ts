@@ -68,12 +68,8 @@ describe("advanced metrics", () => {
     expect(stableStringify(m1)).toBe(stableStringify(m2));
   });
 
-  it("empty graph has stabilityIndex 0 and empty pageRank/betweenness", () => {
+  it("empty graph throws (n must be > 0)", () => {
     const topo = makeTopology([], []);
-    const m = computeAdvancedMetrics(topo);
-    expect(m.stabilityIndex).toBe(0);
-    expect(Object.keys(m.pageRank)).toHaveLength(0);
-    expect(Object.keys(m.betweenness)).toHaveLength(0);
-    expect(m.gateways).toHaveLength(0);
+    expect(() => computeAdvancedMetrics(topo)).toThrow("n must be > 0");
   });
 });
