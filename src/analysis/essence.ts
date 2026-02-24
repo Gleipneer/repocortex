@@ -6,8 +6,8 @@ import { ensureDir, writeJsonAtomic, validateOrThrow } from "../core/io.js";
 import { EssencePackSchema } from "../schemas/essence.schema.js";
 
 const MAX_CHARS = 12_000;
-const MAX_EVIDENCE_POINTERS = 30;
-const MAX_NODES = 200;
+const DEFAULT_MAX_EVIDENCE_POINTERS = 30;
+const DEFAULT_MAX_NODES = 200;
 const TOP_CENTRAL_COUNT = 5;
 const MAX_KEY_RISKS = 10;
 
@@ -15,14 +15,18 @@ export async function buildEssencePack(params: {
   outputDir: string;
   topology: BrainTopology;
   gapsReport: GapsReport;
+  maxEvidencePointers?: number;
+  maxNodes?: number;
 }): Promise<EssencePack> {
   const outputDir = path.resolve(params.outputDir);
   const { topology, gapsReport } = params;
+  const maxEvidencePointers = params.maxEvidencePointers ?? DEFAULT_MAX_EVIDENCE_POINTERS;
+  const maxNodes = params.maxNodes ?? DEFAULT_MAX_NODES;
 
   const constraints = {
     maxChars: MAX_CHARS,
-    maxEvidencePointers: MAX_EVIDENCE_POINTERS,
-    maxNodes: MAX_NODES
+    maxEvidencePointers,
+    maxNodes
   };
 
   const nodesByCentrality = [...topology.nodes].sort((a, b) => {
@@ -30,7 +34,9 @@ export async function buildEssencePack(params: {
     if (c !== 0) return c;
     return a.id < b.id ? -1 : 1;
   });
-  const topCentralNodes = nodesByCentrality.slice(0, TOP_CENTRAL_COUNT).map((n) => n.id);
+  const topCentralNodes = nodesByCentrality
+    .slice(0, Math.min(TOP_CENTRAL_COUNT, maxNodes))
+    .map((n) => n.id);
 
   const topologySummary = {
     nodeCount: topology.metrics.nodeCount,
@@ -50,7 +56,7 @@ export async function buildEssencePack(params: {
   evidencePointers.sort((a, b) =>
     a.path !== b.path ? (a.path < b.path ? -1 : 1) : a.note < b.note ? -1 : 1
   );
-  const truncatedEvidence = evidencePointers.slice(0, MAX_EVIDENCE_POINTERS);
+  const truncatedEvidence = evidencePointers.slice(0, maxEvidencePointers);
 
   const summaryParts: string[] = [
     `Nodes: ${topologySummary.nodeCount}, edges: ${topologySummary.edgeCount}.`,

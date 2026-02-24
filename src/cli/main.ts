@@ -52,6 +52,7 @@ function mustOutDir(out?: string): string {
 }
 
 type ScanGuardOpts = { force?: boolean; maxFiles?: string; maxBytes?: string };
+type EssenceGuardOpts = { essenceMaxEvidence?: string; essenceMaxNodes?: string };
 
 function parseScanGuards(opts: ScanGuardOpts): {
   force: boolean;
@@ -72,6 +73,26 @@ function parseScanGuards(opts: ScanGuardOpts): {
     maxBytes = n;
   }
   return { force, maxFiles, maxBytes };
+}
+
+function parseEssenceGuards(opts: EssenceGuardOpts): {
+  maxEvidencePointers: number | undefined;
+  maxNodes: number | undefined;
+} {
+  let maxEvidencePointers: number | undefined;
+  let maxNodes: number | undefined;
+  if (opts.essenceMaxEvidence !== undefined) {
+    const n = parseInt(opts.essenceMaxEvidence, 10);
+    if (Number.isNaN(n) || n < 1)
+      throw new Error("--essence-max-evidence must be a positive integer");
+    maxEvidencePointers = n;
+  }
+  if (opts.essenceMaxNodes !== undefined) {
+    const n = parseInt(opts.essenceMaxNodes, 10);
+    if (Number.isNaN(n) || n < 1) throw new Error("--essence-max-nodes must be a positive integer");
+    maxNodes = n;
+  }
+  return { maxEvidencePointers, maxNodes };
 }
 
 async function hasAnyTests(repoRoot: string): Promise<boolean> {
@@ -891,11 +912,14 @@ program
   .option("--force", "Allow run when repo exceeds --max-files / --max-bytes")
   .option("--max-files <n>", "Max file count (default: 50000); over requires --force")
   .option("--max-bytes <n>", "Max total bytes (default: 2GB); over requires --force")
-  .action(async (opts: { repo: string; out?: string } & ScanGuardOpts) => {
+  .option("--essence-max-evidence <n>", "Max evidence pointers (default: 30)")
+  .option("--essence-max-nodes <n>", "Max top-central nodes (default: 200)")
+  .action(async (opts: { repo: string; out?: string } & ScanGuardOpts & EssenceGuardOpts) => {
     const repoRoot = path.resolve(opts.repo);
     const outputDir = mustOutDir(opts.out);
     const clock = getCliClock({ mode: "best-effort" });
     const guards = parseScanGuards(opts);
+    const essenceGuards = parseEssenceGuards(opts);
 
     const scanOptsEssence: Parameters<typeof scanRepo>[0] = {
       repoRoot,
@@ -930,7 +954,15 @@ program
       topology,
       hasTests: testsExist
     });
-    await generateEssence({ outputDir, topology, gaps });
+    const essenceOpts: Parameters<typeof generateEssence>[0] = {
+      outputDir,
+      topology,
+      gaps
+    };
+    if (essenceGuards.maxEvidencePointers !== undefined)
+      essenceOpts.maxEvidencePointers = essenceGuards.maxEvidencePointers;
+    if (essenceGuards.maxNodes !== undefined) essenceOpts.maxNodes = essenceGuards.maxNodes;
+    await generateEssence(essenceOpts);
 
     const artifactRel = ["essence/pack.json", "essence/pack.md"];
     const outputHash = await computeOutputHash(outputDir, artifactRel);
@@ -963,10 +995,13 @@ program
   .option("--max-files <n>", "Max file count (default: 50000); over requires --force")
   .option("--max-bytes <n>", "Max total bytes (default: 2GB); over requires --force")
   .option("--clock-iso <iso>", "Fixed clock ISO (required for determinism)")
-  .action(async (opts: { out?: string; clockIso?: string } & ScanGuardOpts) => {
+  .option("--essence-max-evidence <n>", "Max evidence pointers (default: 30)")
+  .option("--essence-max-nodes <n>", "Max top-central nodes (default: 200)")
+  .action(async (opts: { out?: string; clockIso?: string } & ScanGuardOpts & EssenceGuardOpts) => {
     const repoRoot = process.cwd();
     const outputDir = mustOutDir(opts.out);
     const guards = parseScanGuards(opts);
+    const essenceGuards = parseEssenceGuards(opts);
     const clockIso = opts.clockIso ?? process.env["REPOCORTEX_CLOCK_ISO"];
     if (!clockIso) {
       throw new Error("Deterministic clock required. Pass --clock-iso or set REPOCORTEX_CLOCK_ISO.");
@@ -977,6 +1012,9 @@ program
       force: guards.force,
       clockIso
     };
+    if (essenceGuards.maxEvidencePointers !== undefined)
+      pipelineOpts.essenceMaxEvidence = essenceGuards.maxEvidencePointers;
+    if (essenceGuards.maxNodes !== undefined) pipelineOpts.essenceMaxNodes = essenceGuards.maxNodes;
     if (guards.maxFiles !== undefined) pipelineOpts.maxFiles = guards.maxFiles;
     if (guards.maxBytes !== undefined) pipelineOpts.maxBytes = guards.maxBytes;
     const res = await runFullPipeline(pipelineOpts);
@@ -990,15 +1028,21 @@ program
   .option("--force", "Allow run when repo exceeds --max-files / --max-bytes")
   .option("--max-files <n>", "Max file count (default: 50000); over requires --force")
   .option("--max-bytes <n>", "Max total bytes (default: 2GB); over requires --force")
-  .action(async (opts: { repo: string; out?: string } & ScanGuardOpts) => {
+  .option("--essence-max-evidence <n>", "Max evidence pointers (default: 30)")
+  .option("--essence-max-nodes <n>", "Max top-central nodes (default: 200)")
+  .action(async (opts: { repo: string; out?: string } & ScanGuardOpts & EssenceGuardOpts) => {
     const repoRoot = path.resolve(opts.repo);
     const outputDir = mustOutDir(opts.out);
     const guards = parseScanGuards(opts);
+    const essenceGuards = parseEssenceGuards(opts);
     const pipelineOpts: Parameters<typeof runFullPipeline>[0] = {
       repoRoot,
       outputDir,
       force: guards.force
     };
+    if (essenceGuards.maxEvidencePointers !== undefined)
+      pipelineOpts.essenceMaxEvidence = essenceGuards.maxEvidencePointers;
+    if (essenceGuards.maxNodes !== undefined) pipelineOpts.essenceMaxNodes = essenceGuards.maxNodes;
     if (guards.maxFiles !== undefined) pipelineOpts.maxFiles = guards.maxFiles;
     if (guards.maxBytes !== undefined) pipelineOpts.maxBytes = guards.maxBytes;
     const clockIso = process.env["REPOCORTEX_CLOCK_ISO"];

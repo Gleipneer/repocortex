@@ -59,6 +59,8 @@ export type PipelineConfig = {
   force?: boolean;
   maxFiles?: number;
   maxBytes?: number;
+  essenceMaxEvidence?: number;
+  essenceMaxNodes?: number;
 };
 
 export type PipelineArtifacts = {
@@ -131,7 +133,15 @@ export async function runFullPipeline(cfg: PipelineConfig): Promise<{
     hasTests: testsExist
   });
 
-  await generateEssence({ outputDir, topology, gaps });
+  const essenceOpts: Parameters<typeof generateEssence>[0] = {
+    outputDir,
+    topology,
+    gaps
+  };
+  if (cfg.essenceMaxEvidence !== undefined)
+    essenceOpts.maxEvidencePointers = cfg.essenceMaxEvidence;
+  if (cfg.essenceMaxNodes !== undefined) essenceOpts.maxNodes = cfg.essenceMaxNodes;
+  await generateEssence(essenceOpts);
   // WRAP_ESSENCE_V1
   {
     const packPath = paths.essencePackJson;
