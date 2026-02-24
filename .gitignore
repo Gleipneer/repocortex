@@ -1,12 +1,9 @@
-# build / runtime
-dist/
 node_modules/
+dist/
+runtime/
 .tmp/
-tests/.tmp/
-storage/
-openclaw-analysis/
-*.log
-
-# misc
-.DS_Store
-manual-test/
+analysis-*/
+openclaw-analysis*/
+storage*/
+storage_*/
+tsconfig.tsbuildinfo
