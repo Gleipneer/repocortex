@@ -32,6 +32,7 @@ import { runDiff } from "../diff/runDiff.js";
 import { ImpactReportSchema } from "../schemas/impactReport.schema.js";
 import { ensureDir, validateOrThrow, writeJsonAtomic } from "../core/io.js";
 import { getCliClock } from "./clock.js";
+import { computeImpactCone } from "../impact/cone.js";
 import {
   artifactsForEssence,
   artifactsForGaps,
@@ -605,11 +606,16 @@ program
 program
   .command("impact")
   .description("Compute forward/backward reach for a node")
-  .requiredOption("--node <id>", "Node id")
+  .argument("[file]", "Repo-relative file path for impact cone")
+  .option("--node <id>", "Node id (topology)")
   .option("--save", "Write storage/analysis/impact_<nodeId>.json")
   .option("--config <path>", "Path to config file")
   .option("--out <path>", "Output dir")
-  .action(async (opts: { node: string; save?: boolean; config?: string; out?: string }) => {
+  .action(
+    async (
+      file: string | undefined,
+      opts: { node?: string; save?: boolean; config?: string; out?: string }
+    ) => {
     const cwd = process.cwd();
     let outputDir: string;
     if (opts.out) outputDir = path.resolve(cwd, opts.out);
@@ -620,10 +626,48 @@ program
       const config = parseRepocortexConfig(raw);
       outputDir = path.resolve(cwd, config.outputDir || "./storage");
     }
+    if (file && opts.node) {
+      throw new Error("Provide either <file> or --node, not both.");
+    }
     const topologyPath = path.join(outputDir, "topology", "brain_topology.json");
     const raw = await fs.readFile(topologyPath, "utf8");
-    const { parseBrainTopology } = await import("../core/validate.js");
+    const { parseBrainTopology, parseFileIndex, parseDepGraph } = await import(
+      "../core/validate.js"
+    );
     const topology = parseBrainTopology(JSON.parse(raw) as unknown);
+
+    if (file) {
+      const { getSnapshotIds } = await import("../utils/paths.js");
+      const ids = await getSnapshotIds(outputDir);
+      if (ids.length === 0) throw new Error("No snapshots found. Run 'repocortex run' first.");
+      const paths = getStoragePaths(outputDir, ids[ids.length - 1]!);
+      const { readJson } = await import("../core/io.js");
+      const depRaw = await readJson(path.join(outputDir, "facts", "depGraph.json"));
+      const depGraph = parseDepGraph(depRaw);
+      const fileIndexRaw = await readJson(paths.fileIndex);
+      const fileIndex = parseFileIndex(fileIndexRaw);
+
+      const cone = computeImpactCone({ target: file, depGraph, fileIndex });
+      const node = topology.nodes.find((n) => n.id === file);
+      const centrality = node?.centrality ?? 0;
+
+      console.log("Impact cone:", file);
+      console.log("Direct imports:", cone.directImports.length);
+      cone.directImports.forEach((p) => console.log("  ", p));
+      console.log("Reverse imports:", cone.reverseImports.length);
+      cone.reverseImports.forEach((p) => console.log("  ", p));
+      console.log("Indirect deps (depth 2):", cone.indirectImportsDepth2.length);
+      cone.indirectImportsDepth2.forEach((p) => console.log("  ", p));
+      console.log("Impacted tests:", cone.impactedTests.length);
+      cone.impactedTests.forEach((p) => console.log("  ", p));
+      console.log("Centrality:", centrality.toFixed(6));
+      return;
+    }
+
+    if (!opts.node) {
+      throw new Error("Missing target. Provide <file> or --node <id>.");
+    }
+
     const result = computeImpact(topology, opts.node);
     console.log("Forward reach:", result.forwardCount);
     console.log("Backward reach:", result.backwardCount);
