@@ -7,9 +7,9 @@ import { EssencePackSchema, type EssencePack } from "../schemas/essence.schema.j
 import { computeImpactCone } from "../impact/cone.js";
 import { ensureDir, validateOrThrow, writeFileAtomic, writeJsonAtomic } from "../core/io.js";
 
-const MAX_CHARS = 2000;
-const MAX_EVIDENCE_POINTERS = 20;
-const MAX_NODES = 50;
+const MAX_CHARS = 800;
+const MAX_EVIDENCE_POINTERS = 10;
+const MAX_NODES = 20;
 
 export async function generateFocusedEssence(params: {
   outputDir: string;
@@ -94,13 +94,13 @@ export async function generateFocusedEssence(params: {
     pack.overview,
     "",
     "## Top Central Nodes",
-    ...pack.topologySummary.topCentralNodes.map((n) => `- ${n}`),
+    ...pack.topologySummary.topCentralNodes.slice(0, 3).map((n) => `- ${n}`),
     "",
     "## Impacted Tests",
-    ...cone.impactedTests.map((t) => `- ${t}`),
+    ...cone.impactedTests.slice(0, 5).map((t) => `- ${t}`),
     "",
     "## Evidence",
-    ...pack.evidencePointers.map((e) => `- ${e.path}: ${e.note}`)
+    ...pack.evidencePointers.slice(0, 5).map((e) => `- ${e.path}: ${e.note}`)
   ];
   const mdPath = path.join(outputDir, "essence", "pack.md");
   await ensureDir(path.dirname(mdPath));
