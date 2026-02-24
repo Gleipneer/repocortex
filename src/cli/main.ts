@@ -32,6 +32,13 @@ import { runDiff } from "../diff/runDiff.js";
 import { ImpactReportSchema } from "../schemas/impactReport.schema.js";
 import { ensureDir, validateOrThrow, writeJsonAtomic } from "../core/io.js";
 import { getCliClock } from "./clock.js";
+import {
+  artifactsForEssence,
+  artifactsForGaps,
+  artifactsForMap,
+  artifactsForMetrics,
+  artifactsForScan
+} from "../core/artifactRegistry.js";
 
 console.log = (...args: unknown[]) => {
   fsSync.writeFileSync(1, `${args.map(String).join(" ")}\n`);
@@ -469,7 +476,7 @@ program
     const { advancedMetricsHash, metrics } = await runAdvancedMetrics(outputDir);
 
     const runId = makeRunId(inputHash, clockIso);
-    const artifactRel = ["advanced/advanced_metrics.json"];
+    const artifactRel = artifactsForMetrics();
     await appendLedger({
       outputDir,
       entry: {
@@ -749,7 +756,7 @@ program
     const paths = getStoragePaths(outputDir, res.snapshotId);
 
     const runId = makeRunId(res.inputHash, clock.nowIso());
-    const artifactRel = [path.relative(outputDir, paths.fileIndex)];
+    const artifactRel = artifactsForScan(outputDir, paths);
     const outputHash = await computeOutputHash(outputDir, artifactRel);
 
     await appendLedger({
@@ -809,14 +816,18 @@ program
       _symbolIndex: symbolIndex
     });
 
-    const artifactRel = [
-      path.relative(outputDir, paths.fileIndex),
-      "facts/runtimeSignals.json",
-      "facts/depGraph.json",
-      "facts/symbolIndex.json",
-      "topology/brain_topology.json",
-      "topology/flows.json"
-    ];
+    const artifactRel = artifactsForMap(outputDir, {
+      fileIndexPath: paths.fileIndex,
+      depGraphPath: paths.depGraph,
+      symbolIndexPath: paths.symbolIndex,
+      runtimeSignalsPath: paths.runtimeSignals,
+      topologyPath: paths.brainTopology,
+      flowsPath: paths.flows,
+      gapsJsonPath: paths.gapsReportJson,
+      gapsMdPath: paths.gapsReportMd,
+      essenceJsonPath: paths.essencePackJson,
+      essenceMdPath: paths.essencePackMd
+    });
     const outputHash = await computeOutputHash(outputDir, artifactRel);
     const runId = makeRunId(scan.inputHash, clock.nowIso());
 
@@ -884,7 +895,7 @@ program
       hasTests: testsExist
     });
 
-    const artifactRel = ["analysis/gaps_report.json", "analysis/gaps_report.md"];
+    const artifactRel = artifactsForGaps();
     const outputHash = await computeOutputHash(outputDir, artifactRel);
     const runId = makeRunId(scan.inputHash, clock.nowIso());
 
@@ -964,7 +975,7 @@ program
     if (essenceGuards.maxNodes !== undefined) essenceOpts.maxNodes = essenceGuards.maxNodes;
     await generateEssence(essenceOpts);
 
-    const artifactRel = ["essence/pack.json", "essence/pack.md"];
+    const artifactRel = artifactsForEssence();
     const outputHash = await computeOutputHash(outputDir, artifactRel);
     const runId = makeRunId(scan.inputHash, clock.nowIso());
 

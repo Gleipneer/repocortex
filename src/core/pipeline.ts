@@ -9,6 +9,7 @@ import { getClock } from "./clock.js";
 import { writeJsonAtomic } from "./io.js";
 import { writeArtifactManifest } from "./manifest.js";
 import { getStoragePaths } from "../utils/paths.js";
+import { artifactsForPipeline } from "./artifactRegistry.js";
 
 import { scanRepo } from "../scanner/scan.js";
 import { detectRuntimeSignals } from "../analysis/runtimeSignals.js";
@@ -167,18 +168,18 @@ export async function runFullPipeline(cfg: PipelineConfig): Promise<{
     totalMs
   });
 
-  const artifactRel = [
-    path.relative(outputDir, paths.fileIndex),
-    "facts/runtimeSignals.json",
-    "facts/depGraph.json",
-    "facts/symbolIndex.json",
-    "topology/brain_topology.json",
-    "topology/flows.json",
-    "analysis/gaps_report.json",
-    "analysis/gaps_report.md",
-    "essence/pack.json",
-    "essence/pack.md"
-  ];
+  const artifactRel = artifactsForPipeline(outputDir, {
+    fileIndexPath: paths.fileIndex,
+    depGraphPath: paths.depGraph,
+    symbolIndexPath: paths.symbolIndex,
+    runtimeSignalsPath: paths.runtimeSignals,
+    topologyPath: paths.brainTopology,
+    flowsPath: paths.flows,
+    gapsJsonPath: paths.gapsReportJson,
+    gapsMdPath: paths.gapsReportMd,
+    essenceJsonPath: paths.essencePackJson,
+    essenceMdPath: paths.essencePackMd
+  });
 
   const startIso = clock.nowIso();
   const runId = makeRunId(scan.inputHash, startIso);
