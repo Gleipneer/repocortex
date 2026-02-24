@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { stableStringify } from "./stableJson.js";
 import { sha256 } from "./hash.js";
-import { ensureDir, validateOrThrow } from "./io.js";
+import { ensureDir, validateOrThrow, writeFileAtomic } from "./io.js";
 import { LedgerEntrySchema, type LedgerEntry } from "../schemas/ledger.schema.js";
 
 /**
@@ -42,5 +42,11 @@ export async function appendLedger(params: {
   });
 
   const line = stableStringify(entry) + "\n";
-  await fs.appendFile(file, line, "utf8");
+  let existing = "";
+  try {
+    existing = await fs.readFile(file, "utf8");
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException)?.code !== "ENOENT") throw err;
+  }
+  await writeFileAtomic(file, existing + line);
 }

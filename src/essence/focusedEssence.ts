@@ -85,7 +85,7 @@ export async function generateFocusedEssence(params: {
     evidencePointers: evidence
   });
 
-  const jsonPath = path.join(outputDir, "essence", "pack.json");
+  const jsonPath = path.join(outputDir, "nav", "essence_focus.json");
   await writeJsonAtomic(jsonPath, pack, outputDir);
 
   const mdLines: string[] = [
@@ -102,7 +102,7 @@ export async function generateFocusedEssence(params: {
     "## Evidence",
     ...pack.evidencePointers.slice(0, 5).map((e) => `- ${e.path}: ${e.note}`)
   ];
-  const mdPath = path.join(outputDir, "essence", "pack.md");
+  const mdPath = path.join(outputDir, "nav", "essence_focus.md");
   await ensureDir(path.dirname(mdPath));
   await writeFileAtomic(mdPath, mdLines.join("\n"));
 

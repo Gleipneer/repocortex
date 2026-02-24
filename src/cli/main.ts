@@ -1143,6 +1143,38 @@ program
     const guards = parseScanGuards(opts);
     const essenceGuards = parseEssenceGuards(opts);
 
+    if (opts.focus) {
+      const { getSnapshotIds } = await import("../utils/paths.js");
+      const ids = await getSnapshotIds(outputDir);
+      if (ids.length === 0) throw new Error("No snapshots found. Run 'repocortex run' first.");
+      const paths = getStoragePaths(outputDir, ids[ids.length - 1]!);
+      const { readJson } = await import("../core/io.js");
+      const { parseFileIndex, parseDepGraph, parseSymbolIndex, parseBrainTopology } = await import(
+        "../core/validate.js"
+      );
+      const fileIndex = parseFileIndex(await readJson(paths.fileIndex));
+      const depGraph = parseDepGraph(
+        await readJson(path.join(outputDir, "facts", "depGraph.json"))
+      );
+      const symbolIndex = parseSymbolIndex(
+        await readJson(path.join(outputDir, "facts", "symbolIndex.json"))
+      );
+      const topology = parseBrainTopology(
+        await readJson(path.join(outputDir, "topology", "brain_topology.json"))
+      );
+
+      await generateFocusedEssence({
+        outputDir,
+        target: opts.focus,
+        depGraph,
+        topology,
+        fileIndex,
+        symbolIndex
+      });
+      console.log("focused essence: ok");
+      return;
+    }
+
     const scanOptsEssence: Parameters<typeof scanRepo>[0] = {
       repoRoot,
       outputDir,
@@ -1176,26 +1208,15 @@ program
       topology,
       hasTests: testsExist
     });
-    if (opts.focus) {
-      await generateFocusedEssence({
-        outputDir,
-        target: opts.focus,
-        depGraph,
-        topology,
-        fileIndex: scan.fileIndex,
-        symbolIndex
-      });
-    } else {
-      const essenceOpts: Parameters<typeof generateEssence>[0] = {
-        outputDir,
-        topology,
-        gaps
-      };
-      if (essenceGuards.maxEvidencePointers !== undefined)
-        essenceOpts.maxEvidencePointers = essenceGuards.maxEvidencePointers;
-      if (essenceGuards.maxNodes !== undefined) essenceOpts.maxNodes = essenceGuards.maxNodes;
-      await generateEssence(essenceOpts);
-    }
+    const essenceOpts: Parameters<typeof generateEssence>[0] = {
+      outputDir,
+      topology,
+      gaps
+    };
+    if (essenceGuards.maxEvidencePointers !== undefined)
+      essenceOpts.maxEvidencePointers = essenceGuards.maxEvidencePointers;
+    if (essenceGuards.maxNodes !== undefined) essenceOpts.maxNodes = essenceGuards.maxNodes;
+    await generateEssence(essenceOpts);
 
     const artifactRel = artifactsForEssence();
     const outputHash = await computeOutputHash(outputDir, artifactRel);
