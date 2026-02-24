@@ -7,3 +7,11 @@ openclaw-analysis*/
 storage*/
 storage_*/
 tsconfig.tsbuildinfo
+
+# Generated analysis output
+audit/
+handoff/
+introspect/
+need2know/
+self-analysis/
+full-snapshot/
