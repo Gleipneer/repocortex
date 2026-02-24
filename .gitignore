@@ -21,3 +21,6 @@ snapshots/
 
 # Generated (local) contract prep
 contract-prep/
+
+# Local generated contract artifacts
+contract-prep/
