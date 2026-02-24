@@ -31,6 +31,7 @@ import { computeHealthSummary } from "../health/healthReport.js";
 import { runDiff } from "../diff/runDiff.js";
 import { ImpactReportSchema } from "../schemas/impactReport.schema.js";
 import { ensureDir, validateOrThrow, writeJsonAtomic } from "../core/io.js";
+import { getCliClock } from "./clock.js";
 
 console.log = (...args: unknown[]) => {
   fsSync.writeFileSync(1, `${args.map(String).join(" ")}\n`);
@@ -492,7 +493,12 @@ program
         throw err;
       }
     }
-    const verifiedAtIso = process.env["REPOCORTEX_CLOCK_ISO"] ?? new Date().toISOString();
+    const clockIso = process.env["REPOCORTEX_CLOCK_ISO"];
+    if (!clockIso) console.warn("Warning: REPOCORTEX_CLOCK_ISO not set; verify is non-deterministic.");
+    const clock = getCliClock(
+      clockIso ? { clockIso, mode: "best-effort" } : { mode: "best-effort" }
+    );
+    const verifiedAtIso = clock.nowIso();
     const { hashMatch, schemaValid } = await runVerify(outputDir, verifiedAtIso);
     console.log("Integrity:", hashMatch ? "OK" : "FAIL");
     console.log("Schemas:", schemaValid ? "OK" : "FAIL");
@@ -524,7 +530,13 @@ program
         throw err;
       }
     }
-    const timestamp = process.env["REPOCORTEX_CLOCK_ISO"] ?? new Date().toISOString();
+    const clockIso = process.env["REPOCORTEX_CLOCK_ISO"];
+    if (!clockIso)
+      console.warn("Warning: REPOCORTEX_CLOCK_ISO not set; snapshot-contracts is non-deterministic.");
+    const clock = getCliClock(
+      clockIso ? { clockIso, mode: "best-effort" } : { mode: "best-effort" }
+    );
+    const timestamp = clock.nowIso();
     const outPath = await runSnapshotContracts(outputDir, cwd, timestamp);
     console.log("Contracts snapshot written to", outPath);
   });
@@ -701,7 +713,7 @@ program
   .action(async (opts: { repo: string; out?: string } & ScanGuardOpts) => {
     const repoRoot = path.resolve(opts.repo);
     const outputDir = mustOutDir(opts.out);
-    const clock = { nowIso: () => new Date().toISOString() };
+    const clock = getCliClock({ mode: "best-effort" });
     const guards = parseScanGuards(opts);
 
     const scanOpts: Parameters<typeof scanRepo>[0] = {
@@ -746,7 +758,7 @@ program
   .action(async (opts: { repo: string; out?: string } & ScanGuardOpts) => {
     const repoRoot = path.resolve(opts.repo);
     const outputDir = mustOutDir(opts.out);
-    const clock = { nowIso: () => new Date().toISOString() };
+    const clock = getCliClock({ mode: "best-effort" });
     const guards = parseScanGuards(opts);
 
     const scanOpts: Parameters<typeof scanRepo>[0] = {
@@ -814,7 +826,7 @@ program
   .action(async (opts: { repo: string; out?: string } & ScanGuardOpts) => {
     const repoRoot = path.resolve(opts.repo);
     const outputDir = mustOutDir(opts.out);
-    const clock = { nowIso: () => new Date().toISOString() };
+    const clock = getCliClock({ mode: "best-effort" });
     const guards = parseScanGuards(opts);
 
     const scanOptsGaps: Parameters<typeof scanRepo>[0] = {
@@ -882,7 +894,7 @@ program
   .action(async (opts: { repo: string; out?: string } & ScanGuardOpts) => {
     const repoRoot = path.resolve(opts.repo);
     const outputDir = mustOutDir(opts.out);
-    const clock = { nowIso: () => new Date().toISOString() };
+    const clock = getCliClock({ mode: "best-effort" });
     const guards = parseScanGuards(opts);
 
     const scanOptsEssence: Parameters<typeof scanRepo>[0] = {
