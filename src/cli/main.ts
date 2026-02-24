@@ -35,6 +35,7 @@ import { getCliClock } from "./clock.js";
 import { computeImpactCone } from "../impact/cone.js";
 import { computeRankEntries } from "../impact/rank.js";
 import { computeDelta } from "../impact/delta.js";
+import { estimateRisk } from "../impact/risk.js";
 import {
   artifactsForEssence,
   artifactsForGaps,
@@ -889,6 +890,51 @@ program
     delta.removedSymbols.forEach((p) => console.log("  ", p));
     console.log("Dependency shifts:", delta.dependencyShifts.length);
     delta.dependencyShifts.forEach((p) => console.log("  ", p));
+  });
+
+program
+  .command("risk")
+  .description("Estimate patch risk for a file")
+  .argument("<file>", "Repo-relative file path")
+  .option("--config <path>", "Path to config file")
+  .option("--out <path>", "Output dir")
+  .action(async (file: string, opts: { config?: string; out?: string }) => {
+    const cwd = process.cwd();
+    let outputDir: string;
+    if (opts.out) outputDir = path.resolve(cwd, opts.out);
+    else {
+      const configPath = opts.config ? path.resolve(cwd, opts.config) : getConfigPath(cwd);
+      const raw = JSON.parse(await fs.readFile(configPath, "utf8")) as unknown;
+      const { parseRepocortexConfig } = await import("../core/validate.js");
+      const config = parseRepocortexConfig(raw);
+      outputDir = path.resolve(cwd, config.outputDir || "./storage");
+    }
+
+    const { readJson } = await import("../core/io.js");
+    const { parseFileIndex, parseDepGraph, parseBrainTopology } = await import(
+      "../core/validate.js"
+    );
+    const { getSnapshotIds } = await import("../utils/paths.js");
+    const ids = await getSnapshotIds(outputDir);
+    if (ids.length === 0) throw new Error("No snapshots found. Run 'repocortex run' first.");
+    const paths = getStoragePaths(outputDir, ids[ids.length - 1]!);
+
+    const fileIndex = parseFileIndex(await readJson(paths.fileIndex));
+    const depGraph = parseDepGraph(
+      await readJson(path.join(outputDir, "facts", "depGraph.json"))
+    );
+    const topology = parseBrainTopology(
+      await readJson(path.join(outputDir, "topology", "brain_topology.json"))
+    );
+
+    const risk = estimateRisk({ target: file, depGraph, fileIndex, topology });
+
+    console.log("Risk estimate:", file);
+    console.log("Risk score:", risk.riskScore);
+    console.log("Impact cone size:", risk.impactConeSize);
+    console.log("Centrality:", risk.centrality.toFixed(6));
+    console.log("Impacted tests:", risk.impactedTests);
+    console.log("Change radius:", risk.changeRadius);
   });
 
 program
