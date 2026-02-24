@@ -15,3 +15,6 @@ introspect/
 need2know/
 self-analysis/
 full-snapshot/
+
+# snapshot output
+snapshots/
