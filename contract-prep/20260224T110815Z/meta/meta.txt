@@ -1,0 +1,7 @@
+stamp=20260224T110815Z
+pwd=/home/joakim/repocortex
+node=v22.22.0
+pnpm=9.12.3
+git_head=9a84903d22ff2e913d0ef9cfbd61ec70c03c0cf9
+git_status_porcelain:
+?? contract-prep/

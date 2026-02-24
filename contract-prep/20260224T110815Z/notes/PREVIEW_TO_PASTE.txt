@@ -1,0 +1,110 @@
+=== STAMP ===
+20260224T110815Z
+
+=== snapshotId ===
+386ab83feeae
+
+=== snapshot-contracts stdout (first 120 lines) ===
+Contracts snapshot written to /home/joakim/repocortex/contract-prep/20260224T110815Z/contracts/contracts/contracts_snapshot.json
+
+=== run stdout (first 80 lines) ===
+RepoCortex Run Summary
+----------------------
+Repo: /home/joakim/repocortex
+Snapshot: 386ab83feeae
+Nodes: 314
+Edges: 830
+High risks: 1
+Medium risks: 2
+Low risks: 0
+
+Artifacts:
+- topology/brain_topology.json
+- analysis/gaps_report.md
+- essence/pack.md
+
+Status: SUCCESS
+
+=== artifact hashes ===
+=== hashes ===
+d64c74564c1f479213c1f134e44f7366b094f87492a7c7cb0cf5048566a21bfc  pack.json
+266daa75df823730ca2dcf79c84cf56b02350e1268592bdce6fbecfdcebdd773  fileIndex.json
+9b0be7dea953da4aac24e365edf76e1155951a041f09475bcf2dafb0799b2617  brain_topology.json
+cc54d677aa728689402d4be4466c992cb8c9f22614b454f986dbcd1d0821a503  gaps_report.json
+
+=== pipeline snippet (generateEssence) ===
+import fs from "node:fs/promises";
+import path from "node:path";
+import { sha256 } from "./hash.js";
+import { stableStringify } from "./stableJson.js";
+import { makeRunId } from "./runId.js";
+import { appendLedger } from "./ledger.js";
+import { computeOutputHash } from "./artifactHash.js";
+import { getStoragePaths } from "../utils/paths.js";
+
+import { scanRepo } from "../scanner/scan.js";
+import { detectRuntimeSignals } from "../analysis/runtimeSignals.js";
+import { buildDepGraph } from "../graph/depGraph.js";
+import { buildTopology } from "../topology/buildTopology.js";
+import { detectGaps } from "../analysis/gapDetector.js";
+import { generateEssence } from "../essence/generateEssence.js";
+import { writeLastRunTelemetry } from "../telemetry/writeTelemetry.js";
+
+async function hasAnyTests(repoRoot: string): Promise<boolean> {
+  const glob = async (dir: string): Promise<string[]> => {
+    const out: string[] = [];
+    const stack = [dir];
+    while (stack.length) {
+      const d = stack.pop()!;
+      let items: { name: string; isDirectory: () => boolean; isFile: () => boolean }[] = [];
+      try {
+        items = await fs.readdir(d, { withFileTypes: true });
+      } catch {
+        continue;
+      }
+      for (const it of items) {
+        const p = path.join(d, it.name);
+        if (it.isDirectory()) {
+          if (
+            it.name === "node_modules" ||
+            it.name === ".git" ||
+            it.name === "dist" ||
+            it.name === "storage"
+          )
+            continue;
+          stack.push(p);
+        } else if (it.isFile()) {
+          if (it.name.endsWith(".test.ts") || it.name.endsWith(".test.js")) out.push(p);
+        }
+      }
+    }
+    return out;
+  };
+  const matches = await glob(repoRoot);
+  return matches.length > 0;
+}
+
+export type PipelineConfig = {
+  repoRoot: string;
+  outputDir: string;
+  clockIso?: string; // injected for determinism tests
+  force?: boolean;
+  maxFiles?: number;
+  maxBytes?: number;
+};
+
+export type PipelineArtifacts = {
+  fileIndexPath: string;
+  depGraphPath: string;
+  symbolIndexPath: string;
+  runtimeSignalsPath: string;
+  topologyPath: string;
+  flowsPath: string;
+  gapsJsonPath: string;
+  gapsMdPath: string;
+  essenceJsonPath: string;
+  essenceMdPath: string;
+};
+
+export async function runFullPipeline(cfg: PipelineConfig): Promise<{
+  runId: string;

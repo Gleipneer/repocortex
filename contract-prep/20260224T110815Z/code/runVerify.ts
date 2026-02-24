@@ -17,32 +17,10 @@ import {
 } from "../core/validate.js";
 import { parseLedgerEntry } from "../core/validate.js";
 import { LastVerificationSchema } from "../schemas/verification.schema.js";
-import { ArtifactIdentitySchema } from "../schemas/wrappedArtifact.schema.js";
 
 const LEDGER_PATH = "ledger/ledger.jsonl";
 const VERIFICATION_DIR = "verification";
 const LAST_VERIFICATION_FILE = "verification/last_verification.json";
-
-/**
- * Accept both legacy JSON artifacts and WrappedArtifact JSON:
- * { identity: {...}, payload: {...} }
- *
- * verify ska vara bakåtkompatibel.
- */
-function unwrapIfWrapped(raw: unknown): unknown {
-  if (!raw || typeof raw !== "object") return raw;
-  const obj = raw as Record<string, unknown>;
-  if (!("identity" in obj) || !("payload" in obj)) return raw;
-
-  // Validera identity-form (men låt payload-valideraren avgöra payload)
-  try {
-    ArtifactIdentitySchema.parse(obj.identity);
-  } catch {
-    // om "identity" inte matchar, behandla som legacy för att undvika falsk negativ
-    return raw;
-  }
-  return obj.payload;
-}
 
 /**
  * Map artifact path (relative) to a validator. Only JSON artifacts; .md skipped.
@@ -111,7 +89,7 @@ export async function validateArtifactSchemas(
       return false;
     }
     try {
-      validator(unwrapIfWrapped(raw));
+      validator(raw);
     } catch {
       return false;
     }

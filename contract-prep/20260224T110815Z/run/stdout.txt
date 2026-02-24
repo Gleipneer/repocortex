@@ -1,0 +1,16 @@
+RepoCortex Run Summary
+----------------------
+Repo: /home/joakim/repocortex
+Snapshot: 386ab83feeae
+Nodes: 314
+Edges: 830
+High risks: 1
+Medium risks: 2
+Low risks: 0
+
+Artifacts:
+- topology/brain_topology.json
+- analysis/gaps_report.md
+- essence/pack.md
+
+Status: SUCCESS
