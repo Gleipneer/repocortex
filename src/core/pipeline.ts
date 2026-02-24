@@ -5,6 +5,7 @@ import { stableStringify } from "./stableJson.js";
 import { makeRunId } from "./runId.js";
 import { appendLedger } from "./ledger.js";
 import { computeOutputHash } from "./artifactHash.js";
+import { getClock } from "./clock.js";
 import { writeJsonAtomic } from "./io.js";
 import { writeArtifactManifest } from "./manifest.js";
 import { getStoragePaths } from "../utils/paths.js";
@@ -82,7 +83,9 @@ export async function runFullPipeline(cfg: PipelineConfig): Promise<{
 }> {
   const repoRoot = path.resolve(cfg.repoRoot);
   const outputDir = path.resolve(cfg.outputDir);
-  const clock = { nowIso: () => cfg.clockIso ?? new Date().toISOString() };
+  const clock = getClock(
+    cfg.clockIso ? { clockIso: cfg.clockIso, mode: "best-effort" } : { mode: "best-effort" }
+  );
 
   const scanOpts: Parameters<typeof scanRepo>[0] = {
     repoRoot,
