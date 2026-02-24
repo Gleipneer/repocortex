@@ -39,3 +39,4 @@ export { AdvancedMetricsSchema, type AdvancedMetrics } from "./advancedMetrics.s
 export { RepocortexConfigSchema, type RepocortexConfig } from "./repocortexConfig.schema.js";
 export type { RunMeta } from "./run.js";
 export { SUPPORTED_SCHEMA_VERSION, assertSupportedVersion } from "./version.js";
+export { ArtifactManifestSchema, ManifestEntrySchema, type ArtifactManifest, type ManifestEntry } from "./manifest.schema.js";

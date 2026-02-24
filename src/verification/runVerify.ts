@@ -13,7 +13,8 @@ import {
   parseFlows,
   parseGapsReport,
   parseEssencePack,
-  parseAdvancedMetrics
+  parseAdvancedMetrics,
+  parseArtifactManifest
 } from "../core/validate.js";
 import { parseLedgerEntry } from "../core/validate.js";
 import { LastVerificationSchema } from "../schemas/verification.schema.js";
@@ -43,6 +44,7 @@ function getValidator(relPath: string): ((data: unknown) => unknown) | null {
   if (relPath === "analysis/gaps_report.json") return parseGapsReport;
   if (relPath === "essence/pack.json") return parseEssencePack;
   if (relPath === "advanced/advanced_metrics.json") return parseAdvancedMetrics;
+  if (relPath === "system/manifest.json") return parseArtifactManifest;
   return null;
 }
 

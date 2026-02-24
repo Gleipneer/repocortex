@@ -6,6 +6,7 @@ import { makeRunId } from "./runId.js";
 import { appendLedger } from "./ledger.js";
 import { computeOutputHash } from "./artifactHash.js";
 import { writeJsonAtomic } from "./io.js";
+import { writeArtifactManifest } from "./manifest.js";
 import { getStoragePaths } from "../utils/paths.js";
 
 import { scanRepo } from "../scanner/scan.js";
@@ -166,10 +167,20 @@ export async function runFullPipeline(cfg: PipelineConfig): Promise<{
     "essence/pack.md"
   ];
 
-  const outputHash = await computeOutputHash(outputDir, artifactRel);
-
   const startIso = clock.nowIso();
   const runId = makeRunId(scan.inputHash, startIso);
+
+  await writeArtifactManifest({
+    outputDir,
+    artifacts: artifactRel,
+    repoHash: scan.inputHash,
+    snapshotId: scan.snapshotId,
+    runId,
+    generatedAtIso: startIso
+  });
+
+  const artifactRelWithManifest = [...artifactRel, "system/manifest.json"];
+  const outputHash = await computeOutputHash(outputDir, artifactRelWithManifest);
 
   await appendLedger({
     outputDir,
@@ -180,7 +191,7 @@ export async function runFullPipeline(cfg: PipelineConfig): Promise<{
       repoRoot,
       inputHash: scan.inputHash,
       outputHash,
-      artifacts: artifactRel,
+      artifacts: artifactRelWithManifest,
       notes: []
     }
   });

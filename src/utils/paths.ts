@@ -26,6 +26,7 @@ export function getStoragePaths(root: string, snapshotId: string) {
     gapsReportMd: join(root, "analysis", "gaps_report.md"),
     essencePackJson: join(root, "essence", "pack.json"),
     essencePackMd: join(root, "essence", "pack.md"),
+    manifest: join(root, "system", "manifest.json"),
     ledger: join(root, "ledger", "ledger.jsonl")
   };
 }

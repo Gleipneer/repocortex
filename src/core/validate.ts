@@ -18,6 +18,8 @@ import type { LedgerEntry } from "../schemas/ledger.schema.js";
 import { LedgerEntrySchema } from "../schemas/ledger.schema.js";
 import type { AdvancedMetrics } from "../schemas/advancedMetrics.schema.js";
 import { AdvancedMetricsSchema } from "../schemas/advancedMetrics.schema.js";
+import type { ArtifactManifest } from "../schemas/manifest.schema.js";
+import { ArtifactManifestSchema } from "../schemas/manifest.schema.js";
 import type { RepocortexConfig } from "../schemas/repocortexConfig.schema.js";
 import { RepocortexConfigSchema } from "../schemas/repocortexConfig.schema.js";
 
@@ -59,6 +61,10 @@ export function parseLedgerEntry(data: unknown): LedgerEntry {
 
 export function parseAdvancedMetrics(data: unknown): AdvancedMetrics {
   return AdvancedMetricsSchema.parse(data);
+}
+
+export function parseArtifactManifest(data: unknown): ArtifactManifest {
+  return ArtifactManifestSchema.parse(data);
 }
 
 export function parseRepocortexConfig(data: unknown): RepocortexConfig {
