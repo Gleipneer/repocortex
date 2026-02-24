@@ -24,3 +24,6 @@ contract-prep/
 
 # Local generated contract artifacts
 contract-prep/
+
+# Local agent kit (generated)
+tools/agent-kit/
