@@ -34,6 +34,7 @@ import { ensureDir, validateOrThrow, writeJsonAtomic } from "../core/io.js";
 import { getCliClock } from "./clock.js";
 import { computeImpactCone } from "../impact/cone.js";
 import { computeRankEntries } from "../impact/rank.js";
+import { computeDelta } from "../impact/delta.js";
 import {
   artifactsForEssence,
   artifactsForGaps,
@@ -829,6 +830,65 @@ program
       throw new Error("Need exactly two --snapshot <id> (e.g. --snapshot id1 --snapshot id2)");
     const outPath = await runDiff(outputDir, ids[0]!, ids[1]!);
     console.log("Diff written to", outPath);
+  });
+
+program
+  .command("delta")
+  .description("Deterministic delta summary from latest two snapshots")
+  .option("--config <path>", "Path to config file")
+  .option("--out <path>", "Output dir")
+  .action(async (opts: { config?: string; out?: string }) => {
+    const cwd = process.cwd();
+    let outputDir: string;
+    if (opts.out) outputDir = path.resolve(cwd, opts.out);
+    else {
+      const configPath = opts.config ? path.resolve(cwd, opts.config) : getConfigPath(cwd);
+      const raw = JSON.parse(await fs.readFile(configPath, "utf8")) as unknown;
+      const { parseRepocortexConfig } = await import("../core/validate.js");
+      const config = parseRepocortexConfig(raw);
+      outputDir = path.resolve(cwd, config.outputDir || "./storage");
+    }
+
+    const { getSnapshotIds } = await import("../utils/paths.js");
+    const ids = await getSnapshotIds(outputDir);
+    if (ids.length < 2) throw new Error("Need at least two snapshots. Run 'repocortex run' twice.");
+    const prevId = ids[ids.length - 2]!;
+    const nextId = ids[ids.length - 1]!;
+
+    const { readJson } = await import("../core/io.js");
+    const { parseFileIndex, parseDepGraph, parseSymbolIndex } = await import(
+      "../core/validate.js"
+    );
+
+    const prevFileIndex = parseFileIndex(
+      await readJson(path.join(outputDir, "snapshots", prevId, "fileIndex.json"))
+    );
+    const nextFileIndex = parseFileIndex(
+      await readJson(path.join(outputDir, "snapshots", nextId, "fileIndex.json"))
+    );
+    const depGraph = parseDepGraph(
+      await readJson(path.join(outputDir, "facts", "depGraph.json"))
+    );
+    const symbolIndex = parseSymbolIndex(
+      await readJson(path.join(outputDir, "facts", "symbolIndex.json"))
+    );
+
+    const delta = computeDelta({ prev: prevFileIndex, next: nextFileIndex, depGraph, symbolIndex });
+
+    console.log("Delta summary:");
+    console.log("Snapshots:", prevId, "->", nextId);
+    console.log("Added files:", delta.addedFiles.length);
+    delta.addedFiles.forEach((p) => console.log("  ", p));
+    console.log("Removed files:", delta.removedFiles.length);
+    delta.removedFiles.forEach((p) => console.log("  ", p));
+    console.log("Changed files:", delta.changedFiles.length);
+    delta.changedFiles.forEach((p) => console.log("  ", p));
+    console.log("Added symbols:", delta.addedSymbols.length);
+    delta.addedSymbols.forEach((p) => console.log("  ", p));
+    console.log("Removed symbols:", delta.removedSymbols.length);
+    delta.removedSymbols.forEach((p) => console.log("  ", p));
+    console.log("Dependency shifts:", delta.dependencyShifts.length);
+    delta.dependencyShifts.forEach((p) => console.log("  ", p));
   });
 
 program
