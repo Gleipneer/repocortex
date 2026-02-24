@@ -128,6 +128,22 @@ export async function runFullPipeline(cfg: PipelineConfig): Promise<{
   });
 
   await generateEssence({ outputDir, topology, gaps });
+  // WRAP_FILEINDEX_V1
+  {
+    const p = paths.fileIndex;
+    const raw = JSON.parse(await fs.readFile(p, "utf8"));
+    const wrapped = {
+      identity: {
+        schemaVersion: "1.0",
+        artifactKind: "fileIndex",
+        snapshotId: scan.snapshotId,
+        inputHash: scan.inputHash
+      },
+      payload: raw
+    };
+    await writeJsonAtomic(p, wrapped, outputDir);
+  }
+
   // WRAP_ESSENCE_V1
   {
     const packPath = paths.essencePackJson;

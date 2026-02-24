@@ -628,7 +628,13 @@ program
     const paths = getStoragePaths(outputDir, ids[ids.length - 1]!);
     const { readJson } = await import("../core/io.js");
     const { parseFileIndex } = await import("../core/validate.js");
-    const fileIndex = parseFileIndex(await readJson(paths.fileIndex));
+    // UNWRAP_FILEINDEX_CLI_V1
+const rawFileIndex = await readJson(paths.fileIndex);
+const unwrapped =
+  rawFileIndex && typeof rawFileIndex === "object" && "payload" in rawFileIndex
+    ? (rawFileIndex as any).payload
+    : rawFileIndex;
+const fileIndex = parseFileIndex(unwrapped);
     const outPath = await runDuplicateDetector(outputDir, repoRoot, fileIndex);
     console.log("Duplicates written to", outPath);
   });
