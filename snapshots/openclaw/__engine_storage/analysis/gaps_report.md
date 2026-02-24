@@ -1,0 +1,1181 @@
+# Gaps Report
+
+| Severity | Title |
+|----------|-------|
+| high | Process execution detected without policy gate |
+| medium | Cyclic dependency (SCC) |
+| medium | Cyclic dependency (SCC) |
+| medium | Cyclic dependency (SCC) |
+| medium | Cyclic dependency (SCC) |
+| medium | Cyclic dependency (SCC) |
+| medium | Cyclic dependency (SCC) |
+| medium | Cyclic dependency (SCC) |
+| medium | Cyclic dependency (SCC) |
+| medium | Cyclic dependency (SCC) |
+| medium | Cyclic dependency (SCC) |
+| medium | Cyclic dependency (SCC) |
+| medium | Cyclic dependency (SCC) |
+| medium | Cyclic dependency (SCC) |
+| medium | Cyclic dependency (SCC) |
+| medium | Cyclic dependency (SCC) |
+| medium | Cyclic dependency (SCC) |
+| medium | Cyclic dependency (SCC) |
+| medium | Cyclic dependency (SCC) |
+| medium | Net exposure (listen/serve) |
+| medium | Writes without ledger pattern |
+
+## Process execution detected without policy gate (high)
+
+- extensions/bluebubbles/src/probe.ts:114 — exec(version.trim());
+- extensions/device-pair/index.ts:56 — spawn(command, args, {
+- extensions/feishu/src/docx.ts:25 — exec(markdown)) !== null) {
+- extensions/line/src/card-command.ts:144 — exec(argsStr)) !== null) {
+- extensions/line/src/card-command.ts:150 — exec(argsStr)) !== null) {
+- extensions/lobster/src/lobster-tool.test.ts:21 — spawn(...args),
+- extensions/lobster/src/lobster-tool.ts:72 — spawn(spawnTarget.command, spawnTarget.argv, {
+- extensions/matrix/src/matrix/deps.ts:48 — spawn(command, args, {
+- extensions/msteams/src/attachments/html.ts:33 — exec(html);
+- extensions/msteams/src/attachments/html.ts:46 — exec(html);
+- extensions/msteams/src/attachments/html.ts:50 — exec(html);
+- extensions/msteams/src/attachments/html.ts:57 — exec(html);
+- extensions/msteams/src/attachments/shared.ts:182 — exec(src);
+- extensions/msteams/src/attachments/shared.ts:223 — exec(html);
+- extensions/msteams/src/attachments/shared.ts:241 — exec(html);
+- extensions/msteams/src/inbound.ts:17 — exec(raw);
+- extensions/tlon/src/targets.ts:17 — exec(raw.trim());
+- extensions/twitch/src/access-control.ts:158 — exec(message)) !== null) {
+- extensions/voice-call/src/tunnel.ts:62 — spawn("ngrok", args, {
+- extensions/voice-call/src/tunnel.ts:166 — spawn("ngrok", args, {
+- extensions/voice-call/src/tunnel.ts:197 — spawn("ngrok", ["version"], {
+- extensions/voice-call/src/tunnel.ts:229 — spawn("tailscale", [config.mode, "--bg", "--yes", "--set-path", path, localUrl], {
+- extensions/voice-call/src/tunnel.ts:268 — spawn("tailscale", [mode, "off", path], {
+- extensions/voice-call/src/webhook.ts:442 — spawn("tailscale", args, {
+- extensions/zalouser/src/zca.ts:30 — spawn(ZCA_BINARY, fullArgs, spawnOpts);
+- extensions/zalouser/src/zca.ts:89 — spawn(ZCA_BINARY, fullArgs, spawnOpts);
+- extensions/zalouser/src/zca.ts:162 — spawn(ZCA_BINARY, fullArgs, spawnOpts);
+- scripts/run-node.mjs:180 — spawn(deps.execPath, ["openclaw.mjs", ...deps.args], {
+- scripts/run-node.mjs:237 — spawn(buildCmd, buildArgs, {
+- scripts/sqlite-vec-smoke.mjs:20 — exec(`
+- scripts/test-parallel.mjs:331 — spawn(pnpm, args, {
+- scripts/test-parallel.mjs:395 — spawn(pnpm, args, {
+- scripts/ui.js:95 — spawn(cmd, args, createSpawnOptions(cmd, args));
+- scripts/update-clawtributors.ts:472 — exec(url);
+- scripts/watch-node.mjs:34 — spawn(deps.process.execPath, buildWatchArgs(deps.args), {
+- scripts/zai-fallback-repro.ts:36 — spawn("pnpm", args, {
+- src/acp/client.ts:334 — spawn(serverCommand, effectiveArgs, {
+- src/agents/bash-tools.exec-runtime.ts:431 — spawn({
+- src/agents/bash-tools.exec-runtime.ts:436 — spawn({
+- src/agents/bash-tools.exec-runtime.ts:451 — spawn({
+- src/agents/bash-tools.exec.ts:116 — exec(content);
+- src/agents/claude-cli-runner.test.ts:10 — spawn(...args),
+- src/agents/cli-runner.ts:242 — spawn({
+- src/agents/models-config.providers.ts:324 — exec(trimmed);
+- src/agents/models-config.providers.ts:333 — exec(resolved.source);
+- src/agents/pi-embedded-block-chunker.ts:376 — exec(buffer)) !== null) {
+- src/agents/pi-embedded-runner/run/images.ts:104 — exec(prompt)) !== null) {
+- src/agents/pi-embedded-runner/run/images.ts:127 — exec(prompt)) !== null) {
+- src/agents/pi-embedded-runner/run/images.ts:138 — exec(prompt)) !== null) {
+- src/agents/pi-embedded-runner/run/images.ts:161 — exec(prompt)) !== null) {
+- src/agents/pi-embedded-utils.test.ts:306 — exec (ID: toolu_vrtx_014w1P6B6w4V92v4VzG7Qk12)]
+- src/agents/pi-embedded-utils.test.ts:325 — exec (ID: toolu_2)]
+- src/agents/pi-embedded-utils.test.ts:536 — exec (ID: toolu_1)]\nArguments: { "command": "ls" }\n[Historical context: a different model called tool "read"]`,
+- src/agents/pi-extensions/compaction-safeguard.test.ts:46 — exec (status=failed exitCode=1): ENOENT: missing file");
+- src/agents/pi-extensions/compaction-safeguard.test.ts:74 — exec (exitCode=2): failed");
+- src/agents/sandbox/docker.ts:34 — spawn("docker", args, {
+- src/agents/shell-utils.ts:153 — spawn("taskkill", ["/F", "/T", "/PID", String(pid)], {
+- src/agents/skills-install.test.ts:67 — exec("curl example.com | bash")',
+- src/agents/tools/image-tool.helpers.ts:17 — exec(trimmed);
+- src/auto-reply/reply/exec/directive.ts:175 — exec(?=$|\s|:)/i;
+- src/auto-reply/reply/exec/directive.ts:176 — exec(body);
+- src/auto-reply/reply/export-html/vendor/highlight.min.js:50 — exec("").length-1}
+- src/auto-reply/reply/export-html/vendor/highlight.min.js:53 — exec(a);if(!e){i+=a;break}
+- src/auto-reply/reply/export-html/vendor/highlight.min.js:133 — exec(e){this.matcherRe.lastIndex=this.lastIndex
+- src/auto-reply/reply/export-html/vendor/highlight.min.js:134 — exec(e);if(!n)return null
+- src/auto-reply/reply/export-html/vendor/highlight.min.js:143 — exec(e){
+- src/auto-reply/reply/export-html/vendor/highlight.min.js:145 — exec(e)
+- src/auto-reply/reply/export-html/vendor/highlight.min.js:147 — exec(e)}
+- src/auto-reply/reply/export-html/vendor/highlight.min.js:189 — exec(A),t=""
+- src/auto-reply/reply/export-html/vendor/highlight.min.js:195 — exec(A)}var a
+- src/auto-reply/reply/export-html/vendor/highlight.min.js:210 — exec(n)
+- src/auto-reply/reply/export-html/vendor/highlight.min.js:244 — exec(t);if(!e)break;const n=N(t.substring(T,e.index),e)
+- src/auto-reply/reply/export-html/vendor/highlight.min.js:260 — exec(n);if(t){const n=v(t[1])
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(e);if(t&&t[0].length>0)return{type:"space",raw:t[0]}}code(e){const t=this.rules.block.code.exec(e);if(t){const e=t[
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(e);if(t){const e=t[0].replace(this.rules.other.codeRemoveIndent,"");return{type:"code",raw:t[0],codeBlockStyle:"ind
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(e);if(t){const e=t[0],n=function(e,t,n){const s=e.match(n.other.indentCodeCompensation);if(null===s)return t;const 
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(e);if(t){let e=t[2].trim();if(this.rules.other.endingHash.test(e)){const t=J(e,"#");this.options.pedantic?e=t.trim(
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(e);if(t)return{type:"hr",raw:J(t[0],"\n")}}blockquote(e){const t=this.rules.block.blockquote.exec(e);if(t){let e=J(
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(e);if(t){let e=J(t[0],"\n").split("\n"),n="",s="";const r=[];for(;e.length>0;){let t=!1;const i=[];let l;for(l=0;l<
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(e);if(t){let n=t[1].trim();const s=n.length>1,r={type:"list",raw:"",ordered:s,start:s?+n.slice(0,-1):"",loose:!1,it
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(e)))break;if(this.rules.block.hr.test(e))break;s=t[0],e=e.substring(s.length);let a=t[2].split("\n",1)[0].replace(t
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(o),g&&(u="[ ] "!==g[0],o=o.replace(this.rules.other.listReplaceTask,""))),r.items.push({type:"list_item",raw:s,task
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(e);if(t){return{type:"html",block:!0,raw:t[0],pre:"pre"===t[1]||"script"===t[1]||"style"===t[1],text:t[0]}}}def(e){
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(e);if(t){const e=t[1].toLowerCase().replace(this.rules.other.multipleSpaceGlobal," "),n=t[2]?t[2].replace(this.rule
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(e);if(!t)return;if(!this.rules.other.tableDelimiter.test(t[2]))return;const n=U(t[1]),s=t[2].replace(this.rules.oth
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(e);if(t)return{type:"heading",raw:t[0],depth:"="===t[2].charAt(0)?1:2,text:t[1],tokens:this.lexer.inline(t[1])}}par
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(e);if(t){const e="\n"===t[1].charAt(t[1].length-1)?t[1].slice(0,-1):t[1];return{type:"paragraph",raw:t[0],text:e,to
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(e);if(t)return{type:"text",raw:t[0],text:t[0],tokens:this.lexer.inline(t[0])}}escape(e){const t=this.rules.inline.e
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(e);if(t)return{type:"escape",raw:t[0],text:t[1]}}tag(e){const t=this.rules.inline.tag.exec(e);if(t)return!this.lexe
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(e);if(t)return!this.lexer.state.inLink&&this.rules.other.startATag.test(t[0])?this.lexer.state.inLink=!0:this.lexer
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(e);if(t){const e=t[2].trim();if(!this.options.pedantic&&this.rules.other.startAngleBracket.test(e)){if(!this.rules.
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(n);e&&(n=e[1],s=e[3])}else s=t[3]?t[3].slice(1,-1):"";return n=n.trim(),this.rules.other.startAngleBracket.test(n)&
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(e))||(n=this.rules.inline.nolink.exec(e))){const e=t[(n[2]||n[1]).replace(this.rules.other.multipleSpaceGlobal," ")
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(e))){const e=t[(n[2]||n[1]).replace(this.rules.other.multipleSpaceGlobal," ").toLowerCase()];if(!e){const e=n[0].ch
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(e);if(!s)return;if(s[3]&&n.match(this.rules.other.unicodeAlphaNumeric))return;if(!(s[1]||s[2]||"")||!n||this.rules.
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(n)){const n=[...s[0]].length-1;let r,i,l=n,o=0;const a="*"===s[0][0]?this.rules.inline.emStrongRDelimAst:this.rules
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(t));){if(r=s[1]||s[2]||s[3]||s[4]||s[5]||s[6],!r)continue;if(i=[...r].length,s[3]||s[4]){l+=i;continue}if((s[5]||s[
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(e);if(t){let e=t[2].replace(this.rules.other.newLineCharGlobal," ");const n=this.rules.other.nonSpaceChar.test(e),s
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(e);if(t)return{type:"br",raw:t[0]}}del(e){const t=this.rules.inline.del.exec(e);if(t)return{type:"del",raw:t[0],tex
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(e);if(t)return{type:"del",raw:t[0],text:t[2],tokens:this.lexer.inlineTokens(t[2])}}autolink(e){const t=this.rules.i
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(e);if(t){let e,n;return"@"===t[2]?(e=t[1],n="mailto:"+e):(e=t[1],n=e),{type:"link",raw:t[0],text:e,href:n,tokens:[{
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(e)){let e,n;if("@"===t[2])e=t[0],n="mailto:"+e;else{let s;do{s=t[0],t[0]=this.rules.inline._backpedal.exec(t[0])?.[
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(t[0])?.[0]??""}while(s!==t[0]);e=t[0],n="www."===t[1]?"http://"+t[0]:t[0]}return{type:"link",raw:t[0],text:e,href:n
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(e);if(t){const e=this.lexer.state.inRawBlock;return{type:"text",raw:t[0],text:t[0],escaped:e}}}}class W{tokens;opti
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(n));)e.includes(s[0].slice(s[0].lastIndexOf("[")+1,-1))&&(n=n.slice(0,s.index)+"["+"a".repeat(s[0].length-2)+"]"+n.
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(n));)n=n.slice(0,s.index)+"["+"a".repeat(s[0].length-2)+"]"+n.slice(this.tokenizer.rules.inline.blockSkip.lastIndex
+- src/auto-reply/reply/export-html/vendor/marked.min.js:6 — exec(n));)n=n.slice(0,s.index)+"++"+n.slice(this.tokenizer.rules.inline.anyPunctuation.lastIndex);let r=!1,i="";for(;e;)
+- src/auto-reply/reply/queue/directive.ts:147 — exec(body);
+- src/auto-reply/reply/stage-sandbox-media.ts:202 — spawn(
+- src/browser/chrome.ts:228 — spawn(exe.path, args, {
+- src/browser/routes/dispatcher.ts:84 — exec(path);
+- src/canvas-host/a2ui/a2ui.bundle.js:308 — exec(s), null !== u);) f = c.lastIndex, c === v$1 ? "!--" === u[1] ? c = _ : void 0 !== u[1] ? c = m$2 : void 0 !== u[2]
+- src/canvas-host/a2ui/a2ui.bundle.js:327 — exec(i);
+- src/canvas-host/a2ui/a2ui.bundle.js:8701 — exec(rest);
+- src/canvas-host/a2ui/a2ui.bundle.js:8710 — exec(rest);
+- src/canvas-host/a2ui/a2ui.bundle.js:8820 — exec(host);
+- src/canvas-host/a2ui/a2ui.bundle.js:11091 — exec(str)) !== null) {
+- src/canvas-host/a2ui/a2ui.bundle.js:11130 — exec(data)) {
+- src/canvas-host/a2ui/a2ui.bundle.js:11202 — exec(str)) !== null) {
+- src/canvas-host/a2ui/a2ui.bundle.js:12626 — exec(text);
+- src/canvas-host/a2ui/a2ui.bundle.js:15631 — exec(text)) !== null) {
+- src/canvas-host/a2ui/a2ui.bundle.js:15741 — exec(text);
+- src/cli/parse-bytes.ts:25 — exec(trimmed);
+- src/cli/parse-duration.ts:13 — exec(trimmed);
+- src/cli/update-cli/restart-helper.ts:127 — spawn({ detached: true })` + `unref()` ensures the script survives
+- src/cli/update-cli/restart-helper.ts:137 — spawn(file, args, {
+- src/config/types.openclaw.ts:40 — exec (ms). Default: 15000. */
+- src/config/types.tools.ts:226 — exec (gateway/sandbox). */
+- src/config/zod-schema.agent-defaults.ts:144 — spawn (default: 5).",
+- src/entry.ts:72 — spawn(
+- src/gateway/chat-attachments.ts:68 — exec(base64);
+- src/gateway/hooks-mapping.ts:496 — exec(pathExpr);
+- src/gateway/hooks-mapping.ts:503 — exec(pathExpr);
+- src/gateway/server-methods/usage.ts:97 — exec(raw.trim());
+- src/gateway/server-methods/usage.ts:119 — exec(raw.trim());
+- src/gateway/test-helpers.openai-mock.ts:68 — exec(prompt)?.[1];
+- src/gateway/test-helpers.openai-mock.ts:103 — exec(toolOutput)?.[1] ?? "";
+- src/gateway/test-helpers.openai-mock.ts:104 — exec(toolOutput)?.[1] ?? "";
+- src/hooks/gmail-ops.ts:357 — spawn("gog", args, { stdio: "inherit" });
+- src/hooks/gmail-watcher.ts:71 — spawn("gog", args, {
+- src/imessage/client.ts:81 — spawn(this.cliPath, args, {
+- src/infra/binaries.ts:10 — exec("which", [name]).catch(() => {
+- src/infra/exec-command-resolution.ts:43 — exec(trimmed);
+- src/infra/host-env-security.test.ts:185 — spawn(bashPath, ["-lc", "echo SAFE"], { env, stdio: "ignore" });
+- src/infra/outbound/message-action-params.ts:161 — exec(params.base64.trim());
+- src/infra/process-respawn.ts:50 — spawn(process.execPath, args, {
+- src/infra/shell-env.ts:104 — exec(params.shell, ["-l", "-c", "env -0"], {
+- src/infra/ssh-config.ts:74 — spawn(sshPath, args, {
+- src/infra/ssh-tunnel.ts:155 — spawn("/usr/bin/ssh", args, {
+- src/infra/tailscale.ts:118 — exec(candidate, ["status", "--json"], {
+- src/infra/tailscale.ts:170 — exec(tailscaleBin, ["status", "--json"], {
+- src/infra/tailscale.ts:183 — exec("go", ["version"]).then(
+- src/infra/tailscale.ts:199 — exec("brew", ["install", "go"]);
+- src/infra/tailscale.ts:208 — exec("tailscaled", ["--version"]).then(
+- src/infra/tailscale.ts:225 — exec("brew", ["install", "tailscale"]);
+- src/infra/tailscale.ts:283 — exec(bin, args, opts);
+- src/infra/tailscale.ts:290 — exec("sudo", ["-n", bin, ...args], opts);
+- src/infra/tailscale.ts:311 — exec(tailscaleBin, ["funnel", "status", "--json"])).stdout.trim();
+- src/infra/tailscale.ts:488 — exec(tailscaleBin, ["whois", "--json", normalized], {
+- src/line/markdown-to-line.ts:39 — exec(text)) !== null) {
+- src/line/markdown-to-line.ts:200 — exec(text)) !== null) {
+- src/line/markdown-to-line.ts:281 — exec(text)) !== null) {
+- src/media/fetch.ts:45 — exec(header);
+- src/media/fetch.ts:55 — exec(header);
+- src/memory/index.test.ts:84 — exec(
+- src/memory/manager-sync-ops.ts:220 — exec(
+- src/memory/manager-sync-ops.ts:231 — exec(`DROP TABLE IF EXISTS ${VECTOR_TABLE}`);
+- src/memory/manager-sync-ops.ts:289 — exec("BEGIN");
+- src/memory/manager-sync-ops.ts:301 — exec("COMMIT");
+- src/memory/manager-sync-ops.ts:304 — exec("ROLLBACK");
+- src/memory/manager-sync-ops.ts:1152 — exec(`DELETE FROM files`);
+- src/memory/manager-sync-ops.ts:1153 — exec(`DELETE FROM chunks`);
+- src/memory/manager-sync-ops.ts:1156 — exec(`DELETE FROM ${FTS_TABLE}`);
+- src/memory/manager.vector-dedupe.test.ts:77 — exec("CREATE TABLE IF NOT EXISTS chunks_vec (id TEXT PRIMARY KEY, embedding BLOB)");
+- src/memory/memory-schema.ts:9 — exec(`
+- src/memory/memory-schema.ts:15 — exec(`
+- src/memory/memory-schema.ts:24 — exec(`
+- src/memory/memory-schema.ts:38 — exec(`
+- src/memory/memory-schema.ts:50 — exec(
+- src/memory/memory-schema.ts:58 — exec(
+- src/memory/memory-schema.ts:79 — exec(`CREATE INDEX IF NOT EXISTS idx_chunks_path ON chunks(path);`);
+- src/memory/memory-schema.ts:80 — exec(`CREATE INDEX IF NOT EXISTS idx_chunks_source ON chunks(source);`);
+- src/memory/memory-schema.ts:95 — exec(`ALTER TABLE ${table} ADD COLUMN ${column} ${definition}`);
+- src/memory/qmd-manager.ts:502 — exec(line);
+- src/memory/qmd-manager.ts:513 — exec(line);
+- src/memory/qmd-manager.ts:524 — exec(line);
+- src/memory/qmd-manager.ts:531 — exec(line);
+- src/memory/qmd-manager.ts:1060 — spawn(resolveWindowsCommandShim(this.qmd.command), args, {
+- src/memory/qmd-manager.ts:1151 — spawn(resolveWindowsCommandShim("mcporter"), args, {
+- src/memory/qmd-manager.ts:1336 — exec("PRAGMA busy_timeout = 1");
+- src/memory/qmd-manager.ts:1500 — exec(snippet);
+- src/memory/temporal-decay.ts:46 — exec(normalized);
+- src/node-host/invoke.ts:136 — spawn(argv[0], argv.slice(1), {
+- src/process/exec.test.ts:165 — spawn(process.execPath, [childPath], {
+- src/process/exec.ts:137 — spawn(resolvedCommand, argv.slice(1), {
+- src/process/kill-tree.ts:83 — spawn("taskkill", args, {
+- src/process/supervisor/adapters/pty.ts:51 — spawn(params.shell, params.args, {
+- src/process/supervisor/supervisor.pty-command.test.ts:51 — spawn({
+- src/process/supervisor/supervisor.pty-command.test.ts:71 — spawn({
+- src/process/supervisor/supervisor.test.ts:9 — spawn({
+- src/process/supervisor/types.ts:101 — spawn(input: SpawnInput): Promise<ManagedRun>;
+- src/security/external-content.ts:164 — exec(folded)) !== null) {
+- src/security/fix.ts:163 — exec(cmd.command, cmd.args);
+- src/security/skill-scanner.test.ts:41 — exec(cmd);
+- src/security/skill-scanner.test.ts:52 — spawn("node", ["server.js"]);
+- src/security/skill-scanner.ts:169 — exec(line);
+- src/security/temp-path-guard.test.ts:170 — exec(scanSource);
+- src/security/temp-path-guard.test.ts:188 — exec(scanSource);
+- src/security/windows-acl.ts:230 — exec("icacls", [targetPath]);
+- src/shared/net/ip.ts:91 — exec(raw);
+- src/signal/daemon.ts:93 — spawn(opts.cliPath, args, {
+- src/slack/format.ts:40 — exec(text);
+- src/slack/format.ts:42 — exec(text)
+- src/slack/monitor/provider.ts:54 — exec(token);
+- src/telegram/format.ts:200 — exec(deLinkified)) !== null) {
+- src/telegram/targets.ts:55 — exec(stripped);
+- src/telegram/targets.ts:94 — exec(normalized);
+- src/telegram/targets.ts:103 — exec(normalized);
+- src/tui/components/searchable-select-list.ts:158 — exec(text)) !== null) {
+- src/tui/osc8-hyperlinks.ts:24 — exec(markdown)) !== null) {
+- src/tui/osc8-hyperlinks.ts:34 — exec(stripped)) !== null) {
+- src/tui/osc8-hyperlinks.ts:98 — exec(visibleText)) !== null) {
+- test/helpers/gateway-e2e-harness.ts:125 — spawn(
+- ui/src/ui/controllers/chat.ts:54 — exec(dataUrl);
+- ui/src/ui/usage-helpers.ts:297 — exec(line.trim());
+- ui/src/ui/views/config-search.ts:14 — exec(raw);
+- ui/src/ui/views/config-search.ts:21 — exec(raw);
+- ui/src/ui/views/usage-metrics.ts:266 — exec(dateStr);
+- vendor/a2ui/renderers/lit/src/0.8/ui/utils/youtube.ts:43 — exec(uri);
+- vendor/a2ui/renderers/lit/src/0.8/ui/utils/youtube.ts:55 — exec(uri);
+- vendor/a2ui/renderers/lit/src/0.8/ui/utils/youtube.ts:67 — exec(uri);
+
+## Cyclic dependency (SCC) (medium)
+
+- extensions/bluebubbles/src/attachments.ts — part of cycle
+- extensions/bluebubbles/src/media-send.ts — part of cycle
+- extensions/bluebubbles/src/monitor-processing.ts — part of cycle
+- extensions/bluebubbles/src/monitor.ts — part of cycle
+
+## Cyclic dependency (SCC) (medium)
+
+- extensions/feishu/src/bot.ts — part of cycle
+- extensions/feishu/src/mention.ts — part of cycle
+- extensions/feishu/src/reply-dispatcher.ts — part of cycle
+
+## Cyclic dependency (SCC) (medium)
+
+- extensions/msteams/src/monitor-handler.ts — part of cycle
+- extensions/msteams/src/monitor-handler/message-handler.ts — part of cycle
+
+## Cyclic dependency (SCC) (medium)
+
+- extensions/nostr/src/nostr-profile-http.ts — part of cycle
+- extensions/nostr/src/nostr-profile-import.ts — part of cycle
+
+## Cyclic dependency (SCC) (medium)
+
+- extensions/voice-call/src/providers/twilio.ts — part of cycle
+- extensions/voice-call/src/providers/twilio/webhook.ts — part of cycle
+
+## Cyclic dependency (SCC) (medium)
+
+- src/agents/model-auth.ts — part of cycle
+- src/agents/model-catalog.ts — part of cycle
+- src/agents/model-selection.ts — part of cycle
+- src/agents/models-config.providers.ts — part of cycle
+- src/agents/models-config.ts — part of cycle
+- src/agents/pi-auth-json.ts — part of cycle
+
+## Cyclic dependency (SCC) (medium)
+
+- src/agents/pi-embedded-runner/logger.ts — part of cycle
+- src/globals.ts — part of cycle
+- src/logging/console.ts — part of cycle
+- src/logging/logger.ts — part of cycle
+- src/logging/subsystem.ts — part of cycle
+
+## Cyclic dependency (SCC) (medium)
+
+- src/agents/pi-embedded-runner/run/params.ts — part of cycle
+- src/commands/agent/types.ts — part of cycle
+
+## Cyclic dependency (SCC) (medium)
+
+- src/agents/skills-install-download.ts — part of cycle
+- src/agents/skills-install.ts — part of cycle
+
+## Cyclic dependency (SCC) (medium)
+
+- src/agents/subagent-announce.ts — part of cycle
+- src/agents/subagent-registry-cleanup.ts — part of cycle
+- src/agents/subagent-registry-completion.ts — part of cycle
+- src/agents/subagent-registry-queries.ts — part of cycle
+- src/agents/subagent-registry-state.ts — part of cycle
+- src/agents/subagent-registry.store.ts — part of cycle
+- src/agents/subagent-registry.ts — part of cycle
+- src/agents/subagent-registry.types.ts — part of cycle
+- src/agents/subagent-spawn.ts — part of cycle
+
+## Cyclic dependency (SCC) (medium)
+
+- src/auto-reply/dispatch.ts — part of cycle
+- src/auto-reply/reply/dispatch-from-config.ts — part of cycle
+- src/auto-reply/reply/provider-dispatcher.ts — part of cycle
+- src/auto-reply/reply/route-reply.ts — part of cycle
+- src/channels/plugins/outbound/load.ts — part of cycle
+- src/channels/plugins/registry-loader.ts — part of cycle
+- src/cli/deps.ts — part of cycle
+- src/cli/outbound-send-mapping.ts — part of cycle
+- src/commands/health.ts — part of cycle
+- src/gateway/server-methods/types.ts — part of cycle
+- src/hooks/internal-hooks.ts — part of cycle
+- src/infra/heartbeat-runner.ts — part of cycle
+- src/infra/outbound/deliver.ts — part of cycle
+- src/line/monitor.ts — part of cycle
+- src/plugins/registry.ts — part of cycle
+- src/plugins/runtime/types.ts — part of cycle
+
+## Cyclic dependency (SCC) (medium)
+
+- src/cli/completion-cli.ts — part of cycle
+- src/cli/program/command-registry.ts — part of cycle
+- src/cli/program/register.maintenance.ts — part of cycle
+- src/cli/program/register.onboard.ts — part of cycle
+- src/cli/program/register.setup.ts — part of cycle
+- src/cli/program/register.subclis.ts — part of cycle
+- src/cli/update-cli.ts — part of cycle
+- src/cli/update-cli/update-command.ts — part of cycle
+- src/cli/update-cli/wizard.ts — part of cycle
+- src/commands/doctor-completion.ts — part of cycle
+- src/commands/doctor.ts — part of cycle
+- src/commands/onboard-interactive.ts — part of cycle
+- src/commands/onboard.ts — part of cycle
+- src/wizard/onboarding.completion.ts — part of cycle
+- src/wizard/onboarding.finalize.ts — part of cycle
+- src/wizard/onboarding.ts — part of cycle
+
+## Cyclic dependency (SCC) (medium)
+
+- src/commands/auth-choice.apply-helpers.ts — part of cycle
+- src/commands/auth-choice.apply.anthropic.ts — part of cycle
+- src/commands/auth-choice.apply.api-providers.ts — part of cycle
+- src/commands/auth-choice.apply.byteplus.ts — part of cycle
+- src/commands/auth-choice.apply.copilot-proxy.ts — part of cycle
+- src/commands/auth-choice.apply.github-copilot.ts — part of cycle
+- src/commands/auth-choice.apply.google-gemini-cli.ts — part of cycle
+- src/commands/auth-choice.apply.huggingface.ts — part of cycle
+- src/commands/auth-choice.apply.minimax.ts — part of cycle
+- src/commands/auth-choice.apply.oauth.ts — part of cycle
+- src/commands/auth-choice.apply.openai.ts — part of cycle
+- src/commands/auth-choice.apply.openrouter.ts — part of cycle
+- src/commands/auth-choice.apply.plugin-provider.ts — part of cycle
+- src/commands/auth-choice.apply.qwen-portal.ts — part of cycle
+- src/commands/auth-choice.apply.ts — part of cycle
+- src/commands/auth-choice.apply.vllm.ts — part of cycle
+- src/commands/auth-choice.apply.volcengine.ts — part of cycle
+- src/commands/auth-choice.apply.xai.ts — part of cycle
+
+## Cyclic dependency (SCC) (medium)
+
+- src/commands/systemd-linger.ts — part of cycle
+- src/daemon/systemd.ts — part of cycle
+
+## Cyclic dependency (SCC) (medium)
+
+- src/config/schema.hints.ts — part of cycle
+- src/config/schema.tags.ts — part of cycle
+
+## Cyclic dependency (SCC) (medium)
+
+- src/config/types.channel-messaging-common.ts — part of cycle
+- src/config/types.channels.ts — part of cycle
+- src/config/types.discord.ts — part of cycle
+- src/config/types.imessage.ts — part of cycle
+- src/config/types.irc.ts — part of cycle
+- src/config/types.msteams.ts — part of cycle
+- src/config/types.signal.ts — part of cycle
+- src/config/types.slack.ts — part of cycle
+- src/config/types.telegram.ts — part of cycle
+- src/config/types.tools.ts — part of cycle
+- src/config/types.whatsapp.ts — part of cycle
+- src/discord/monitor/exec-approvals.ts — part of cycle
+- src/infra/exec-approvals-analysis.ts — part of cycle
+- src/infra/exec-command-resolution.ts — part of cycle
+- src/infra/exec-safe-bin-policy.ts — part of cycle
+
+## Cyclic dependency (SCC) (medium)
+
+- src/memory/embeddings-gemini.ts — part of cycle
+- src/memory/embeddings-mistral.ts — part of cycle
+- src/memory/embeddings-openai.ts — part of cycle
+- src/memory/embeddings-remote-client.ts — part of cycle
+- src/memory/embeddings-remote-provider.ts — part of cycle
+- src/memory/embeddings-voyage.ts — part of cycle
+- src/memory/embeddings.ts — part of cycle
+
+## Cyclic dependency (SCC) (medium)
+
+- ui/src/ui/app-chat.ts — part of cycle
+- ui/src/ui/app-settings.ts — part of cycle
+
+## Net exposure (listen/serve) (medium)
+
+- extensions/feishu/src/monitor.ts:256 — http.createServer();
+- extensions/voice-call/src/media-stream.test.ts:61 — http.createServer();
+- extensions/voice-call/src/webhook.ts:188 — http.createServer((req, res) => {
+- src/canvas-host/server.ts:416 — http.createServer((req, res) => {
+- src/commands/chutes-oauth.test.ts:9 — net.createServer();
+- src/gateway/net.ts:282 — net.createServer();
+- src/infra/ports.test.ts:24 — net.createServer();
+- src/infra/ports.test.ts:98 — net.createServer();
+- src/infra/ssh-tunnel.ts:63 — net.createServer();
+- test/helpers/gateway-e2e-harness.ts:45 — net.createServer();
+
+## Writes without ledger pattern (medium)
+
+- extensions/bluebubbles/src/media-send.test.ts:111 — fs.writeFile(outsideFile, "not allowed", "utf8");
+- extensions/bluebubbles/src/media-send.test.ts:127 — fs.writeFile(allowedFile, "allowed", "utf8");
+- extensions/bluebubbles/src/media-send.test.ts:149 — fs.writeFile(allowedFile, "allowed", "utf8");
+- extensions/bluebubbles/src/media-send.test.ts:171 — fs.writeFile(baseFile, "base", "utf8");
+- extensions/bluebubbles/src/media-send.test.ts:172 — fs.writeFile(accountFile, "account", "utf8");
+- extensions/bluebubbles/src/media-send.test.ts:207 — fs.writeFile(outsideFile, "secret", "utf8");
+- extensions/bluebubbles/src/media-send.test.ts:231 — fs.writeFile(allowedFile, "allowed", "utf8");
+- extensions/feishu/src/media.test.ts:219 — fs.writeFile(tmpPath, Buffer.from("image-data"));
+- extensions/feishu/src/media.test.ts:240 — fs.writeFile(tmpPath, Buffer.from("resource-data"));
+- extensions/lobster/src/test-helpers.ts:54 — fs.writeFile(params.scriptPath, "module.exports = {};\n", "utf8");
+- extensions/lobster/src/test-helpers.ts:55 — fs.writeFile(params.shimPath, `@echo off\r\n${params.shimLine}\r\n`, "utf8");
+- extensions/lobster/src/windows-spawn.test.ts:66 — fs.writeFile(path.join(shimDir, "node.exe"), "", "utf8");
+- extensions/lobster/src/windows-spawn.test.ts:67 — fs.writeFile(scriptPath, "module.exports = {};\n", "utf8");
+- extensions/lobster/src/windows-spawn.test.ts:68 — fs.writeFile(
+- extensions/lobster/src/windows-spawn.test.ts:87 — fs.writeFile(shimPath, "@echo off\r\n", "utf8");
+- extensions/lobster/src/windows-spawn.test.ts:88 — fs.writeFile(
+- extensions/lobster/src/windows-spawn.test.ts:93 — fs.writeFile(scriptPath, "module.exports = {};\n", "utf8");
+- extensions/lobster/src/windows-spawn.test.ts:109 — fs.writeFile(badShimPath, "@echo off\r\nREM no entrypoint\r\n", "utf8");
+- extensions/matrix/src/matrix/client/storage.ts:127 — fs.writeFileSync(params.storagePaths.metaPath, JSON.stringify(payload, null, 2), "utf-8");
+- extensions/matrix/src/matrix/credentials.ts:85 — fs.writeFileSync(credPath, JSON.stringify(toSave, null, 2), "utf-8");
+- extensions/matrix/src/matrix/credentials.ts:99 — fs.writeFileSync(credPath, JSON.stringify(existing, null, 2), "utf-8");
+- extensions/nostr/src/nostr-state-store.ts:129 — fs.writeFile(tmp, `${JSON.stringify(payload, null, 2)}\n`, {
+- extensions/nostr/src/nostr-state-store.ts:221 — fs.writeFile(tmp, `${JSON.stringify(payload, null, 2)}\n`, {
+- extensions/phone-control/index.ts:155 — fs.writeFile(statePath, `${JSON.stringify(state, null, 2)}\n`, "utf8");
+- scripts/build-docs-list.mjs:14 — fs.writeFileSync(binPath, wrapper, { mode: 0o755 });
+- scripts/protocol-gen-swift.ts:239 — fs.writeFile(outPath, content);
+- scripts/protocol-gen.ts:39 — fs.writeFile(jsonSchemaPath, JSON.stringify(rootSchema, null, 2));
+- scripts/run-node.mjs:203 — fs.writeFileSync(deps.buildStampPath, `${JSON.stringify(stamp)}\n`);
+- scripts/vitest-slowest.mjs:155 — fs.writeFileSync(args.outFile, outText, "utf8");
+- scripts/write-build-info.ts:47 — fs.writeFileSync(path.join(distDir, "build-info.json"), `${JSON.stringify(buildInfo, null, 2)}\n`);
+- scripts/write-cli-compat.ts:74 — fs.writeFileSync(path.join(cliDir, "daemon-cli.js"), contents);
+- scripts/write-plugin-sdk-entry-dts.ts:14 — fs.writeFileSync(out, `export * from "./plugin-sdk/${entry}.js";\n`, "utf8");
+- scripts/zai-fallback-repro.ts:99 — fs.writeFile(configPath, JSON.stringify(config, null, 2), "utf8");
+- src/agents/apply-patch.test.ts:52 — fs.writeFile(source, "foo\nbar\n", "utf8");
+- src/agents/apply-patch.test.ts:76 — fs.writeFile(target, "line1\n", "utf8");
+- src/agents/apply-patch.test.ts:145 — fs.writeFile(outside, "initial\n", "utf8");
+- src/agents/apply-patch.test.ts:166 — fs.writeFile(target, "initial\n", "utf8");
+- src/agents/apply-patch.test.ts:187 — fs.writeFile(outsideFile, "victim\n", "utf8");
+- src/agents/apply-patch.test.ts:238 — fs.writeFile(outsideTarget, "keep\n", "utf8");
+- src/agents/apply-patch.ts:239 — fs.writeFile(filePath, content, "utf8"),
+- src/agents/auth-profiles.chutes.test.ts:51 — fs.writeFile(authProfilePath, `${JSON.stringify(store)}\n`);
+- src/agents/auth-profiles.ensureauthprofilestore.test.ts:13 — fs.writeFileSync(
+- src/agents/auth-profiles.ensureauthprofilestore.test.ts:78 — fs.writeFileSync(
+- src/agents/auth-profiles.ensureauthprofilestore.test.ts:94 — fs.writeFileSync(
+- src/agents/auth-profiles.markauthprofilefailure.test.ts:19 — fs.writeFileSync(
+- src/agents/auth-profiles.markauthprofilefailure.test.ts:117 — fs.writeFileSync(
+- src/agents/auth-profiles/oauth.fallback-to-main-agent.test.ts:55 — fs.writeFile(path.join(agentDir, "auth-profiles.json"), JSON.stringify(store));
+- src/agents/auth-profiles/session-override.test.ts:20 — fs.writeFile(authPath, JSON.stringify(payload), "utf-8");
+- src/agents/bash-tools.exec.approval-id.test.ts:102 — fs.writeFile(exePath, "");
+- src/agents/bash-tools.exec.script-preflight.test.ts:16 — fs.writeFile(
+- src/agents/bash-tools.exec.script-preflight.test.ts:42 — fs.writeFile(
+- src/agents/bash-tools.exec.script-preflight.test.ts:64 — fs.writeFile(jsPath, "const value = $DM_JSON;", "utf-8");
+- src/agents/bash-tools.exec.script-preflight.test.ts:81 — fs.writeFile(outsidePath, "const value = $DM_JSON;", "utf-8");
+- src/agents/cli-credentials.test.ts:137 — fs.writeFileSync(
+- src/agents/cli-credentials.test.ts:266 — fs.writeFileSync(
+- src/agents/cli-runner/helpers.ts:346 — fs.writeFile(filePath, buffer, { mode: 0o600 });
+- src/agents/identity-avatar.test.ts:11 — fs.writeFile(filePath, contents, "utf-8");
+- src/agents/identity-avatar.test.ts:98 — fs.writeFile(
+- src/agents/identity-avatar.test.ts:136 — fs.writeFile(avatarPath, Buffer.alloc(AVATAR_MAX_BYTES + 1));
+- src/agents/model-auth.profiles.test.ts:65 — fs.writeFile(
+- src/agents/model-auth.profiles.test.ts:135 — fs.writeFile(
+- src/agents/models-config.falls-back-default-baseurl-token-exchange-fails.test.ts:47 — fs.writeFile(
+- src/agents/models-config.fills-missing-provider-apikey-from-env-var.test.ts:95 — fs.writeFile(
+- src/agents/models-config.ts:161 — fs.writeFile(targetPath, next, { mode: 0o600 });
+- src/agents/models-config.uses-first-github-copilot-profile-env-tokens.test.ts:23 — fs.writeFile(
+- src/agents/openclaw-tools.subagents.sessions-spawn-depth-limits.test.ts:33 — fs.writeFileSync(storePath, JSON.stringify(store, null, 2), "utf-8");
+- src/agents/openclaw-tools.subagents.steer-failure-clears-suppression.test.ts:32 — fs.writeFileSync(storePath, "{}", "utf-8");
+- src/agents/pi-auth-json.test.ts:187 — fs.writeFile(
+- src/agents/pi-auth-json.ts:155 — fs.writeFile(authPath, `${JSON.stringify(existing, null, 2)}\n`, { mode: 0o600 });
+- src/agents/pi-embedded-helpers/bootstrap.ts:184 — fs.writeFile(file, `${JSON.stringify(entry)}\n`, "utf-8");
+- src/agents/pi-embedded-runner.run-embedded-pi-agent.auth-profile-rotation.test.ts:145 — fs.writeFile(authPath, JSON.stringify(payload));
+- src/agents/pi-embedded-runner.run-embedded-pi-agent.auth-profile-rotation.test.ts:569 — fs.writeFile(authPath, JSON.stringify({ version: 1, profiles: {}, usageStats: {} }));
+- src/agents/pi-embedded-runner.run-embedded-pi-agent.auth-profile-rotation.test.ts:657 — fs.writeFile(authPath, JSON.stringify(payload));
+- src/agents/pi-embedded-runner/run/images.test.ts:219 — fs.writeFile(imagePath, Buffer.from(pngB64, "base64"));
+- src/agents/pi-embedded-runner/session-manager-init.ts:46 — fs.writeFile(params.sessionFile, "", "utf-8");
+- src/agents/pi-tools.create-openclaw-coding-tools.adds-claude-style-aliases-schemas-without-dropping-d.test.ts:24 — fs.writeFile(imagePath, tinyPngBuffer);
+- src/agents/pi-tools.create-openclaw-coding-tools.adds-claude-style-aliases-schemas-without-dropping-d.test.ts:42 — fs.writeFile(textPath, contents, "utf8");
+- src/agents/pi-tools.create-openclaw-coding-tools.adds-claude-style-aliases-schemas-without-dropping-f.test.ts:70 — fs.writeFile(filePath, "const value = 'old';\n", "utf8");
+- src/agents/pi-tools.create-openclaw-coding-tools.adds-claude-style-aliases-schemas-without-dropping.test.ts:344 — fs.writeFile(
+- src/agents/pi-tools.create-openclaw-coding-tools.adds-claude-style-aliases-schemas-without-dropping.test.ts:522 — fs.writeFile(outsidePath, "outside", "utf8");
+- src/agents/pi-tools.create-openclaw-coding-tools.adds-claude-style-aliases-schemas-without-dropping.test.ts:544 — fs.writeFile(filePath, lines.join("\n"), "utf8");
+- src/agents/pi-tools.create-openclaw-coding-tools.adds-claude-style-aliases-schemas-without-dropping.test.ts:569 — fs.writeFile(filePath, lines.join("\n"), "utf8");
+- src/agents/pi-tools.safe-bins.test.ts:97 — fs.writeFileSync(path.join(tmpDir, file.name), file.contents, "utf8");
+- src/agents/pi-tools.sandbox-mounted-paths.workspace-only.test.ts:96 — fs.writeFile(path.join(agentRoot, "secret.txt"), "shh", "utf8");
+- src/agents/pi-tools.sandbox-mounted-paths.workspace-only.test.ts:111 — fs.writeFile(path.join(agentRoot, "secret.txt"), "shh", "utf8");
+- src/agents/pi-tools.workspace-paths.test.ts:33 — fs.writeFile(path.join(workspaceDir, readFile), "workspace read ok", "utf8");
+- src/agents/pi-tools.workspace-paths.test.ts:47 — fs.writeFile(path.join(workspaceDir, editFile), "hello world", "utf8");
+- src/agents/pi-tools.workspace-paths.test.ts:130 — fs.writeFile(path.join(sandboxDir, testFile), "sandbox read", "utf8");
+- src/agents/pi-tools.workspace-paths.test.ts:131 — fs.writeFile(path.join(workspaceDir, testFile), "workspace read", "utf8");
+- src/agents/queued-file-writer.ts:27 — fs.appendFile(filePath, line, "utf8"))
+- src/agents/sandbox/registry.test.ts:42 — fs.writeFile;
+- src/agents/sandbox/registry.test.ts:51 — fs.writeFile>[1]): string {
+- src/agents/sandbox/registry.test.ts:65 — fs.writeFile(SANDBOX_REGISTRY_PATH, payload, "utf-8");
+- src/agents/sandbox/registry.test.ts:69 — fs.writeFile(SANDBOX_BROWSER_REGISTRY_PATH, payload, "utf-8");
+- src/agents/sandbox/registry.test.ts:163 — fs.writeFile(SANDBOX_REGISTRY_PATH, `${JSON.stringify({ entries }, null, 2)}\n`, "utf-8");
+- src/agents/sandbox/registry.test.ts:167 — fs.writeFile(
+- src/agents/sandbox/registry.ts:121 — fs.writeFile(tempPath, payload, "utf-8");
+- src/agents/sandbox/workspace.ts:40 — fs.writeFile(dest, content, { encoding: "utf-8", flag: "wx" });
+- src/agents/session-file-repair.test.ts:43 — fs.writeFile(file, content, "utf-8");
+- src/agents/session-file-repair.test.ts:63 — fs.writeFile(file, content, "utf-8");
+- src/agents/session-file-repair.test.ts:79 — fs.writeFile(file, content, "utf-8");
+- src/agents/session-file-repair.ts:77 — fs.writeFile(backupPath, content, "utf-8");
+- src/agents/session-file-repair.ts:81 — fs.writeFile(tmpPath, cleaned, "utf-8");
+- src/agents/session-tool-result-guard.tool-result-persist-hook.test.ts:20 — fs.writeFileSync(file, params.body, "utf-8");
+- src/agents/session-tool-result-guard.tool-result-persist-hook.test.ts:21 — fs.writeFileSync(
+- src/agents/session-write-lock.test.ts:75 — fs.writeFile(
+- src/agents/session-write-lock.test.ts:97 — fs.writeFile(lockPath, "{}", "utf8");
+- src/agents/session-write-lock.test.ts:113 — fs.writeFile(lockPath, "{}", "utf8");
+- src/agents/session-write-lock.test.ts:180 — fs.writeFile(
+- src/agents/session-write-lock.test.ts:188 — fs.writeFile(
+- src/agents/session-write-lock.test.ts:196 — fs.writeFile(
+- src/agents/shell-utils.test.ts:18 — fs.writeFileSync(filePath, "");
+- src/agents/skills-install-download.ts:80 — fs.createWriteStream(destPath);
+- src/agents/skills-install-fallback.test.ts:45 — fs.writeFile(
+- src/agents/skills-install-fallback.test.ts:57 — fs.writeFile(path.join(skillDir, "runner.js"), "export {};\n", "utf-8");
+- src/agents/skills-install.download-test-utils.ts:52 — fs.writeFile(
+- src/agents/skills-install.download-test-utils.ts:64 — fs.writeFile(path.join(skillDir, "runner.js"), "export {};\n", "utf-8");
+- src/agents/skills-install.test.ts:23 — fs.writeFile(
+- src/agents/skills-install.test.ts:35 — fs.writeFile(path.join(skillDir, "runner.js"), "export {};\n", "utf-8");
+- src/agents/skills.build-workspace-skills-prompt.prefers-workspace-skills-managed-skills.test.ts:107 — fs.writeFile(fakebinPath, "#!/bin/sh\nexit 0\n", "utf-8");
+- src/agents/skills.e2e-test-helpers.ts:22 — fs.writeFile(
+- src/agents/skills.loadworkspaceskillentries.test.ts:28 — fs.writeFile(
+- src/agents/skills.loadworkspaceskillentries.test.ts:41 — fs.writeFile(path.join(pluginRoot, "index.ts"), "export {};\n", "utf-8");
+- src/agents/skills.loadworkspaceskillentries.test.ts:42 — fs.writeFile(
+- src/agents/skills.test-helpers.ts:12 — fs.writeFile(
+- src/agents/skills/bundled-dir.test.ts:31 — fs.writeFile(path.join(root, "package.json"), JSON.stringify({ name: "openclaw" }));
+- src/agents/skills/bundled-dir.test.ts:42 — fs.writeFile(argv1, "// stub", "utf-8");
+- src/agents/subagent-depth.test.ts:52 — fs.writeFileSync(
+- src/agents/subagent-registry.persistence.test.ts:30 — fs.writeFile(registryPath, `${JSON.stringify(persisted)}\n`, "utf8");
+- src/agents/subagent-registry.persistence.test.ts:164 — fs.writeFile(registryPath, `${JSON.stringify(persisted)}\n`, "utf8");
+- src/agents/test-helpers/host-sandbox-fs-bridge.ts:21 — fs.writeFile(target.hostPath, buffer);
+- src/agents/tools/image-tool.test.ts:14 — fs.writeFile(
+- src/agents/tools/image-tool.test.ts:42 — fs.writeFile(imagePath, Buffer.from(ONE_PIXEL_PNG_B64, "base64"));
+- src/agents/tools/image-tool.test.ts:378 — fs.writeFile(path.join(sandboxRoot, "img.png"), "fake", "utf8");
+- src/agents/tools/image-tool.test.ts:406 — fs.writeFile(
+- src/agents/workspace-templates.test.ts:29 — fs.writeFile(path.join(root, "package.json"), JSON.stringify({ name: "openclaw" }));
+- src/agents/workspace-templates.test.ts:33 — fs.writeFile(path.join(templatesDir, "AGENTS.md"), "# ok\n");
+- src/agents/workspace-templates.test.ts:45 — fs.writeFile(path.join(root, "package.json"), JSON.stringify({ name: "openclaw" }));
+- src/agents/workspace.load-extra-bootstrap-files.test.ts:31 — fs.writeFile(path.join(packageDir, "TOOLS.md"), "tools", "utf-8");
+- src/agents/workspace.load-extra-bootstrap-files.test.ts:32 — fs.writeFile(path.join(packageDir, "README.md"), "not bootstrap", "utf-8");
+- src/agents/workspace.load-extra-bootstrap-files.test.ts:47 — fs.writeFile(path.join(outsideDir, "AGENTS.md"), "outside", "utf-8");
+- src/agents/workspace.load-extra-bootstrap-files.test.ts:63 — fs.writeFile(path.join(realWorkspace, "AGENTS.md"), "linked agents", "utf-8");
+- src/agents/workspace.ts:149 — fs.writeFile(filePath, content, {
+- src/agents/workspace.ts:236 — fs.writeFile(tmpPath, payload, { encoding: "utf-8" });
+- src/auto-reply/reply.directive.directive-behavior.accepts-thinking-xhigh-codex-models.test.ts:20 — fs.writeFile(
+- src/auto-reply/reply.directive.directive-behavior.prefers-alias-matches-fuzzy-selection-is-ambiguous.test.ts:99 — fs.writeFile(
+- src/auto-reply/reply.triggers.trigger-handling.includes-error-cause-embedded-agent-throws.test.ts:51 — fs.writeFile(
+- src/auto-reply/reply.triggers.trigger-handling.stages-inbound-media-into-sandbox-workspace.test.ts:34 — fs.writeFile(mediaPath, "test");
+- src/auto-reply/reply.triggers.trigger-handling.stages-inbound-media-into-sandbox-workspace.test.ts:67 — fs.writeFile(sensitiveFile, "SENSITIVE DATA");
+- src/auto-reply/reply.triggers.trigger-handling.targets-active-session-native-stop.test.ts:162 — fs.writeFile(
+- src/auto-reply/reply.triggers.trigger-handling.targets-active-session-native-stop.test.ts:234 — fs.writeFile(
+- src/auto-reply/reply/abort.test.ts:56 — fs.writeFile(storePath, JSON.stringify(storeEntries, null, 2));
+- src/auto-reply/reply/agent-runner.misc.runreplyagent.test.ts:320 — fs.writeFile(
+- src/auto-reply/reply/agent-runner.runreplyagent.test.ts:178 — fs.writeFile(
+- src/auto-reply/reply/agent-runner.runreplyagent.test.ts:296 — fs.writeFile(storePath, JSON.stringify(sessionStore), "utf-8");
+- src/auto-reply/reply/agent-runner.runreplyagent.test.ts:301 — fs.writeFile(transcriptPath, "bad", "utf-8");
+- src/auto-reply/reply/agent-runner.runreplyagent.test.ts:1064 — fs.writeFile(storePath, JSON.stringify(sessionStore), "utf-8");
+- src/auto-reply/reply/agent-runner.runreplyagent.test.ts:1066 — fs.writeFile(transcriptPath, "ok", "utf-8");
+- src/auto-reply/reply/agent-runner.runreplyagent.test.ts:1113 — fs.writeFile(storePath, JSON.stringify(sessionStore), "utf-8");
+- src/auto-reply/reply/agent-runner.runreplyagent.test.ts:1115 — fs.writeFile(transcriptPath, "ok", "utf-8");
+- src/auto-reply/reply/agent-runner.runreplyagent.test.ts:1161 — fs.writeFile(storePath, JSON.stringify(sessionStore), "utf-8");
+- src/auto-reply/reply/agent-runner.runreplyagent.test.ts:1163 — fs.writeFile(transcriptPath, "ok", "utf-8");
+- src/auto-reply/reply/agent-runner.runreplyagent.test.ts:1242 — fs.writeFile(storePath, JSON.stringify(sessionStore), "utf-8");
+- src/auto-reply/reply/agent-runner.runreplyagent.test.ts:1246 — fs.writeFile(transcriptPath, "ok", "utf-8");
+- src/auto-reply/reply/commands-export-session.ts:188 — fs.writeFileSync(outputPath, html, "utf-8");
+- src/auto-reply/reply/commands.test.ts:128 — fs.writeFile(path.join(testWorkspaceDir, "AGENTS.md"), "# Agents\n", "utf-8");
+- src/auto-reply/reply/post-compaction-context.test.ts:23 — fs.writeFileSync(path.join(tmpDir, "AGENTS.md"), "# My Agent\n\nSome content.\n");
+- src/auto-reply/reply/post-compaction-context.test.ts:41 — fs.writeFileSync(path.join(tmpDir, "AGENTS.md"), content);
+- src/auto-reply/reply/post-compaction-context.test.ts:62 — fs.writeFileSync(path.join(tmpDir, "AGENTS.md"), content);
+- src/auto-reply/reply/post-compaction-context.test.ts:84 — fs.writeFileSync(path.join(tmpDir, "AGENTS.md"), content);
+- src/auto-reply/reply/post-compaction-context.test.ts:94 — fs.writeFileSync(path.join(tmpDir, "AGENTS.md"), longContent);
+- src/auto-reply/reply/post-compaction-context.test.ts:109 — fs.writeFileSync(path.join(tmpDir, "AGENTS.md"), content);
+- src/auto-reply/reply/post-compaction-context.test.ts:124 — fs.writeFileSync(path.join(tmpDir, "AGENTS.md"), content);
+- src/auto-reply/reply/post-compaction-context.test.ts:144 — fs.writeFileSync(path.join(tmpDir, "AGENTS.md"), content);
+- src/auto-reply/reply/post-compaction-context.test.ts:162 — fs.writeFileSync(path.join(tmpDir, "AGENTS.md"), content);
+- src/auto-reply/reply/reply-state.test.ts:38 — fs.writeFile(
+- src/auto-reply/reply/session.test.ts:77 — fs.writeFile(
+- src/auto-reply/reply/session.test.ts:151 — fs.writeFile(
+- src/auto-reply/reply/session.test.ts:929 — fs.writeFile(
+- src/auto-reply/reply/session.test.ts:1175 — fs.writeFile(
+- src/auto-reply/reply/session.test.ts:1311 — fs.writeFile(
+- src/auto-reply/reply/session.ts:143 — fs.writeFileSync(sessionFile, `${JSON.stringify(header)}\n`, "utf-8");
+- src/auto-reply/status.test.ts:443 — fs.writeFileSync(
+- src/browser/chrome.profile-decoration.ts:30 — fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+- src/browser/chrome.profile-decoration.ts:186 — fs.writeFileSync(decoratedMarkerPath(userDataDir), `${Date.now()}\n`, "utf-8");
+- src/browser/paths.test.ts:56 — fs.writeFile(filePath, "ok", "utf8");
+- src/browser/paths.test.ts:73 — fs.writeFile(outsidePath, "nope", "utf8");
+- src/browser/paths.test.ts:128 — fs.writeFile(outsidePath, "secret", "utf8");
+- src/browser/paths.test.ts:152 — fs.writeFile(filePath, "ok", "utf8");
+- src/browser/paths.test.ts:185 — fs.writeFile(outsideFile, "secret", "utf8");
+- src/canvas-host/server.test.ts:109 — fs.writeFile(path.join(dir, "index.html"), "<html><body>no-reload</body></html>", "utf8");
+- src/canvas-host/server.test.ts:136 — fs.writeFile(path.join(dir, "index.html"), "<html><body>v1</body></html>", "utf8");
+- src/canvas-host/server.test.ts:206 — fs.writeFile(index, "<html><body>v1</body></html>", "utf8");
+- src/canvas-host/server.test.ts:254 — fs.writeFile(index, "<html><body>v2</body></html>", "utf8");
+- src/canvas-host/server.test.ts:277 — fs.writeFile(bundlePath, "window.openclawA2UI = {};", "utf8");
+- src/canvas-host/server.ts:185 — fs.writeFile(path.join(rootReal, "index.html"), defaultIndexHTML(), "utf8");
+- src/channels/plugins/plugins-core.test.ts:95 — fs.writeFileSync(
+- src/cli/acp-cli.option-collisions.test.ts:40 — fs.writeFile(files.tokenFile, secrets.token, "utf8");
+- src/cli/acp-cli.option-collisions.test.ts:44 — fs.writeFile(files.passwordFile, secrets.password, "utf8");
+- src/cli/browser-cli-inspect.ts:103 — fs.writeFile(opts.out, result.snapshot, "utf8");
+- src/cli/browser-cli-inspect.ts:106 — fs.writeFile(opts.out, payload, "utf8");
+- src/cli/completion-cli.ts:95 — fs.writeFile(targetPath, script, "utf-8");
+- src/cli/completion-cli.ts:353 — fs.writeFile(profilePath, "", "utf-8");
+- src/cli/completion-cli.ts:370 — fs.writeFile(profilePath, update.next, "utf-8");
+- src/cli/dns-cli.ts:35 — fs.writeFileSync(filePath, content, "utf-8");
+- src/cli/dns-cli.ts:244 — fs.writeFileSync(zonePath, zoneLines.join("\n"), "utf-8");
+- src/cli/memory-cli.test.ts:90 — fs.writeFile(dbPath, content, "utf-8");
+- src/cli/nodes-camera.ts:140 — fs.writeFile(filePath, buf);
+- src/cli/update-cli.test.ts:564 — fs.writeFile(path.join(root, "dist", "entry.js"), "console.log('ok');\n", "utf8");
+- src/cli/update-cli/restart-helper.ts:113 — fs.writeFile(scriptPath, scriptContent, { mode: 0o755 });
+- src/commands/agent.test.ts:97 — fs.writeFileSync(storePath, JSON.stringify(sessions, null, 2));
+- src/commands/agents.identity.test.ts:34 — fs.writeFile(identityPath, `${lines.join("\n")}\n`, "utf-8");
+- src/commands/auth-choice.test.ts:914 — fs.writeFile(
+- src/commands/doctor-auth.deprecated-cli-profiles.test.ts:46 — fs.writeFileSync(
+- src/commands/doctor-config-flow.test-utils.ts:16 — fs.writeFile(
+- src/commands/doctor-config-flow.test.ts:184 — fs.writeFile(
+- src/commands/doctor-legacy-config.migrations.test.ts:13 — fs.writeFileSync(path.join(dir, "creds.json"), JSON.stringify({ me: {} }));
+- src/commands/doctor-legacy-config.migrations.test.ts:78 — fs.writeFileSync(credsPath, JSON.stringify({ me: {} }));
+- src/commands/doctor-session-locks.test.ts:35 — fs.writeFile(
+- src/commands/doctor-session-locks.test.ts:59 — fs.writeFile(
+- src/commands/doctor-session-locks.test.ts:64 — fs.writeFile(
+- src/commands/doctor-state-migrations.test.ts:35 — fs.writeFileSync(filePath, JSON.stringify(value, null, 2), "utf-8");
+- src/commands/doctor-state-migrations.test.ts:47 — fs.writeFileSync(path.join(legacySessionsDir, fileName), content, "utf-8");
+- src/commands/doctor-state-migrations.test.ts:185 — fs.writeFileSync(path.join(legacyAgentDir, "foo.txt"), "legacy", "utf-8");
+- src/commands/doctor-state-migrations.test.ts:186 — fs.writeFileSync(path.join(legacyAgentDir, "baz.txt"), "legacy2", "utf-8");
+- src/commands/doctor-state-migrations.test.ts:190 — fs.writeFileSync(path.join(targetAgentDir, "foo.txt"), "new", "utf-8");
+- src/commands/doctor-state-migrations.test.ts:209 — fs.writeFileSync(path.join(legacyAgentDir, "auth.json"), "{}", "utf-8");
+- src/commands/doctor-state-migrations.test.ts:253 — fs.writeFileSync(path.join(oauthDir, "oauth.json"), "{}", "utf-8");
+- src/commands/doctor-state-migrations.test.ts:254 — fs.writeFileSync(path.join(oauthDir, "creds.json"), "{}", "utf-8");
+- src/commands/doctor-state-migrations.test.ts:255 — fs.writeFileSync(path.join(oauthDir, "session-abc.json"), "{}", "utf-8");
+- src/commands/doctor-state-migrations.test.ts:276 — fs.writeFileSync(
+- src/commands/doctor-state-migrations.test.ts:488 — fs.writeFileSync(path.join(legacyDir, "sessions.json"), "{}", "utf-8");
+- src/commands/health.snapshot.test.ts:162 — fs.writeFileSync(tokenFile, "t-file\n", "utf-8");
+- src/commands/models.list.auth-sync.test.ts:36 — fs.writeFile(configPath, "{}\n", "utf8");
+- src/commands/sessions.test-helpers.ts:55 — fs.writeFileSync(file, JSON.stringify(data, null, 2));
+- src/commands/signal-install.test.ts:153 — fs.writeFile(archivePath, await zip.generateAsync({ type: "nodebuffer" }));
+- src/commands/signal-install.test.ts:169 — fs.writeFile(archivePath, await zip.generateAsync({ type: "nodebuffer" }));
+- src/commands/signal-install.test.ts:184 — fs.writeFile(path.join(rootDir, "signal-cli"), "bin", "utf-8");
+- src/config/config-misc.test.ts:301 — fs.writeFile(
+- src/config/config.agent-concurrency-defaults.test.ts:53 — fs.writeFile(
+- src/config/config.backup-rotation.test.ts:23 — fs.writeFile(configPath, json, "utf-8");
+- src/config/config.env-vars.test.ts:96 — fs.writeFile(path.join(stateDir, ".env"), "BRAVE_API_KEY=from-dotenv\n", "utf-8");
+- src/config/config.identity-defaults.test.ts:30 — fs.writeFile(
+- src/config/config.legacy-config-detection.accepts-imessage-dmpolicy.test.ts:18 — fs.writeFile(configPath, JSON.stringify(params.config, null, 2), "utf-8");
+- src/config/config.legacy-config-detection.accepts-imessage-dmpolicy.test.ts:39 — fs.writeFile(configPath, JSON.stringify(config, null, 2), "utf-8");
+- src/config/config.legacy-config-detection.accepts-imessage-dmpolicy.test.ts:294 — fs.writeFile(
+- src/config/config.nix-integration-u3-u5-u9.test.ts:127 — fs.writeFile(
+- src/config/config.nix-integration-u3-u5-u9.test.ts:132 — fs.writeFile(
+- src/config/config.nix-integration-u3-u5-u9.test.ts:144 — fs.writeFile(
+- src/config/config.plugin-validation.test.ts:14 — fs.writeFile(
+- src/config/config.plugin-validation.test.ts:26 — fs.writeFile(
+- src/config/config.pruning-defaults.test.ts:11 — fs.writeFile(
+- src/config/env-preserve-io.test.ts:17 — fs.writeFile(configPath, configContent);
+- src/config/includes.test.ts:594 — fs.writeFile(
+- src/config/io.compat.test.ts:25 — fs.writeFile(configPath, JSON.stringify({ gateway: { port } }, null, 2));
+- src/config/io.compat.test.ts:86 — fs.writeFile(
+- src/config/io.owner-display-secret.test.ts:27 — fs.writeFile(
+- src/config/io.write-config.test.ts:21 — fs.writeFile(configPath, JSON.stringify(params.initialConfig, null, 2), "utf-8");
+- src/config/io.write-config.test.ts:336 — fs.writeFile(
+- src/config/paths.test.ts:132 — fs.writeFile(legacyPath, "{}", "utf-8");
+- src/config/paths.test.ts:144 — fs.writeFile(legacyConfig, "{}", "utf-8");
+- src/config/sessions.cache.test.ts:127 — fs.writeFileSync(storePath, JSON.stringify(modifiedStore, null, 2));
+- src/config/sessions.cache.test.ts:178 — fs.writeFileSync(storePath, JSON.stringify(modifiedStore, null, 2));
+- src/config/sessions.cache.test.ts:195 — fs.writeFileSync(storePath, "not valid json {");
+- src/config/sessions.test.ts:46 — fs.writeFile(storePath, JSON.stringify(params.entries, null, 2), "utf-8");
+- src/config/sessions.test.ts:165 — fs.writeFile(
+- src/config/sessions.test.ts:218 — fs.writeFile(storePath, "{}", "utf-8");
+- src/config/sessions.test.ts:248 — fs.writeFile(
+- src/config/sessions.test.ts:292 — fs.writeFile(storePath, "{}", "utf-8");
+- src/config/sessions.test.ts:383 — fs.writeFile(storePath, "{}", "utf-8");
+- src/config/sessions.test.ts:402 — fs.writeFile(storePath, "[]", "utf-8");
+- src/config/sessions.test.ts:418 — fs.writeFile(storePath, "{}", "utf-8");
+- src/config/sessions.test.ts:444 — fs.writeFile(
+- src/config/sessions.test.ts:476 — fs.writeFile(
+- src/config/sessions.test.ts:656 — fs.writeFile(storePath, JSON.stringify(externalStore, null, 2), "utf-8");
+- src/config/sessions/sessions.test.ts:185 — fs.writeFileSync(fixture.storePath(), JSON.stringify(store), "utf-8");
+- src/config/sessions/sessions.test.ts:229 — fs.writeFileSync(fixture.storePath(), JSON.stringify(store), "utf-8");
+- src/config/sessions/sessions.test.ts:255 — fs.writeFileSync(fixture.storePath(), JSON.stringify({}), "utf-8");
+- src/config/sessions/store.pruning.integration.test.ts:109 — fs.writeFile(staleTranscript, '{"type":"session"}\n', "utf-8");
+- src/config/sessions/store.pruning.integration.test.ts:110 — fs.writeFile(freshTranscript, '{"type":"session"}\n', "utf-8");
+- src/config/sessions/store.pruning.integration.test.ts:137 — fs.writeFile(staleTranscript, '{"type":"session"}\n', "utf-8");
+- src/config/sessions/store.pruning.integration.test.ts:151 — fs.writeFile(oldArchived, "old", "utf-8");
+- src/config/sessions/store.pruning.integration.test.ts:152 — fs.writeFile(recentArchived, "recent", "utf-8");
+- src/config/sessions/store.pruning.integration.test.ts:153 — fs.writeFile(bakArchived, "bak", "utf-8");
+- src/config/sessions/store.pruning.test.ts:84 — fs.writeFile(storePath, bigContent, "utf-8");
+- src/config/sessions/store.pruning.test.ts:103 — fs.writeFile(storePath, `data-${i}-${"x".repeat(100)}`, "utf-8");
+- src/config/sessions/store.session-key-normalization.test.ts:35 — fs.writeFile(storePath, "{}", "utf-8");
+- src/config/sessions/store.session-key-normalization.test.ts:82 — fs.writeFile(
+- src/config/test-helpers.ts:12 — fs.writeFile(configPath, JSON.stringify(config, null, 2), "utf-8");
+- src/cron/isolated-agent.auth-profile-propagation.test.ts:21 — fs.writeFile(
+- src/cron/isolated-agent.auth-profile-propagation.test.ts:43 — fs.writeFile(
+- src/cron/isolated-agent.skips-delivery-without-whatsapp-recipient-besteffortdeliver-true.test.ts:158 — fs.writeFile(
+- src/cron/isolated-agent.test-harness.ts:31 — fs.writeFile(storePath, JSON.stringify(entries, null, 2), "utf-8");
+- src/cron/isolated-agent.uses-last-non-empty-agent-text-as.test.ts:502 — fs.writeFile(storePath, JSON.stringify(store, null, 2), "utf-8");
+- src/cron/run-log.test.ts:130 — fs.writeFile(
+- src/cron/run-log.test.ts:177 — fs.appendFile(
+- src/cron/run-log.ts:94 — fs.writeFile(tmp, `${kept.join("\n")}\n`, "utf-8");
+- src/cron/run-log.ts:109 — fs.appendFile(resolved, `${JSON.stringify(entry)}\n`, "utf-8");
+- src/cron/service.issue-16156-list-skips-cron.test.ts:17 — fs.writeFile(storePath, JSON.stringify({ version: 1, jobs }, null, 2), "utf-8");
+- src/cron/service.issue-regressions.test.ts:118 — fs.writeFile(storePath, JSON.stringify({ version: 1, jobs }, null, 2), "utf-8");
+- src/cron/service.issue-regressions.test.ts:313 — fs.writeFile(
+- src/cron/service.issue-regressions.test.ts:357 — fs.writeFile(
+- src/cron/service.issue-regressions.test.ts:619 — fs.writeFile(store.storePath, JSON.stringify(persisted, null, 2), "utf-8");
+- src/cron/service.issue-regressions.test.ts:690 — fs.writeFile(
+- src/cron/service.issue-regressions.test.ts:1090 — fs.writeFile(
+- src/cron/service.issue-regressions.test.ts:1140 — fs.writeFile(
+- src/cron/service.rearm-timer-when-running.test.ts:103 — fs.writeFile(
+- src/cron/service.restart-catchup.test.ts:15 — fs.writeFile(storePath, JSON.stringify({ version: 1, jobs }, null, 2), "utf-8");
+- src/cron/service.store-migration.test.ts:34 — fs.writeFile(
+- src/cron/service.store-migration.test.ts:112 — fs.writeFile(
+- src/cron/service.store.migration.test.ts:14 — fs.writeFile(storePath, JSON.stringify({ version: 1, jobs: [legacyJob] }, null, 2));
+- src/cron/service.test-harness.ts:56 — fs.writeFile(
+- src/cron/session-reaper.test.ts:93 — fs.writeFileSync(storePath, JSON.stringify(store));
+- src/cron/session-reaper.test.ts:120 — fs.writeFileSync(storePath, JSON.stringify(store));
+- src/cron/session-reaper.test.ts:141 — fs.writeFileSync(storePath, JSON.stringify(store));
+- src/cron/session-reaper.test.ts:157 — fs.writeFileSync(storePath, JSON.stringify({}));
+- src/cron/session-reaper.test.ts:179 — fs.writeFileSync(storePath, JSON.stringify({}));
+- src/cron/session-reaper.test.ts:180 — fs.writeFileSync(otherPath, JSON.stringify({}));
+- src/cron/store.test.ts:42 — fs.writeFile(store.storePath, "{ not json", "utf-8");
+- src/daemon/launchd.ts:381 — fs.writeFile(plistPath, plist, "utf8");
+- src/daemon/schtasks.test.ts:75 — fs.writeFile(scriptPath, options.scriptLines.join("\r\n"), "utf8");
+- src/daemon/schtasks.ts:190 — fs.writeFile(scriptPath, script, "utf8");
+- src/daemon/systemd.ts:203 — fs.writeFile(unitPath, unit, "utf8");
+- src/discord/monitor/exec-approvals.test.ts:22 — fs.writeFileSync(STORE_PATH, `${JSON.stringify(store, null, 2)}\n`, "utf8");
+- src/discord/monitor/model-picker-preferences.test.ts:59 — fs.writeFile(filePath, "{not-json", "utf-8");
+- src/discord/monitor/thread-bindings.ttl.test.ts:491 — fs.writeFileSync(
+- src/discord/send.outbound.ts:467 — fs.writeFile(filePath, media.buffer, { mode: 0o600 });
+- src/discord/voice/manager.ts:217 — fs.writeFile(filePath, wav);
+- src/gateway/boot.test.ts:60 — fs.writeFile(bootPath, options.bootContent, "utf-8");
+- src/gateway/control-ui.http.test.ts:17 — fs.writeFile(path.join(tmp, "index.html"), params.indexHtml ?? "<html></html>\n");
+- src/gateway/control-ui.http.test.ts:83 — fs.writeFile(filePath, contents);
+- src/gateway/control-ui.http.test.ts:97 — fs.writeFile(path.join(root, "index.html"), "<html>ok</html>\n");
+- src/gateway/control-ui.http.test.ts:204 — fs.writeFile(avatarPath, "avatar-bytes\n");
+- src/gateway/control-ui.http.test.ts:225 — fs.writeFile(outsideFile, "outside-secret\n");
+- src/gateway/control-ui.http.test.ts:250 — fs.writeFile(outsideFile, "outside-secret\n");
+- src/gateway/control-ui.http.test.ts:312 — fs.writeFile(outsideIndex, "<html>outside</html>\n");
+- src/gateway/control-ui.http.test.ts:334 — fs.writeFile(secretPath, "sensitive-data");
+- src/gateway/control-ui.http.test.ts:355 — fs.writeFile(secretPath, "sensitive-data");
+- src/gateway/gateway-cli-backend.live.test.ts:227 — fs.writeFile(mcpConfigPath, `${JSON.stringify({ mcpServers: {} }, null, 2)}\n`);
+- src/gateway/gateway-cli-backend.live.test.ts:258 — fs.writeFile(tempConfigPath, `${JSON.stringify(nextCfg, null, 2)}\n`);
+- src/gateway/gateway-misc.test.ts:55 — fs.writeFile(path.join(tmp, "index.html"), params.indexHtml ?? "<html></html>\n");
+- src/gateway/gateway-misc.test.ts:57 — fs.writeFile(path.join(tmp, "favicon.svg"), params.faviconSvg);
+- src/gateway/gateway-models.profiles.live.test.ts:541 — fs.writeFile(toolProbePath, `nonceA=${nonceA}\nnonceB=${nonceB}\n`);
+- src/gateway/gateway-models.profiles.live.test.ts:555 — fs.writeFile(tempConfigPath, `${JSON.stringify(nextCfg, null, 2)}\n`);
+- src/gateway/gateway-models.profiles.live.test.ts:1182 — fs.writeFile(toolProbePath, `nonceA=${nonceA}\nnonceB=${nonceB}\n`);
+- src/gateway/gateway.test.ts:61 — fs.writeFile(toolProbePath, `nonceA=${nonceA}\nnonceB=${nonceB}\n`);
+- src/gateway/hooks-mapping.test.ts:89 — fs.writeFileSync(path.join(transformsDir, "transform.mjs"), "export default () => null;");
+- src/gateway/hooks-mapping.test.ts:153 — fs.writeFileSync(
+- src/gateway/hooks-mapping.test.ts:282 — fs.writeFileSync(outsideModule, 'export default () => ({ kind: "wake", text: "owned" });');
+- src/gateway/hooks-mapping.test.ts:308 — fs.writeFileSync(path.join(outsideDir, "transform.mjs"), "export default () => null;");
+- src/gateway/hooks-mapping.test.ts:333 — fs.writeFileSync(path.join(nestedDir, "transform.mjs"), "export default () => null;");
+- src/gateway/hooks-mapping.test.ts:414 — fs.writeFileSync(
+- src/gateway/openresponses-http.test.ts:45 — fs.writeFile(configPath, JSON.stringify(config, null, 2), "utf-8");
+- src/gateway/server-methods/agents.ts:291 — fs.appendFile(identityPath, lines.join("\n"), "utf-8");
+- src/gateway/server-methods/agents.ts:349 — fs.appendFile(identityPath, `\n- Avatar: ${sanitizeIdentityLine(avatar)}\n`, "utf-8");
+- src/gateway/server-methods/agents.ts:509 — fs.writeFile(filePath, content, "utf-8");
+- src/gateway/server-methods/chat.abort-persistence.test.ts:53 — fs.writeFile(transcriptPath, `${JSON.stringify(header)}\n`, "utf-8");
+- src/gateway/server-methods/chat.directive-tags.test.ts:61 — fs.writeFileSync(
+- src/gateway/server-methods/chat.test-helpers.ts:13 — fs.writeFileSync(
+- src/gateway/server-methods/chat.ts:309 — fs.writeFileSync(params.transcriptPath, `${JSON.stringify(header)}\n`, {
+- src/gateway/server-methods/server-methods.test.ts:233 — fs.appendFileSync(transcriptPath")).toBe(false);
+- src/gateway/server-methods/server-methods.test.ts:236 — fs.appendFileSync(params.transcriptPath")).toBe(false);
+- src/gateway/server-methods/sessions.ts:558 — fs.writeFileSync(filePath, `${keptLines.join("\n")}\n`, "utf-8");
+- src/gateway/server-methods/usage.sessions-usage.test.ts:161 — fs.writeFileSync(sessionFile, "", "utf-8");
+- src/gateway/server.chat.gateway-server-chat-b.test.ts:71 — fs.writeFile(path.join(sessionDir, "sess-main.jsonl"), `${lines.join("\n")}\n`, "utf-8");
+- src/gateway/server.chat.gateway-server-chat.test.ts:277 — fs.writeFile(path.join(historyDir, "sess-main.jsonl"), lines.join("\n"), "utf-8");
+- src/gateway/server.cron.test.ts:119 — fs.writeFile(testState.cronStorePath, JSON.stringify({ version: 1, jobs: [] }));
+- src/gateway/server.cron.test.ts:394 — fs.writeFile(testState.cronStorePath, JSON.stringify({ version: 1, jobs: [] }));
+- src/gateway/server.cron.test.ts:512 — fs.writeFile(
+- src/gateway/server.cron.test.ts:520 — fs.writeFile(
+- src/gateway/server.models-voicewake-misc.test.ts:172 — fs.writeFile(configPath, JSON.stringify(config, null, 2), "utf-8");
+- src/gateway/server.models-voicewake-misc.test.ts:179 — fs.writeFile(configPath, previousConfig, "utf-8");
+- src/gateway/server.models-voicewake-misc.test.ts:424 — fs.writeFile(
+- src/gateway/server.roles-allowlist-update.test.ts:168 — fs.writeFile(CONFIG_PATH, JSON.stringify({ update: { channel: "beta" } }, null, 2));
+- src/gateway/server.sessions-send.test.ts:63 — fs.appendFile(sessionFile, `${JSON.stringify({ message })}\n`, "utf8");
+- src/gateway/server.sessions-send.test.ts:155 — fs.writeFile(
+- src/gateway/server.sessions.gateway-server-sessions-a.test.ts:115 — fs.writeFile(
+- src/gateway/server.sessions.gateway-server-sessions-a.test.ts:182 — fs.writeFile(
+- src/gateway/server.sessions.gateway-server-sessions-a.test.ts:189 — fs.writeFile(
+- src/gateway/server.sessions.gateway-server-sessions-a.test.ts:481 — fs.writeFile(transcriptPath, lines.join("\n"), "utf-8");
+- src/gateway/server.sessions.gateway-server-sessions-a.test.ts:512 — fs.writeFile(transcriptPath, lines.join("\n"), "utf-8");
+- src/gateway/server.sessions.gateway-server-sessions-a.test.ts:513 — fs.writeFile(
+- src/gateway/server.sessions.gateway-server-sessions-a.test.ts:543 — fs.writeFile(
+- src/gateway/server.sessions.gateway-server-sessions-a.test.ts:552 — fs.writeFile(storePath, `${JSON.stringify(store, null, 2)}\n`, "utf-8");
+- src/gateway/session-utils.fs.test.ts:34 — fs.writeFileSync(transcriptPath, lines.map((line) => JSON.stringify(line)).join("\n"), "utf-8");
+- src/gateway/session-utils.fs.test.ts:100 — fs.writeFileSync(transcriptPath, testCase.lines.join("\n"), "utf-8");
+- src/gateway/session-utils.fs.test.ts:114 — fs.writeFileSync(transcriptPath, lines.join("\n"), "utf-8");
+- src/gateway/session-utils.fs.test.ts:135 — fs.writeFileSync(transcriptPath, lines.join("\n"), "utf-8");
+- src/gateway/session-utils.fs.test.ts:149 — fs.writeFileSync(transcriptPath, lines.join("\n"), "utf-8");
+- src/gateway/session-utils.fs.test.ts:162 — fs.writeFileSync(transcriptPath, lines.join("\n"), "utf-8");
+- src/gateway/session-utils.fs.test.ts:175 — fs.writeFileSync(transcriptPath, lines.join("\n"), "utf-8");
+- src/gateway/session-utils.fs.test.ts:194 — fs.writeFileSync(transcriptPath, "", "utf-8");
+- src/gateway/session-utils.fs.test.ts:223 — fs.writeFileSync(transcriptPath, testCase.lines.join("\n"), "utf-8");
+- src/gateway/session-utils.fs.test.ts:236 — fs.writeFileSync(transcriptPath, lines.join("\n"), "utf-8");
+- src/gateway/session-utils.fs.test.ts:249 — fs.writeFileSync(transcriptPath, lines.join("\n"), "utf-8");
+- src/gateway/session-utils.fs.test.ts:262 — fs.writeFileSync(transcriptPath, lines.join("\n"), "utf-8");
+- src/gateway/session-utils.fs.test.ts:289 — fs.writeFileSync(transcriptPath, JSON.stringify({ message: testCase.message }), "utf-8");
+- src/gateway/session-utils.fs.test.ts:302 — fs.writeFileSync(transcriptPath, lines.join("\n"), "utf-8");
+- src/gateway/session-utils.fs.test.ts:317 — fs.writeFileSync(transcriptPath, lines.join("\n"), "utf-8");
+- src/gateway/session-utils.fs.test.ts:329 — fs.writeFileSync(transcriptPath, validLine, "utf-8");
+- src/gateway/session-utils.fs.test.ts:346 — fs.writeFileSync(transcriptPath, lines.join("\n"), "utf-8");
+- src/gateway/session-utils.fs.test.ts:372 — fs.writeFileSync(
+- src/gateway/session-utils.fs.test.ts:380 — fs.writeFileSync(
+- src/gateway/session-utils.fs.test.ts:398 — fs.writeFileSync(
+- src/gateway/session-utils.fs.test.ts:403 — fs.writeFileSync(
+- src/gateway/session-utils.fs.test.ts:453 — fs.appendFileSync(
+- src/gateway/session-utils.fs.test.ts:491 — fs.writeFileSync(transcriptPath, lines.join("\n"), "utf-8");
+- src/gateway/session-utils.fs.test.ts:539 — fs.writeFileSync(
+- src/gateway/session-utils.fs.test.ts:569 — fs.writeFileSync(transcriptPath, lines.join("\n"), "utf-8");
+- src/gateway/session-utils.fs.test.ts:754 — fs.writeFileSync(testCase.transcriptPath, '{"type":"session"}\n', "utf-8");
+- src/gateway/session-utils.fs.test.ts:776 — fs.writeFileSync(transcriptPath, '{"type":"session"}\n', "utf-8");
+- src/gateway/session-utils.test.ts:165 — fs.writeFileSync(
+- src/gateway/session-utils.test.ts:191 — fs.writeFileSync(
+- src/gateway/session-utils.test.ts:214 — fs.writeFileSync(
+- src/gateway/session-utils.test.ts:249 — fs.writeFileSync(outsideFile, "top-secret", "utf8");
+- src/gateway/session-utils.test.ts:266 — fs.writeFileSync(targetPath, "avatar", "utf8");
+- src/gateway/test-helpers.mocks.ts:373 — fs.writeFile(configPath, raw, "utf-8");
+- src/gateway/test-helpers.server.ts:90 — fs.writeFile(storePath, JSON.stringify(store, null, 2), "utf-8");
+- src/hooks/bundled/bootstrap-extra-files/handler.test.ts:56 — fs.writeFile(path.join(extraDir, "AGENTS.md"), "extra agents", "utf-8");
+- src/hooks/bundled/bootstrap-extra-files/handler.test.ts:80 — fs.writeFile(path.join(extraDir, "SOUL.md"), "evil", "utf-8");
+- src/hooks/bundled/command-logger/handler.ts:61 — fs.appendFile(logFile, logLine, "utf-8");
+- src/hooks/bundled/session-memory/handler.ts:309 — fs.writeFile(memoryFilePath, entry, "utf-8");
+- src/hooks/gmail-setup-utils.test.ts:31 — fs.writeFile(realPython, "#!/bin/sh\nexit 0\n", "utf-8");
+- src/hooks/gmail-setup-utils.test.ts:37 — fs.writeFile(shim, "#!/bin/sh\nexit 0\n", "utf-8");
+- src/hooks/hooks-install.test.ts:46 — fs.writeFile(
+- src/hooks/hooks-install.test.ts:60 — fs.writeFile(
+- src/hooks/hooks-install.test.ts:75 — fs.writeFile(
+- src/hooks/import-url.test.ts:14 — fs.writeFileSync(tmpFile, "export default () => {};");
+- src/hooks/install.test.ts:58 — fs.writeFileSync(archivePath, params.contents);
+- src/hooks/install.test.ts:161 — fs.writeFileSync(
+- src/hooks/install.test.ts:171 — fs.writeFileSync(
+- src/hooks/install.test.ts:184 — fs.writeFileSync(
+- src/hooks/install.test.ts:206 — fs.writeFileSync(
+- src/hooks/install.test.ts:219 — fs.writeFileSync(path.join(hookDir, "handler.ts"), "export default async () => {};\n");
+- src/hooks/install.test.ts:241 — fs.writeFileSync(
+- src/hooks/install.test.ts:250 — fs.writeFileSync(path.join(outsideHookDir, "HOOK.md"), "---\nname: outside\n---\n", "utf-8");
+- src/hooks/install.test.ts:251 — fs.writeFileSync(path.join(outsideHookDir, "handler.ts"), "export default async () => {};\n");
+- src/hooks/install.test.ts:273 — fs.writeFileSync(path.join(outsideHookDir, "HOOK.md"), "---\nname: outside\n---\n", "utf-8");
+- src/hooks/install.test.ts:274 — fs.writeFileSync(path.join(outsideHookDir, "handler.ts"), "export default async () => {};\n");
+- src/hooks/install.test.ts:280 — fs.writeFileSync(
+- src/hooks/install.test.ts:313 — fs.writeFileSync(path.join(packTmpDir, packedName), npmPackHooksBuffer);
+- src/hooks/loader.test.ts:41 — fs.writeFile(handlerPath, code, "utf-8");
+- src/hooks/loader.test.ts:232 — fs.writeFile(outsideHandlerPath, "export default async function() {}", "utf-8");
+- src/hooks/loader.test.ts:236 — fs.writeFile(
+- src/hooks/loader.test.ts:264 — fs.writeFile(outsideHandlerPath, "export default async function() {}", "utf-8");
+- src/hooks/workspace.test.ts:19 — fs.writeFileSync(path.join(outsideHookDir, "HOOK.md"), "---\nname: outside\n---\n");
+- src/hooks/workspace.test.ts:20 — fs.writeFileSync(path.join(outsideHookDir, "handler.js"), "export default async () => {};\n");
+- src/hooks/workspace.test.ts:22 — fs.writeFileSync(
+- src/hooks/workspace.test.ts:49 — fs.writeFileSync(path.join(nested, "HOOK.md"), "---\nname: nested\n---\n");
+- src/hooks/workspace.test.ts:50 — fs.writeFileSync(path.join(nested, "handler.js"), "export default async () => {};\n");
+- src/hooks/workspace.test.ts:52 — fs.writeFileSync(
+- src/hooks/workspace.test.ts:80 — fs.writeFileSync(path.join(outsideDir, "HOOK.md"), "---\nname: outside\n---\n");
+- src/hooks/workspace.test.ts:81 — fs.writeFileSync(path.join(outsideDir, "handler.js"), "export default async () => {};\n");
+- src/hooks/workspace.test.ts:88 — fs.writeFileSync(
+- src/infra/archive.test.ts:40 — fs.writeFile(params.archivePath, await zip.generateAsync({ type: "nodebuffer" }));
+- src/infra/archive.test.ts:46 — fs.writeFile(path.join(packageDir, params.fileName), params.content);
+- src/infra/archive.test.ts:111 — fs.writeFile(archivePath, await zip.generateAsync({ type: "nodebuffer" }));
+- src/infra/archive.test.ts:127 — fs.writeFile(archivePath, await zip.generateAsync({ type: "nodebuffer" }));
+- src/infra/archive.test.ts:148 — fs.writeFile(path.join(workDir, "outside.txt"), "pwnd");
+- src/infra/archive.test.ts:183 — fs.writeFile(archivePath, await zip.generateAsync({ type: "nodebuffer" }));
+- src/infra/archive.test.ts:210 — fs.writeFile(outsideFile, "owned");
+- src/infra/brew.test.ts:19 — fs.writeFile(filePath, "#!/bin/sh\necho ok\n", "utf-8");
+- src/infra/brew.test.ts:78 — fs.writeFile(explicit, "#!/bin/sh\necho no\n", "utf-8");
+- src/infra/device-auth-store.ts:38 — fs.writeFileSync(filePath, `${JSON.stringify(store, null, 2)}\n`, { mode: 0o600 });
+- src/infra/device-identity.ts:84 — fs.writeFileSync(filePath, `${JSON.stringify(updated, null, 2)}\n`, { mode: 0o600 });
+- src/infra/device-identity.ts:116 — fs.writeFileSync(filePath, `${JSON.stringify(stored, null, 2)}\n`, { mode: 0o600 });
+- src/infra/dotenv.test.ts:9 — fs.writeFile(filePath, contents, "utf8");
+- src/infra/env-file.ts:50 — fs.writeFileSync(filepath, output, "utf8");
+- src/infra/exec-approvals-allow-always.test.ts:16 — fs.writeFileSync(exe, "");
+- src/infra/exec-approvals-config.test.ts:26 — fs.writeFileSync(
+- src/infra/exec-approvals-safe-bins.test.ts:140 — fs.writeFileSync(path.join(cwd, "secret.json"), "{}"),
+- src/infra/exec-approvals-safe-bins.test.ts:322 — fs.writeFileSync(path.join(cwd, "existing.txt"), "x");
+- src/infra/exec-approvals-safe-bins.test.ts:394 — fs.writeFileSync(fakeHead, "#!/bin/sh\nexit 0\n");
+- src/infra/exec-approvals.test.ts:146 — fs.writeFileSync(exe, "");
+- src/infra/exec-approvals.test.ts:164 — fs.writeFileSync(script, "");
+- src/infra/exec-approvals.test.ts:182 — fs.writeFileSync(script, "");
+- src/infra/exec-approvals.test.ts:211 — fs.writeFileSync(exe, "");
+- src/infra/exec-approvals.ts:306 — fs.writeFileSync(filePath, `${JSON.stringify(file, null, 2)}\n`, { mode: 0o600 });
+- src/infra/fs-safe.test.ts:17 — fs.writeFile(file, "hello");
+- src/infra/fs-safe.test.ts:35 — fs.writeFile(file, Buffer.alloc(8));
+- src/infra/fs-safe.test.ts:46 — fs.writeFile(target, "target");
+- src/infra/fs-safe.test.ts:58 — fs.writeFile(file, "outside");
+- src/infra/fs-safe.test.ts:73 — fs.writeFile(target, "outside");
+- src/infra/gateway-lock.test.ts:19 — fs.writeFile(configPath, "{}", "utf8");
+- src/infra/gateway-lock.test.ts:106 — fs.writeFile(lockPath, JSON.stringify(payload), "utf8");
+- src/infra/gateway-lock.test.ts:182 — fs.writeFile(lockPath, JSON.stringify(payload), "utf8");
+- src/infra/git-root.test.ts:30 — fs.writeFile(path.join(repoRoot, ".git"), "gitdir: .actual-git\n", "utf-8");
+- src/infra/git-root.test.ts:43 — fs.writeFile(path.join(childRoot, ".git"), "not-a-gitdir-pointer\n", "utf-8");
+- src/infra/heartbeat-runner.respects-ackmaxchars-heartbeat-acks.test.ts:318 — fs.writeFile(storePath, JSON.stringify(parsed, null, 2));
+- src/infra/heartbeat-runner.returns-default-unset.test.ts:45 — fs.writeFile(path.join(dir, "HEARTBEAT.md"), "- Check status\n", "utf-8");
+- src/infra/heartbeat-runner.returns-default-unset.test.ts:511 — fs.writeFile(
+- src/infra/heartbeat-runner.returns-default-unset.test.ts:565 — fs.writeFile(
+- src/infra/heartbeat-runner.returns-default-unset.test.ts:634 — fs.writeFile(sessionFile, "", "utf-8");
+- src/infra/heartbeat-runner.returns-default-unset.test.ts:635 — fs.writeFile(
+- src/infra/heartbeat-runner.returns-default-unset.test.ts:741 — fs.writeFile(
+- src/infra/heartbeat-runner.returns-default-unset.test.ts:810 — fs.writeFile(
+- src/infra/heartbeat-runner.returns-default-unset.test.ts:882 — fs.writeFile(
+- src/infra/heartbeat-runner.returns-default-unset.test.ts:939 — fs.writeFile(
+- src/infra/heartbeat-runner.returns-default-unset.test.ts:988 — fs.writeFile(
+- src/infra/heartbeat-runner.returns-default-unset.test.ts:994 — fs.writeFile(
+- src/infra/heartbeat-runner.returns-default-unset.test.ts:1015 — fs.writeFile(
+- src/infra/heartbeat-runner.test-utils.ts:27 — fs.writeFile(
+- src/infra/heartbeat-runner.test-utils.ts:61 — fs.writeFile(path.join(tmpDir, "HEARTBEAT.md"), "- Check status\n", "utf-8");
+- src/infra/heartbeat-runner.transcript-prune.test.ts:31 — fs.writeFile(transcriptPath, existingContent);
+- src/infra/infra-store.test.ts:28 — fs.writeFile(storePath, "[]", "utf-8");
+- src/infra/infra-store.test.ts:39 — fs.writeFile(
+- src/infra/infra-store.test.ts:84 — fs.writeFile(
+- src/infra/install-flow.test.ts:24 — fs.writeFile(filePath, "archive");
+- src/infra/install-package-dir.ts:48 — fs.writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, "utf-8");
+- src/infra/install-source-utils.test.ts:37 — fs.writeFile(filePath, params.contents, "utf-8");
+- src/infra/install-source-utils.test.ts:80 — fs.writeFile(path.join(tmpDir, markerFile), "ok", "utf-8");
+- src/infra/json-file.ts:21 — fs.writeFileSync(pathname, `${JSON.stringify(data, null, 2)}\n`, "utf8");
+- src/infra/json-files.ts:23 — fs.writeFile(tmp, JSON.stringify(value, null, 2), "utf8");
+- src/infra/outbound/outbound.test.ts:218 — fs.writeFileSync(filePath, JSON.stringify(entry), "utf-8");
+- src/infra/provider-usage.auth.normalizes-keys.test.ts:70 — fs.writeFile(
+- src/infra/provider-usage.auth.normalizes-keys.test.ts:80 — fs.writeFile(
+- src/infra/provider-usage.auth.normalizes-keys.test.ts:98 — fs.writeFile(
+- src/infra/provider-usage.auth.normalizes-keys.test.ts:107 — fs.writeFile(path.join(legacyDir, "auth.json"), raw, "utf8");
+- src/infra/provider-usage.test.ts:246 — fs.writeFileSync(
+- src/infra/restart-sentinel.test.ts:54 — fs.writeFile(filePath, "not-json", "utf-8");
+- src/infra/restart-sentinel.ts:72 — fs.writeFile(filePath, `${JSON.stringify(data, null, 2)}\n`, "utf-8");
+- src/infra/run-node.test.ts:25 — fs.writeFile(indexPath, "<html>sentinel</html>\n", "utf-8");
+- src/infra/session-cost-usage.test.ts:79 — fs.writeFile(
+- src/infra/session-cost-usage.test.ts:118 — fs.writeFile(
+- src/infra/session-cost-usage.test.ts:184 — fs.writeFile(
+- src/infra/session-cost-usage.test.ts:219 — fs.writeFile(sessionFile, "", "utf-8");
+- src/infra/session-cost-usage.test.ts:241 — fs.writeFile(
+- src/infra/session-cost-usage.test.ts:282 — fs.writeFile(
+- src/infra/session-cost-usage.test.ts:320 — fs.writeFile(
+- src/infra/session-cost-usage.test.ts:357 — fs.writeFile(
+- src/infra/session-cost-usage.test.ts:420 — fs.writeFile(
+- src/infra/state-migrations.state-dir.test.ts:34 — fs.writeFileSync(path.join(legacyDir, "marker.txt"), "ok", "utf-8");
+- src/infra/update-runner.test.ts:45 — fs.writeFile(path.join(tempDir, "openclaw.mjs"), "export {};\n", "utf-8");
+- src/infra/update-runner.test.ts:116 — fs.writeFile(path.join(tempDir, "package.json"), JSON.stringify(pkg), "utf-8");
+- src/infra/update-runner.test.ts:122 — fs.writeFile(uiIndexPath, "<html></html>", "utf-8");
+- src/infra/update-runner.test.ts:178 — fs.writeFile(
+- src/infra/update-runner.test.ts:276 — fs.writeFile(
+- src/infra/update-runner.test.ts:281 — fs.writeFile(path.join(tempDir, "pnpm-lock.yaml"), "", "utf-8");
+- src/infra/update-runner.test.ts:310 — fs.writeFile(
+- src/infra/update-runner.test.ts:431 — fs.writeFile(
+- src/infra/update-runner.test.ts:494 — fs.writeFile(uiIndexPath, `<html>${count}</html>`, "utf-8");
+- src/infra/update-runner.test.ts:518 — fs.writeFile(uiIndexPath, "<html>built</html>", "utf-8");
+- src/infra/update-startup.test.ts:172 — fs.writeFile(
+- src/infra/update-startup.ts:128 — fs.writeFile(statePath, JSON.stringify(state, null, 2), "utf-8");
+- src/infra/widearea-dns.ts:197 — fs.writeFileSync(zonePath, next, "utf-8");
+- src/logger.test.ts:55 — fs.writeFileSync(logPath, "");
+- src/logger.test.ts:83 — fs.writeFileSync(oldPath, "old");
+- src/logging/logger.ts:168 — fs.appendFileSync(file, line, { encoding: "utf8" });
+- src/media-understanding/apply.test.ts:116 — fs.writeFile(mediaPath, params.content);
+- src/media-understanding/apply.test.ts:122 — fs.writeFile(executablePath, "echo mocked\n", { mode: 0o755 });
+- src/media-understanding/apply.test.ts:393 — fs.writeFile(path.join(modelDir, "tokens.txt"), "a");
+- src/media-understanding/apply.test.ts:394 — fs.writeFile(path.join(modelDir, "encoder.onnx"), "a");
+- src/media-understanding/apply.test.ts:395 — fs.writeFile(path.join(modelDir, "decoder.onnx"), "a");
+- src/media-understanding/apply.test.ts:396 — fs.writeFile(path.join(modelDir, "joiner.onnx"), "a");
+- src/media-understanding/apply.test.ts:436 — fs.writeFile(modelPath, "model");
+- src/media-understanding/apply.test.ts:632 — fs.writeFile(audioPathA, audioBytes);
+- src/media-understanding/apply.test.ts:633 — fs.writeFile(audioPathB, audioBytes);
+- src/media-understanding/apply.test.ts:675 — fs.writeFile(imagePath, "image-bytes");
+- src/media-understanding/apply.test.ts:676 — fs.writeFile(audioPath, Buffer.from([200, 201, 202, 203, 204, 205, 206, 207, 208]));
+- src/media-understanding/apply.test.ts:677 — fs.writeFile(videoPath, "video-bytes");
+- src/media-understanding/attachments.ts:375 — fs.writeFile(tmpPath, bufferResult.buffer);
+- src/media-understanding/media-understanding-misc.test.ts:60 — fs.writeFile(attachmentPath, "ok");
+- src/media-understanding/runner.test-utils.ts:19 — fs.writeFile(tmpPath, Buffer.from("RIFF"));
+- src/media/image-ops.ts:148 — fs.writeFile(input, buffer);
+- src/media/image-ops.ts:182 — fs.writeFile(input, params.buffer);
+- src/media/image-ops.ts:208 — fs.writeFile(input, buffer);
+- src/media/image-ops.ts:276 — fs.writeFile(input, buffer);
+- src/media/server.test.ts:44 — fs.writeFile(filePath, contents);
+- src/media/store.test.ts:71 — fs.writeFile(srcFile, "local file");
+- src/media/store.test.ts:90 — fs.writeFile(target, "sensitive");
+- src/media/store.test.ts:123 — fs.writeFile(xlsxPath, "not really an xlsx");
+- src/media/store.test.ts:141 — fs.writeFile(bogusExt, pngBytes);
+- src/media/store.test.ts:162 — fs.writeFile(bogusExt, fakeXlsx);
+- src/media/store.ts:283 — fs.writeFile(dest, buffer, { mode: 0o600 });
+- src/media/store.ts:322 — fs.writeFile(dest, buffer, { mode: 0o600 });
+- src/memory/index.test.ts:56 — fs.writeFile(
+- src/memory/index.test.ts:210 — fs.writeFile(
+- src/memory/index.test.ts:388 — fs.writeFile(path.join(extraDir, "extra.md"), "Extra content.");
+- src/memory/internal.test.ts:44 — fs.writeFile(path.join(tmpDir, "MEMORY.md"), "# Default memory");
+- src/memory/internal.test.ts:47 — fs.writeFile(path.join(extraDir, "note1.md"), "# Note 1");
+- src/memory/internal.test.ts:48 — fs.writeFile(path.join(extraDir, "note2.md"), "# Note 2");
+- src/memory/internal.test.ts:49 — fs.writeFile(path.join(extraDir, "ignore.txt"), "Not a markdown file");
+- src/memory/internal.test.ts:61 — fs.writeFile(path.join(tmpDir, "MEMORY.md"), "# Default memory");
+- src/memory/internal.test.ts:63 — fs.writeFile(singleFile, "# Standalone");
+- src/memory/internal.test.ts:72 — fs.writeFile(path.join(tmpDir, "MEMORY.md"), "# Default memory");
+- src/memory/internal.test.ts:75 — fs.writeFile(path.join(extraDir, "nested.md"), "# Nested");
+- src/memory/internal.test.ts:84 — fs.writeFile(path.join(tmpDir, "MEMORY.md"), "# Default memory");
+- src/memory/internal.test.ts:92 — fs.writeFile(path.join(tmpDir, "MEMORY.md"), "# Default memory");
+- src/memory/internal.test.ts:95 — fs.writeFile(path.join(extraDir, "note.md"), "# Note");
+- src/memory/internal.test.ts:98 — fs.writeFile(targetFile, "# Target");
+- src/memory/internal.test.ts:103 — fs.writeFile(path.join(targetDir, "nested.md"), "# Nested");
+- src/memory/internal.test.ts:129 — fs.writeFile(path.join(tmpDir, "MEMORY.md"), "# Default memory");
+- src/memory/internal.test.ts:142 — fs.writeFile(target, "ghost", "utf-8");
+- src/memory/internal.test.ts:151 — fs.writeFile(target, "hello", "utf-8");
+- src/memory/manager.async-search.test.ts:50 — fs.writeFile(path.join(workspaceDir, "memory", "2026-01-07.md"), "hello\n");
+- src/memory/manager.atomic-reindex.test.ts:38 — fs.writeFile(path.join(workspaceDir, "MEMORY.md"), "Hello memory.");
+- src/memory/manager.batch.test.ts:172 — fs.writeFile(path.join(memoryDir, "2026-01-07.md"), content);
+- src/memory/manager.batch.test.ts:204 — fs.writeFile(path.join(memoryDir, "2026-01-08.md"), content);
+- src/memory/manager.batch.test.ts:237 — fs.writeFile(memoryFile, ["flaky", "batch"].join("\n\n"));
+- src/memory/manager.batch.test.ts:274 — fs.writeFile(memoryFile, ["flaky", "batch", "recovery"].join("\n\n"));
+- src/memory/manager.batch.test.ts:311 — fs.writeFile(memoryFile, ["flaky", "batch", "fallback"].join("\n\n"));
+- src/memory/manager.embedding-batches.test.ts:38 — fs.writeFile(path.join(memoryDir, "2026-01-03.md"), content);
+- src/memory/manager.embedding-batches.test.ts:69 — fs.writeFile(path.join(memoryDir, "2026-01-04.md"), content);
+- src/memory/manager.embedding-batches.test.ts:80 — fs.writeFile(path.join(memoryDir, "2026-01-06.md"), content);
+- src/memory/manager.embedding-batches.test.ts:109 — fs.writeFile(path.join(memoryDir, "2026-01-07.md"), "\n\n\n");
+- src/memory/manager.mistral-provider.test.ts:69 — fs.writeFile(path.join(workspaceDir, "MEMORY.md"), "test");
+- src/memory/manager.read-file.test.ts:67 — fs.writeFile(absPath, ["line 1", "line 2", "line 3"].join("\n"), "utf-8");
+- src/memory/manager.read-file.test.ts:82 — fs.writeFile(absPath, ["alpha", "beta"].join("\n"), "utf-8");
+- src/memory/manager.read-file.test.ts:97 — fs.writeFile(absPath, "first\nsecond", "utf-8");
+- src/memory/manager.sync-errors-do-not-crash.test.ts:25 — fs.writeFile(path.join(workspaceDir, "MEMORY.md"), "Hello");
+- src/memory/manager.vector-dedupe.test.ts:31 — fs.writeFile(path.join(rootDir, "MEMORY.md"), "Hello memory.");
+- src/memory/manager.watcher-config.test.ts:59 — fs.writeFile(path.join(extraDir, "notes.md"), "hello");
+- src/memory/qmd-manager.test.ts:1828 — fs.writeFile(textPath, "nope", "utf-8");
+- src/memory/qmd-manager.test.ts:1834 — fs.writeFile(target, "ok", "utf-8");
+- src/memory/qmd-manager.test.ts:1847 — fs.writeFile(path.join(workspaceDir, "window.md"), text, "utf-8");
+- src/memory/qmd-manager.test.ts:1862 — fs.writeFile(absPath, "one\ntwo\nthree", "utf-8");
+- src/memory/qmd-manager.test.ts:1912 — fs.writeFile(
+- src/memory/qmd-manager.test.ts:1942 — fs.writeFile(
+- src/memory/qmd-manager.test.ts:2246 — fs.writeFile(path.join(defaultModelsDir, "model.bin"), "fake-model");
+- src/memory/qmd-manager.test.ts:2280 — fs.writeFile(path.join(customModelsDir, "custom-model.bin"), "custom");
+- src/memory/qmd-manager.test.ts:2310 — fs.writeFile(path.join(defaultModelsDir, "model.bin"), "fake-model");
+- src/memory/qmd-manager.ts:1364 — fs.writeFile(target, this.renderSessionMarkdown(entry), "utf-8");
+- src/memory/session-files.test.ts:38 — fs.writeFile(filePath, jsonlLines.join("\n"));
+- src/memory/session-files.test.ts:64 — fs.writeFile(filePath, jsonlLines.join("\n"));
+- src/memory/session-files.test.ts:81 — fs.writeFile(filePath, jsonlLines.join("\n"));
+- src/memory/temporal-decay.test.ts:56 — fs.writeFile(rootMemoryPath, "evergreen");
+- src/memory/temporal-decay.test.ts:57 — fs.writeFile(topicPath, "topic evergreen");
+- src/memory/temporal-decay.test.ts:160 — fs.writeFile(sessionPath, "{}\n");
+- src/node-host/config.ts:59 — fs.writeFile(filePath, `${payload}\n`, { mode: 0o600 });
+- src/pairing/pairing-store.test.ts:38 — fs.writeFile(filePath, `${JSON.stringify(value, null, 2)}\n`, "utf8");
+- src/plugin-sdk/temp-path.test.ts:44 — fs.writeFile(tmpPath, "ok");
+- src/plugins/discovery.test.ts:46 — fs.writeFileSync(path.join(globalExt, "alpha.ts"), "export default function () {}", "utf-8");
+- src/plugins/discovery.test.ts:50 — fs.writeFileSync(path.join(workspaceExt, "beta.ts"), "export default function () {}", "utf-8");
+- src/plugins/discovery.test.ts:68 — fs.writeFileSync(path.join(backupDir, "index.ts"), "export default function () {}", "utf-8");
+- src/plugins/discovery.test.ts:72 — fs.writeFileSync(path.join(disabledDir, "index.ts"), "export default function () {}", "utf-8");
+- src/plugins/discovery.test.ts:76 — fs.writeFileSync(path.join(bakDir, "index.ts"), "export default function () {}", "utf-8");
+- src/plugins/discovery.test.ts:80 — fs.writeFileSync(path.join(liveDir, "index.ts"), "export default function () {}", "utf-8");
+- src/plugins/discovery.test.ts:98 — fs.writeFileSync(
+- src/plugins/discovery.test.ts:106 — fs.writeFileSync(
+- src/plugins/discovery.test.ts:111 — fs.writeFileSync(
+- src/plugins/discovery.test.ts:131 — fs.writeFileSync(
+- src/plugins/discovery.test.ts:139 — fs.writeFileSync(
+- src/plugins/discovery.test.ts:158 — fs.writeFileSync(
+- src/plugins/discovery.test.ts:166 — fs.writeFileSync(path.join(packDir, "index.js"), "module.exports = {}", "utf-8");
+- src/plugins/discovery.test.ts:181 — fs.writeFileSync(
+- src/plugins/discovery.test.ts:189 — fs.writeFileSync(outside, "export default function () {}", "utf-8");
+- src/plugins/discovery.test.ts:208 — fs.writeFileSync(path.join(outsideDir, "escape.ts"), "export default {}", "utf-8");
+- src/plugins/discovery.test.ts:215 — fs.writeFileSync(
+- src/plugins/discovery.test.ts:239 — fs.writeFileSync(pluginPath, "export default function () {}", "utf-8");
+- src/plugins/discovery.test.ts:258 — fs.writeFileSync(
+- src/plugins/install.test.ts:63 — fs.writeFileSync(
+- src/plugins/install.test.ts:76 — fs.writeFileSync(path.join(params.pkgDir, "dist", "index.js"), "export {};", "utf-8");
+- src/plugins/install.test.ts:112 — fs.writeFileSync(archivePath, params.buffer);
+- src/plugins/install.test.ts:175 — fs.writeFileSync(
+- src/plugins/install.test.ts:186 — fs.writeFileSync(path.join(pluginDir, "dist", "index.js"), "export {};", "utf-8");
+- src/plugins/install.test.ts:235 — fs.writeFileSync(path.join(pkgDir, "dist", "index.js"), "export {};", "utf-8");
+- src/plugins/install.test.ts:237 — fs.writeFileSync(path.join(pkgDir, "package.json"), JSON.stringify(params.packageJson), "utf-8");
+- src/plugins/install.test.ts:398 — fs.writeFileSync(
+- src/plugins/install.test.ts:406 — fs.writeFileSync(
+- src/plugins/install.test.ts:421 — fs.writeFileSync(
+- src/plugins/install.test.ts:429 — fs.writeFileSync(
+- src/plugins/install.test.ts:448 — fs.writeFileSync(
+- src/plugins/install.test.ts:456 — fs.writeFileSync(path.join(pluginDir, "index.js"), "export {};");
+- src/plugins/install.test.ts:533 — fs.writeFileSync(path.join(packTmpDir, packedName), voiceCallArchiveBuffer);
+- src/plugins/loader.test.ts:31 — fs.writeFileSync(file, params.body, "utf-8");
+- src/plugins/loader.test.ts:32 — fs.writeFileSync(
+- src/plugins/loader.test.ts:60 — fs.writeFileSync(
+- src/plugins/loader.test.ts:563 — fs.writeFileSync(
+- src/plugins/loader.test.ts:568 — fs.writeFileSync(
+- src/plugins/manifest-registry.test.ts:19 — fs.writeFileSync(path.join(dir, "openclaw.plugin.json"), JSON.stringify(manifest), "utf-8");
+- src/plugins/uninstall.test.ts:26 — fs.writeFile(path.join(pluginDir, "index.js"), "// plugin");
+- src/plugins/uninstall.test.ts:100 — fs.writeFile(path.join(pluginDir, "index.js"), "// plugin");
+- src/plugins/uninstall.test.ts:469 — fs.writeFile(path.join(outsideDir, "index.js"), "// keep me");
+- src/plugins/voice-call.plugin.test.ts:185 — fs.writeFileSync(
+- src/scripts/canvas-a2ui-copy.test.ts:48 — fs.writeFile(path.join(srcDir, "index.html"), "<html></html>", "utf8");
+- src/scripts/canvas-a2ui-copy.test.ts:49 — fs.writeFile(path.join(srcDir, "a2ui.bundle.js"), "console.log(1);", "utf8");
+- src/security/audit.test.ts:405 — fs.writeFile(configPath, "{}\n", "utf-8");
+- src/security/audit.test.ts:442 — fs.writeFile(configPath, "{}\n", "utf-8");
+- src/security/audit.test.ts:482 — fs.writeFile(configPath, "{}\n", "utf-8");
+- src/security/audit.test.ts:536 — fs.writeFile(configPath, "{}\n", "utf-8");
+- src/security/audit.test.ts:561 — fs.writeFile(configPath, "{}\n", "utf-8");
+- src/security/audit.test.ts:617 — fs.writeFile(targetConfigPath, "{}\n", "utf-8");
+- src/security/audit.test.ts:1382 — fs.writeFile(
+- src/security/audit.test.ts:1891 — fs.writeFile(includePath, "{ logging: { redactSensitive: 'off' } }\n", "utf-8");
+- src/security/audit.test.ts:1901 — fs.writeFile(configPath, `{ "$include": "./extra.json5" }\n`, "utf-8");
+- src/security/audit.test.ts:2094 — fs.writeFile(
+- src/security/audit.test.ts:2099 — fs.writeFile(
+- src/security/audit.test.ts:2241 — fs.writeFile(
+- src/security/audit.test.ts:2248 — fs.writeFile(
+- src/security/audit.test.ts:2273 — fs.writeFile(
+- src/security/audit.test.ts:2280 — fs.writeFile(
+- src/security/audit.test.ts:2286 — fs.writeFile(
+- src/security/audit.test.ts:2297 — fs.writeFile(
+- src/security/audit.test.ts:2331 — fs.writeFile(
+- src/security/audit.test.ts:2338 — fs.writeFile(path.join(pluginDir, "index.js"), "export {};");
+- src/security/audit.test.ts:2353 — fs.writeFile(
+- src/security/audit.test.ts:2360 — fs.writeFile(path.join(pluginDir, "index.js"), "export {};");
+- src/security/fix.test.ts:34 — fs.writeFile(configPath, `${JSON.stringify(config, null, 2)}\n`, "utf-8");
+- src/security/fix.test.ts:61 — fs.writeFile(
+- src/security/fix.test.ts:172 — fs.writeFile(configPath, "{ this is not json }\n", "utf-8");
+- src/security/fix.test.ts:193 — fs.writeFile(includePath, "{ logging: { redactSensitive: 'off' } }\n", "utf-8");
+- src/security/fix.test.ts:197 — fs.writeFile(
+- src/security/fix.test.ts:207 — fs.writeFile(
+- src/security/fix.test.ts:217 — fs.writeFile(authProfilesPath, "{}\n", "utf-8");
+- src/security/fix.test.ts:223 — fs.writeFile(sessionsStorePath, "{}\n", "utf-8");
+- src/security/fix.test.ts:226 — fs.writeFile(transcriptPath, '{"type":"session"}\n', "utf-8");
+- src/slack/monitor/message-handler/prepare.test.ts:344 — fs.writeFileSync(
+- src/telegram/bot.create-telegram-bot.test.ts:1561 — fs.writeFileSync(
+- src/telegram/token.test.ts:43 — fs.writeFileSync(tokenFile, "file-token\n", "utf-8");
+- src/telegram/update-offset-store.ts:77 — fs.writeFile(tmp, `${JSON.stringify(payload, null, 2)}\n`, {
+- src/test-helpers/state-dir-env.test.ts:65 — fs.writeFile(path.join(stateDir, "probe.txt"), "ok", "utf8");
+- src/test-helpers/workspace.ts:15 — fs.writeFile(filePath, params.content, "utf-8");
+- src/utils.test.ts:112 — fs.writeFileSync(mappingPath, JSON.stringify("5559876"));
+- src/utils.test.ts:120 — fs.writeFileSync(mappingPath, JSON.stringify(4440001));
+- src/utils.test.ts:133 — fs.writeFileSync(mappingPath, JSON.stringify("123321"));
+- src/version.test.ts:34 — fs.writeFile(filePath, JSON.stringify(value), "utf-8");
+- src/web/accounts.whatsapp-auth.test.ts:14 — fs.writeFileSync(path.join(dir, "creds.json"), JSON.stringify({ me: {} }));
+- src/web/accounts.whatsapp-auth.test.ts:36 — fs.writeFileSync(path.join(tempOauthDir ?? "", "creds.json"), JSON.stringify({ me: {} }));
+- src/web/auto-reply.test-harness.ts:117 — fs.writeFile(storePath, JSON.stringify(entries));
+- src/web/auto-reply/web-auto-reply-monitor.test.ts:16 — fs.writeFile(sessionStorePath, "{}");
+- src/web/auto-reply/web-auto-reply-utils.test.ts:104 — fs.writeFile(
+- src/web/media.test.ts:35 — fs.writeFile(file, buffer);
+- src/wizard/onboarding.test.ts:315 — fs.writeFile(path.join(workspaceDir, DEFAULT_BOOTSTRAP_FILENAME), "{}");
+- test/helpers/gateway-e2e-harness.ts:118 — fs.writeFile(configPath, JSON.stringify(config, null, 2), "utf8");
+- vendor/a2ui/specification/0.8/eval/src/index.ts:246 — fs.writeFileSync(inputPath, prompt.promptText);
+- vendor/a2ui/specification/0.8/eval/src/index.ts:252 — fs.writeFileSync(
+- vendor/a2ui/specification/0.8/eval/src/index.ts:278 — fs.writeFileSync(inputPath, prompt.promptText);
+- vendor/a2ui/specification/0.8/eval/src/index.ts:289 — fs.writeFileSync(
+- vendor/a2ui/specification/0.8/eval/src/index.ts:357 — fs.writeFileSync(summaryPath, summary);
+- vendor/a2ui/specification/0.9/eval/src/evaluator.ts:187 — fs.writeFileSync(
+- vendor/a2ui/specification/0.9/eval/src/evaluator.ts:196 — fs.writeFileSync(
+- vendor/a2ui/specification/0.9/eval/src/generator.ts:161 — fs.writeFileSync(
+- vendor/a2ui/specification/0.9/eval/src/generator.ts:184 — fs.writeFileSync(samplePath, yamlHeader + jsonlBody);
+- vendor/a2ui/specification/0.9/eval/src/generator.ts:202 — fs.writeFileSync(
+- vendor/a2ui/specification/0.9/eval/src/generator.ts:206 — fs.writeFileSync(
+- vendor/a2ui/specification/0.9/eval/src/index.ts:485 — fs.writeFileSync(path.join(modelDir, "summary.md"), summary);
+- vendor/a2ui/specification/0.9/eval/src/validator.ts:148 — fs.writeFileSync(
