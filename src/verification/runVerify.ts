@@ -22,6 +22,13 @@ const LEDGER_PATH = "ledger/ledger.jsonl";
 const VERIFICATION_DIR = "verification";
 const LAST_VERIFICATION_FILE = "verification/last_verification.json";
 
+function unwrapEssenceIfWrapped(raw: unknown): unknown {
+  if (!raw || typeof raw !== "object") return raw;
+  const obj = raw as Record<string, unknown>;
+  if (!("identity" in obj) || !("payload" in obj)) return raw;
+  return obj.payload;
+}
+
 /**
  * Map artifact path (relative) to a validator. Only JSON artifacts; .md skipped.
  */
@@ -89,7 +96,8 @@ export async function validateArtifactSchemas(
       return false;
     }
     try {
-      validator(raw);
+      const data = rel === "essence/pack.json" ? unwrapEssenceIfWrapped(raw) : raw;
+      validator(data);
     } catch {
       return false;
     }

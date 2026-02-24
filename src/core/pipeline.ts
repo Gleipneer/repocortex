@@ -5,6 +5,7 @@ import { stableStringify } from "./stableJson.js";
 import { makeRunId } from "./runId.js";
 import { appendLedger } from "./ledger.js";
 import { computeOutputHash } from "./artifactHash.js";
+import { writeJsonAtomic } from "./io.js";
 import { getStoragePaths } from "../utils/paths.js";
 
 import { scanRepo } from "../scanner/scan.js";
@@ -127,6 +128,21 @@ export async function runFullPipeline(cfg: PipelineConfig): Promise<{
   });
 
   await generateEssence({ outputDir, topology, gaps });
+  // WRAP_ESSENCE_V1
+  {
+    const packPath = paths.essencePackJson;
+    const raw = JSON.parse(await fs.readFile(packPath, "utf8"));
+    const wrapped = {
+      identity: {
+        schemaVersion: "1.0",
+        snapshotId: scan.snapshotId,
+        inputHash: scan.inputHash
+      },
+      payload: raw
+    };
+    await writeJsonAtomic(packPath, wrapped, outputDir);
+  }
+
   const topologyMs = Date.now() - tTopo;
 
   const totalMs = Date.now() - t0;
