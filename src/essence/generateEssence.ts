@@ -1,6 +1,5 @@
 import path from "node:path";
-import { writeFile } from "node:fs/promises";
-import { ensureDir, writeJsonAtomic, validateOrThrow } from "../core/io.js";
+import { ensureDir, writeFileAtomic, writeJsonAtomic, validateOrThrow } from "../core/io.js";
 import type { BrainTopology } from "../schemas/topology.schema.js";
 import type { GapsReport } from "../schemas/gapsReport.schema.js";
 import { EssencePackSchema, type EssencePack } from "../schemas/essence.schema.js";
@@ -72,7 +71,7 @@ export async function generateEssence(params: {
 
   const mdPath = path.join(outputDir, "essence", "pack.md");
   await ensureDir(path.dirname(mdPath));
-  await writeFile(mdPath, md, "utf8");
+  await writeFileAtomic(mdPath, md);
 
   return pack;
 }

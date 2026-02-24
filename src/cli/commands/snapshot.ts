@@ -2,6 +2,8 @@ import fs from "fs";
 import path from "path";
 import crypto from "crypto";
 import { execSync } from "child_process";
+import { writeFileAtomic } from "../../core/io.js";
+import { stableStringify } from "../../core/stableJson.js";
 
 function sha256(data: string | Buffer) {
   return crypto.createHash("sha256").update(data).digest("hex");
@@ -99,14 +101,14 @@ async function runSnapshotFull(repoRoot: string, outDir: string) {
     }
   };
 
-  const snapshotJson = JSON.stringify(snapshot, null, 2);
+  const snapshotJson = stableStringify(snapshot);
   const snapshotHash = sha256(snapshotJson);
 
   const final = { snapshotHash, snapshot };
 
   // Spara snapshot + kopiera till previous
   const snapshotFile = path.join(absOut, "snapshot.json");
-  fs.writeFileSync(snapshotFile, JSON.stringify(final, null, 2));
+  await writeFileAtomic(snapshotFile, stableStringify(final));
   fs.copyFileSync(snapshotFile, path.join(absOut, "snapshot_previous.json"));
 
   console.log("snapshot: ok");

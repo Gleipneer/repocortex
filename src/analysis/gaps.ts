@@ -188,9 +188,9 @@ export async function detectGaps(params: {
     }
     mdLines.push("");
   }
-  const { writeFile } = await import("node:fs/promises");
+  const { writeFileAtomic } = await import("../core/io.js");
   await ensureDir(path.dirname(mdPath));
-  await writeFile(mdPath, mdLines.join("\n"), "utf8");
+  await writeFileAtomic(mdPath, mdLines.join("\n"));
 
   return report;
 }

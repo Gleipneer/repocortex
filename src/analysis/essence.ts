@@ -100,9 +100,9 @@ export async function buildEssencePack(params: {
     ...pack.evidencePointers.map((e) => `- ${e.path}: ${e.note}`)
   ];
   const mdPath = path.join(outputDir, "essence", "pack.md");
-  const { writeFile } = await import("node:fs/promises");
+  const { writeFileAtomic } = await import("../core/io.js");
   await ensureDir(path.dirname(mdPath));
-  await writeFile(mdPath, mdLines.join("\n"), "utf8");
+  await writeFileAtomic(mdPath, mdLines.join("\n"));
 
   return pack;
 }

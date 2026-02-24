@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { parseBrainTopology } from "../core/validate.js";
 import { readJson } from "../core/io.js";
-import { ensureDir } from "../core/io.js";
+import { ensureDir, writeFileAtomic } from "../core/io.js";
 
 const EXPORTS_DIR = "exports";
 const TOPOLOGY_PATH = "topology/brain_topology.json";
@@ -26,7 +26,7 @@ export async function runExport(
   const outPath = path.join(outDir, filename);
 
   if (format === "graphml" || format === "mermaid" || format === "dot") {
-    await fs.writeFile(outPath, content, "utf8");
+    await writeFileAtomic(outPath, content);
   }
   return outPath;
 }
