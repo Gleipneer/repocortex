@@ -33,6 +33,7 @@ import { ImpactReportSchema } from "../schemas/impactReport.schema.js";
 import { ensureDir, validateOrThrow, writeJsonAtomic } from "../core/io.js";
 import { getCliClock } from "./clock.js";
 import { computeImpactCone } from "../impact/cone.js";
+import { computeRankEntries } from "../impact/rank.js";
 import {
   artifactsForEssence,
   artifactsForGaps,
@@ -601,6 +602,61 @@ program
     }
     const outPath = await runExport(outputDir, format);
     console.log("Exported to", outPath);
+  });
+
+program
+  .command("rank")
+  .description("Rank most central files")
+  .option("--top <n>", "Top N results (default: 20)")
+  .option("--config <path>", "Path to config file")
+  .option("--out <path>", "Output dir")
+  .action(async (opts: { top?: string; config?: string; out?: string }) => {
+    const cwd = process.cwd();
+    let outputDir: string;
+    if (opts.out) outputDir = path.resolve(cwd, opts.out);
+    else {
+      const configPath = opts.config ? path.resolve(cwd, opts.config) : getConfigPath(cwd);
+      try {
+        const raw = JSON.parse(await fs.readFile(configPath, "utf8")) as unknown;
+        const { parseRepocortexConfig } = await import("../core/validate.js");
+        const config = parseRepocortexConfig(raw);
+        outputDir = path.resolve(cwd, config.outputDir || "./storage");
+      } catch (err) {
+        if ((err as NodeJS.ErrnoException)?.code === "ENOENT") {
+          throw new Error("Config not found. Use --out <path> or run 'repocortex init'.");
+        }
+        throw err;
+      }
+    }
+
+    const top = opts.top ? parseInt(opts.top, 10) : 20;
+    if (!Number.isFinite(top) || top < 1) throw new Error("--top must be a positive integer");
+
+    const { readJson } = await import("../core/io.js");
+    const { parseDepGraph, parseSymbolIndex, parseBrainTopology } = await import(
+      "../core/validate.js"
+    );
+
+    const depGraph = parseDepGraph(
+      await readJson(path.join(outputDir, "facts", "depGraph.json"))
+    );
+    const symbolIndex = parseSymbolIndex(
+      await readJson(path.join(outputDir, "facts", "symbolIndex.json"))
+    );
+    const topology = parseBrainTopology(
+      await readJson(path.join(outputDir, "topology", "brain_topology.json"))
+    );
+
+    const ranked = computeRankEntries({ depGraph, symbolIndex, topology }).slice(0, top);
+
+    console.log("Centrality rank (top", top + "):");
+    ranked.forEach((r, i) => {
+      console.log(
+        `${String(i + 1).padStart(2, " ")}. ${r.path}  centrality=${r.centrality.toFixed(
+          6
+        )}  in=${r.inDegree} out=${r.outDegree} import=${r.importDegree} export=${r.exportDegree}`
+      );
+    });
   });
 
 program
