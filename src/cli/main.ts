@@ -941,6 +941,36 @@ program
     console.log("essence: ok");
   });
 
+
+
+program
+  .command("self")
+  .description("Run pipeline on current repo root (requires deterministic clock)")
+  .option("--out <path>", "Output dir (default: ./storage)")
+  .option("--force", "Allow run when repo exceeds --max-files / --max-bytes")
+  .option("--max-files <n>", "Max file count (default: 50000); over requires --force")
+  .option("--max-bytes <n>", "Max total bytes (default: 2GB); over requires --force")
+  .option("--clock-iso <iso>", "Fixed clock ISO (required for determinism)")
+  .action(async (opts: { out?: string; clockIso?: string } & ScanGuardOpts) => {
+    const repoRoot = process.cwd();
+    const outputDir = mustOutDir(opts.out);
+    const guards = parseScanGuards(opts);
+    const clockIso = opts.clockIso ?? process.env["REPOCORTEX_CLOCK_ISO"];
+    if (!clockIso) {
+      throw new Error("Deterministic clock required. Pass --clock-iso or set REPOCORTEX_CLOCK_ISO.");
+    }
+    const pipelineOpts: Parameters<typeof runFullPipeline>[0] = {
+      repoRoot,
+      outputDir,
+      force: guards.force,
+      clockIso
+    };
+    if (guards.maxFiles !== undefined) pipelineOpts.maxFiles = guards.maxFiles;
+    if (guards.maxBytes !== undefined) pipelineOpts.maxBytes = guards.maxBytes;
+    const res = await runFullPipeline(pipelineOpts);
+    console.log(`self: ok runId=${res.runId} snapshotId=${res.snapshotId}`);
+  });
+
 program
   .command("pipeline")
   .requiredOption("--repo <path>", "Path to repo root")
