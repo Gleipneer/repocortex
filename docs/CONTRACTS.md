@@ -1,99 +1,81 @@
-# RepoCortex Output Contracts
+# RepoCortex Output Contracts (Plan A MVP)
 
-All paths are relative to the **storage root** (`storage/` by default, or `REPOCORTEX_STORAGE`).
+All paths are relative to the storage root (`storage/` by default, or `REPOCORTEX_STORAGE`).
 
-## Directory layout
+## Directory Layout
 
 ```
 storage/
-  snapshots/
-    {snapshotId}/
-      fileIndex.json
-  facts/
-    depGraph.json
-    symbolIndex.json
-    runtimeSignals.json
-  topology/
-    brain_topology.json
-    flows.json
-  analysis/
-    gaps_report.json
-    gaps_report.md
-  essence/
-    pack.json
-    pack.md
-  ledger/
-    ledger.jsonl
+  snapshots/{snapshotId}/fileIndex.json
+  facts/depGraph.json
+  facts/symbolIndex.json
+  facts/runtimeSignals.json
+  topology/brain_topology.json
+  topology/flows.json
+  analysis/gaps_report.json
+  analysis/gaps_report.md
+  essence/pack.json
+  essence/pack.md
+  ledger/ledger.jsonl
+  verification/last_verification.json
 ```
 
-### `repocortex.config.json` (project root)
+## Wrapper Rules (MVP Contract)
 
-- Required for `repocortex run` without explicit flags. Created by `repocortex init`.
-- Schema version 1.0; validated with Zod. Overridable by CLI flags.
-
-Example:
+- **Only** `essence/pack.json` may be wrapped.
+- All other JSON artifacts are **raw** schema objects (no global wrapper).
+- Wrapper shape:
 
 ```json
-{
-  "schemaVersion": "1.0",
-  "repoRoot": "",
-  "outputDir": "./storage",
-  "maxFiles": 50000,
-  "maxBytes": 2000000000,
-  "defaultAuditBudgetSek": 3
-}
+{ "identity": { "schemaVersion": "1.0", "snapshotId": "...", "inputHash"?: "...", "artifactHash"?: "..." },
+  "payload": { /* EssencePack */ } }
 ```
 
-## Artifact contracts
+- Backward compatibility: `verify` accepts **raw** JSON everywhere; for `essence/pack.json` it accepts raw **or** wrapped and validates the payload.
 
-### `snapshots/{snapshotId}/fileIndex.json`
+## Artifact Schemas (v1.0)
 
-- **Schema**: `{ runId: string, entries: Array<{ path: string, hash: string }> }`
-- One entry per file; `hash` is deterministic content hash (e.g. SHA-256 hex).
+- `snapshots/{snapshotId}/fileIndex.json`
+  - `schemaVersion: "1.0"`
+  - `repoRoot: string`, `generatedAtIso: string`
+  - `files[]: { path, bytes, sha256, lang, isBinary, mtimeMs? }`
+  - `totals: { fileCount, totalBytes }`
+- `facts/depGraph.json`
+  - `schemaVersion: "1.0"`, `nodes: string[]`, `edges[]: { from, to, kind, isExternal }`
+- `facts/symbolIndex.json`
+  - `schemaVersion: "1.0"`, `symbols[]: { name, file, kind, exported }`
+- `facts/runtimeSignals.json`
+  - `schemaVersion: "1.0"`, `signals[]: { file, line, kind, snippet }`
+- `topology/brain_topology.json`
+  - `schemaVersion: "1.0"`, `nodes[]`, `edges[]`, `metrics: { nodeCount, edgeCount }`
+- `topology/flows.json`
+  - `schemaVersion: "1.0"`, `flows[]: { id, path[], kind, riskFlags[] }`
+- `analysis/gaps_report.json`
+  - `schemaVersion: "1.0"`, `summary: { critical, high, medium, low }`, `gaps[]`
+- `essence/pack.json`
+  - `schemaVersion: "1.0"`, `constraints`, `overview`, `keyRisks[]`, `topologySummary`, `evidencePointers[]`
+- `ledger/ledger.jsonl`
+  - one JSON object per line: `schemaVersion, runId, atIso, command, repoRoot, inputHash, outputHash, artifacts[], notes[], advancedMetricsHash?`
 
-### `facts/depGraph.json`
+## Verify Flow (Step-by-Step)
 
-- **Schema**: `{ runId: string, nodes: DepGraphNode[], edges: DepGraphEdge[] }`
-- Nodes: `{ id: string, path?: string }`; edges: `{ from: string, to: string }`.
+1. Load latest ledger entry from `ledger/ledger.jsonl`.
+2. Recompute `outputHash` by hashing **artifact paths + file contents** for the ledger’s `artifacts[]` list.
+3. Validate each JSON artifact against its schema:
+   - If artifact is `essence/pack.json` and wrapped, validate `payload` as EssencePack.
+   - All other artifacts are validated as raw JSON (no wrapper).
+4. Write `verification/last_verification.json` with `{ schemaVersion: "1.0", verifiedAtIso, hashMatch, schemaValid }`.
+5. CLI prints integrity + schema status; exit code is non‑zero if any check fails.
 
-### `facts/symbolIndex.json`
+## Determinism Requirements
 
-- Symbol-to-location index (exact schema TBD in scanner/graph step).
+- Same repo content + same config + same clock ⇒ byte‑identical JSON artifacts.
+- `snapshotId = inputHash.slice(0, 12)` where `inputHash` is a hash of the deterministic file index payload.
+- `generatedAtIso` exists in `fileIndex.json` but **must not** affect `inputHash`.
+- For fully byte‑identical runs, set `REPOCORTEX_CLOCK_ISO` so timestamps (`generatedAtIso`, ledger `atIso`) are stable.
+- Ledger is the **only** place timestamps are allowed to vary when clock isn’t fixed.
 
-### `facts/runtimeSignals.json`
+## RELEASE_NOTES (Contract)
 
-- Static runtime hints (exact schema TBD).
-
-### `topology/brain_topology.json`
-
-- High-level topology (TBD).
-
-### `topology/flows.json`
-
-- Flow definitions (TBD).
-
-### `analysis/gaps_report.json`
-
-- Machine-readable gaps (TBD).
-
-### `analysis/gaps_report.md`
-
-- Human-readable gaps report.
-
-### `essence/pack.json`
-
-- Strict schema for LLM input; budget-gated.
-
-### `essence/pack.md`
-
-- Human-readable essence summary.
-
-### `ledger/ledger.jsonl`
-
-- One JSON object per line. Each line: `{ runId, timestamp, inputHash, outputHash, configHash?, snapshotId? }`.
-- Timestamps are **only** here (and in run metadata) so that deterministic outputs do not depend on time.
-
-## Determinism
-
-- Same input (file set + content) + same config ⇒ same `fileIndex`, `depGraph`, and other content-based artifacts.
-- Only `runId`, `timestamp`, and ledger entries may differ between runs; they are isolated in metadata/ledger.
+- Restored MVP contract: **no global wrapper**; only `essence/pack.json` may be wrapped.
+- Verify accepts raw artifacts everywhere; `essence/pack.json` supports raw or wrapped payload.
