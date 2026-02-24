@@ -19,17 +19,8 @@ export async function runDiff(
 
   const raw1 = await readJson(dir1);
   const raw2 = await readJson(dir2);
-  // UNWRAP_FILEINDEX_DIFF_V1
-const unwrapped1 =
-  raw1 && typeof raw1 === "object" && "payload" in raw1
-    ? (raw1 as any).payload
-    : raw1;
-const idx1 = parseFileIndex(unwrapped1);
-  const unwrapped2 =
-  raw2 && typeof raw2 === "object" && "payload" in raw2
-    ? (raw2 as any).payload
-    : raw2;
-const idx2 = parseFileIndex(unwrapped2);
+  const idx1 = parseFileIndex(raw1);
+  const idx2 = parseFileIndex(raw2);
 
   const paths1 = new Set(idx1.files.map((f) => f.path).sort());
   const paths2 = new Set(idx2.files.map((f) => f.path).sort());

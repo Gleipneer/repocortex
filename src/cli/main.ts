@@ -1,5 +1,6 @@
 import path from "node:path";
 import fs from "node:fs/promises";
+import fsSync from "node:fs";
 import { Command } from "commander";
 import { scanRepo } from "../scanner/scan.js";
 import { detectRuntimeSignals } from "../analysis/runtimeSignals.js";
@@ -30,6 +31,13 @@ import { computeHealthSummary } from "../health/healthReport.js";
 import { runDiff } from "../diff/runDiff.js";
 import { ImpactReportSchema } from "../schemas/impactReport.schema.js";
 import { ensureDir, validateOrThrow, writeJsonAtomic } from "../core/io.js";
+
+console.log = (...args: unknown[]) => {
+  fsSync.writeFileSync(1, `${args.map(String).join(" ")}\n`);
+};
+console.error = (...args: unknown[]) => {
+  fsSync.writeFileSync(2, `${args.map(String).join(" ")}\n`);
+};
 
 const program = new Command();
 
@@ -628,13 +636,8 @@ program
     const paths = getStoragePaths(outputDir, ids[ids.length - 1]!);
     const { readJson } = await import("../core/io.js");
     const { parseFileIndex } = await import("../core/validate.js");
-    // UNWRAP_FILEINDEX_CLI_V1
-const rawFileIndex = await readJson(paths.fileIndex);
-const unwrapped =
-  rawFileIndex && typeof rawFileIndex === "object" && "payload" in rawFileIndex
-    ? (rawFileIndex as any).payload
-    : rawFileIndex;
-const fileIndex = parseFileIndex(unwrapped);
+    const rawFileIndex = await readJson(paths.fileIndex);
+    const fileIndex = parseFileIndex(rawFileIndex);
     const outPath = await runDuplicateDetector(outputDir, repoRoot, fileIndex);
     console.log("Duplicates written to", outPath);
   });
