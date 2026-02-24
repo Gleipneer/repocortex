@@ -1,5 +1,7 @@
 import path from "node:path";
 import fs from "node:fs/promises";
+
+process.env.REPOCORTEX_CLOCK_ISO = "2026-01-01T00:00:00.000Z";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { describe, expect, it } from "vitest";
