@@ -36,6 +36,7 @@ import { computeImpactCone } from "../impact/cone.js";
 import { computeRankEntries } from "../impact/rank.js";
 import { computeDelta } from "../impact/delta.js";
 import { estimateRisk } from "../impact/risk.js";
+import { generateFocusedEssence } from "../essence/focusedEssence.js";
 import {
   artifactsForEssence,
   artifactsForGaps,
@@ -1131,7 +1132,11 @@ program
   .option("--max-bytes <n>", "Max total bytes (default: 2GB); over requires --force")
   .option("--essence-max-evidence <n>", "Max evidence pointers (default: 30)")
   .option("--essence-max-nodes <n>", "Max top-central nodes (default: 200)")
-  .action(async (opts: { repo: string; out?: string } & ScanGuardOpts & EssenceGuardOpts) => {
+  .option("--focus <file>", "Focused essence for a target file")
+  .action(
+    async (
+      opts: { repo: string; out?: string; focus?: string } & ScanGuardOpts & EssenceGuardOpts
+    ) => {
     const repoRoot = path.resolve(opts.repo);
     const outputDir = mustOutDir(opts.out);
     const clock = getCliClock({ mode: "best-effort" });
@@ -1171,15 +1176,26 @@ program
       topology,
       hasTests: testsExist
     });
-    const essenceOpts: Parameters<typeof generateEssence>[0] = {
-      outputDir,
-      topology,
-      gaps
-    };
-    if (essenceGuards.maxEvidencePointers !== undefined)
-      essenceOpts.maxEvidencePointers = essenceGuards.maxEvidencePointers;
-    if (essenceGuards.maxNodes !== undefined) essenceOpts.maxNodes = essenceGuards.maxNodes;
-    await generateEssence(essenceOpts);
+    if (opts.focus) {
+      await generateFocusedEssence({
+        outputDir,
+        target: opts.focus,
+        depGraph,
+        topology,
+        fileIndex: scan.fileIndex,
+        symbolIndex
+      });
+    } else {
+      const essenceOpts: Parameters<typeof generateEssence>[0] = {
+        outputDir,
+        topology,
+        gaps
+      };
+      if (essenceGuards.maxEvidencePointers !== undefined)
+        essenceOpts.maxEvidencePointers = essenceGuards.maxEvidencePointers;
+      if (essenceGuards.maxNodes !== undefined) essenceOpts.maxNodes = essenceGuards.maxNodes;
+      await generateEssence(essenceOpts);
+    }
 
     const artifactRel = artifactsForEssence();
     const outputHash = await computeOutputHash(outputDir, artifactRel);
