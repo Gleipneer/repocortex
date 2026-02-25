@@ -8,7 +8,7 @@ import { writeJsonAtomic } from "../core/io.js";
 import { stableStringify } from "../core/stableJson.js";
 import { getStoragePaths } from "../utils/paths.js";
 
-const DEFAULT_IGNORE = ["node_modules", ".git", "dist", "coverage", "*.tmp", ".tmp"];
+const DEFAULT_IGNORE = ["node_modules", ".git", "dist", "coverage", "out", "rc-analysis", "storage", "*.tmp", ".tmp"];
 
 const LANG_BY_EXT: Record<string, string> = {
   ".ts": "ts",

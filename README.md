@@ -2,6 +2,13 @@
 
 RepoCortex är ett deterministiskt, read-only "cortex" som kartlägger kodbaser och producerar en topologi + risk/gap-analys helt utan AI. AI används endast på explicit kommando och med budget-gating.
 
+## ⚠ AICK Integration Role
+
+RepoCortex is an internal structural sensor used by AICK (AI Change Kernel).
+
+For governance workflows, use the AICK CLI as the primary entrypoint.
+RepoCortex CLI remains a development/debug tool for sensor internals.
+
 ## Plan A (MVP)
 
 - Scanner: filindex + hash + språk + storlek
@@ -41,7 +48,7 @@ RepoCortex är ett deterministiskt, read-only "cortex" som kartlägger kodbaser 
 
 - npm run build
 
-## CLI (placeholder)
+## CLI (development/debug)
 
 - repocortex scan --repo /path/to/repo
 - repocortex map --repo /path/to/repo

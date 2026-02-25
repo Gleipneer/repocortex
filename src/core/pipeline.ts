@@ -10,6 +10,7 @@ import { writeJsonAtomic } from "./io.js";
 import { writeArtifactManifest } from "./manifest.js";
 import { getStoragePaths } from "../utils/paths.js";
 import { artifactsForPipeline } from "./artifactRegistry.js";
+import { computeHealthSummary } from "../health/healthReport.js";
 
 import { scanRepo } from "../scanner/scan.js";
 import { detectRuntimeSignals } from "../analysis/runtimeSignals.js";
@@ -18,6 +19,7 @@ import { buildTopology } from "../topology/buildTopology.js";
 import { detectGaps } from "../analysis/gapDetector.js";
 import { generateEssence } from "../essence/generateEssence.js";
 import { writeLastRunTelemetry } from "../telemetry/writeTelemetry.js";
+import { runAdvancedMetrics } from "../advanced/runAdvancedMetrics.js";
 
 async function hasAnyTests(repoRoot: string): Promise<boolean> {
   const glob = async (dir: string): Promise<string[]> => {
@@ -31,6 +33,7 @@ async function hasAnyTests(repoRoot: string): Promise<boolean> {
       } catch {
         continue;
       }
+      items.sort((a, b) => a.name.localeCompare(b.name));
       for (const it of items) {
         const p = path.join(d, it.name);
         if (it.isDirectory()) {
@@ -184,16 +187,41 @@ export async function runFullPipeline(cfg: PipelineConfig): Promise<{
   const startIso = clock.nowIso();
   const runId = makeRunId(scan.inputHash, startIso);
 
+  await runAdvancedMetrics(outputDir);
+
+  // ---- RC METRICS CONTRACT ----
+  const health = await computeHealthSummary(outputDir);
+
+  const rcMetrics = {
+    schemaVersion: "1.0",
+    healthScore: health.systemHealthScore,
+    nodeCount: topology.metrics.nodeCount,
+    edgeCount: topology.metrics.edgeCount,
+    duplicatePairs: health.duplicatePairs,
+    gatewayNodes: health.gatewayNodes,
+    structuralDensity: health.structuralDensity
+  };
+
+  const rcMetricsRelPath = "rc_metrics.json";
+
+  await writeJsonAtomic(
+    path.join(outputDir, rcMetricsRelPath),
+    rcMetrics,
+    outputDir
+  );
+
+  const artifactRelFinal = [...artifactRel, rcMetricsRelPath];
+
   await writeArtifactManifest({
     outputDir,
-    artifacts: artifactRel,
+    artifacts: artifactRelFinal,
     repoHash: scan.inputHash,
     snapshotId: scan.snapshotId,
     runId,
     generatedAtIso: startIso
   });
 
-  const artifactRelWithManifest = [...artifactRel, "system/manifest.json"];
+  const artifactRelWithManifest = [...artifactRelFinal, "system/manifest.json"];
   const outputHash = await computeOutputHash(outputDir, artifactRelWithManifest);
 
   await appendLedger({

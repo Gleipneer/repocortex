@@ -59,4 +59,28 @@ describe("verify", () => {
     expect(exitCode).toBe(1);
     expect(stdout).toMatch(/Hash match: NO|Integrity: FAIL|Schemas: FAIL/);
   });
+
+  it("fails schema validation when rc_metrics.json schemaVersion is corrupted", async () => {
+    await fs.rm(outDir, { recursive: true, force: true });
+    await fs.mkdir(outDir, { recursive: true });
+
+    await execFileAsync("node", [cli, "run", "--repo", fixtureRepo, "--out", outDir], {
+      cwd: path.resolve("."),
+      env: { ...process.env, REPOCORTEX_CLOCK_ISO: "2000-01-01T00:00:00.000Z" }
+    });
+
+    const rcMetricsPath = path.join(outDir, "rc_metrics.json");
+    const rcMetrics = JSON.parse(await fs.readFile(rcMetricsPath, "utf8")) as Record<string, unknown>;
+    rcMetrics.schemaVersion = "2.0";
+    await fs.writeFile(rcMetricsPath, JSON.stringify(rcMetrics), "utf8");
+
+    const result = await execFileAsync("node", [cli, "verify", "--out", outDir], {
+      cwd: path.resolve(".")
+    }).catch((e: { code?: number; stdout?: string; stderr?: string }) => e);
+
+    const exitCode = "code" in result ? result.code : 0;
+    const stdout = "stdout" in result ? String(result.stdout) : "";
+    expect(exitCode).toBe(1);
+    expect(stdout).toContain("Schemas: FAIL");
+  });
 });

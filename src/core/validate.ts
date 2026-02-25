@@ -20,6 +20,8 @@ import type { AdvancedMetrics } from "../schemas/advancedMetrics.schema.js";
 import { AdvancedMetricsSchema } from "../schemas/advancedMetrics.schema.js";
 import type { ArtifactManifest } from "../schemas/manifest.schema.js";
 import { ArtifactManifestSchema } from "../schemas/manifest.schema.js";
+import type { RCMetrics } from "../schemas/rcMetrics.schema.js";
+import { RCMetricsSchema } from "../schemas/rcMetrics.schema.js";
 import type { RepocortexConfig } from "../schemas/repocortexConfig.schema.js";
 import { RepocortexConfigSchema } from "../schemas/repocortexConfig.schema.js";
 
@@ -65,6 +67,10 @@ export function parseAdvancedMetrics(data: unknown): AdvancedMetrics {
 
 export function parseArtifactManifest(data: unknown): ArtifactManifest {
   return ArtifactManifestSchema.parse(data);
+}
+
+export function parseRCMetrics(data: unknown): RCMetrics {
+  return RCMetricsSchema.parse(data);
 }
 
 export function parseRepocortexConfig(data: unknown): RepocortexConfig {

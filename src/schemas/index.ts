@@ -36,6 +36,7 @@ export {
 export { EssencePackSchema, type EssencePack } from "./essence.schema.js";
 export { LedgerEntrySchema, type LedgerEntry } from "./ledger.schema.js";
 export { AdvancedMetricsSchema, type AdvancedMetrics } from "./advancedMetrics.schema.js";
+export { RCMetricsSchema, type RCMetrics } from "./rcMetrics.schema.js";
 export { RepocortexConfigSchema, type RepocortexConfig } from "./repocortexConfig.schema.js";
 export type { RunMeta } from "./run.js";
 export { SUPPORTED_SCHEMA_VERSION, assertSupportedVersion } from "./version.js";

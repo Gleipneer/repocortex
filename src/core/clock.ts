@@ -10,6 +10,6 @@ export function getClock(params: { clockIso?: string; mode?: ClockMode }): Clock
     throw new Error("Deterministic clock required: pass --clock-iso or set REPOCORTEX_CLOCK_ISO.");
   }
   return {
-    nowIso: () => params.clockIso ?? new Date().toISOString()
+    nowIso: () => params.clockIso ?? "1970-01-01T00:00:00.000Z"
   };
 }

@@ -46,8 +46,10 @@ describe("determinism", () => {
     await fs.rm(out2, { recursive: true, force: true });
 
     const iso = "2000-01-01T00:00:00.000Z";
-    await runFullPipeline({ repoRoot: fixtureRepo, outputDir: out1, clockIso: iso });
-    await runFullPipeline({ repoRoot: fixtureRepo, outputDir: out2, clockIso: iso });
+    const r1 = await runFullPipeline({ repoRoot: fixtureRepo, outputDir: out1, clockIso: iso });
+    const r2 = await runFullPipeline({ repoRoot: fixtureRepo, outputDir: out2, clockIso: iso });
+
+    expect(r1.outputHash).toBe(r2.outputHash);
 
     const h1 = await readAllArtifacts(out1);
     const h2 = await readAllArtifacts(out2);
